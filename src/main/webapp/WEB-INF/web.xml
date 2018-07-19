@@ -1,0 +1,20 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app id="WebApp_1531979059859">
+  <display-name>Lickso Created Web Application For weAdmin</display-name>
+  
+  <!-- 日志管理，log4j配置 --> 
+  <context-param>
+	  <param-name>webAppRootKey</param-name>
+	  <param-value>test.root</param-value>
+  </context-param>
+  <context-param>
+	  <param-name>log4jConfigLocation</param-name>
+	  <param-value>classpath:config/log4j/log4j.xml</param-value>
+  </context-param>
+  <listener>
+	  <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+</web-app>

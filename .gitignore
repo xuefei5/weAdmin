@@ -1,0 +1,8 @@
+/target/
+/.idea/
+/.settings/
+.project
+crmpfcore.iml
+.classpath
+.class
+/bin/
