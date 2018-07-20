@@ -1,9 +1,5 @@
 /target/
-/.idea/
 /.settings/
 .project
-crmpfcore.iml
 .classpath
 .class
-/target/
-/bin/
