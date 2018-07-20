@@ -105,13 +105,15 @@ hr.hr15 {
     margin: 0px;
     padding: 0px;
     width: 100%;
+    background-color: #FFFFFF;
 }
 hr.hr20 {
     height: 20px;
-    border: none;
+    border: white;
     margin: 0px;
     padding: 0px;
     width: 100%;
+    background-color: #FFFFFF;
 }
 
 .copyright{
