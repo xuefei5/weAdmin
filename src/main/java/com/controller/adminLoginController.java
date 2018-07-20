@@ -24,13 +24,23 @@ public class adminLoginController {
 	//日志输出
 	private static final transient Logger logger = Logger.getLogger(adminLoginController.class);
 	
-	/**进入登陆页面
+	/**
+	 * 进入登陆页面
 	 * @author xuefei
 	 * */
  	@RequestMapping(value="/adminLogin", method=RequestMethod.GET)
     public String home() {
         return "adminLogin";
-    }	
+    }
+ 	
+ 	/**
+ 	 * 登录系统
+ 	 * @author xuefei
+ 	 * */
+ 	@RequestMapping(value="/entrySystem", method=RequestMethod.GET)
+ 	public String entrySystem(){
+ 		return "adminIndex";
+ 	}
 	 	
 	 	
 }
