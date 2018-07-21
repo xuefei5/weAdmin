@@ -40,7 +40,7 @@ public class UserController {
 	 * */
  	@RequestMapping(value="/toLoginPage", method=RequestMethod.GET)
     public String toLoginPage() {
-        return "adminLogin";
+        return "login";
     }
  	
  	/**
