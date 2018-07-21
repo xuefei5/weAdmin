@@ -69,6 +69,24 @@ public class UserController {
  	}
  	
  	/**
+ 	 * 欢迎页面
+ 	 * @author yangsheng
+ 	 * */
+ 	@RequestMapping(value="/welcome")
+ 	public String welcome(){
+ 		return "welcome";
+ 	}
+ 	
+ 	/**
+ 	 * 用户页面
+ 	 * @author yangsheng
+ 	 * */
+ 	@RequestMapping(value="/user")
+ 	public String user(){
+ 		return "user";
+ 	}
+ 	
+ 	/**
  	 * 用户注销
  	 * @author yangsheng
  	 */

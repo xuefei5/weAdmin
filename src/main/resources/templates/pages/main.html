@@ -1,10 +1,211 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
 <head>
-    <title>主页页面</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- start: Meta -->
+<meta charset="utf-8" />
+<title>登录成功</title>
+<meta name="description" content="Bootstrap Metro Dashboard" />
+<meta name="author" content="Dennis Ji" />
+<meta name="keyword"
+	content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina" />
+<!-- end: Meta -->
+
+<!-- start: Mobile Specific -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end: Mobile Specific -->
+
+<!-- start: CSS -->
+<link id="bootstrap-style" href="../css/main/bootstrap.min.css"
+	rel="stylesheet" />
+<link id="base-style" href="../css/main/style.css" rel="stylesheet" />
+<link id="base-style-responsive" href="../css/main/style-responsive.css"
+	rel="stylesheet" />
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800;subset=latin,cyrillic-ext,latin-ext'
+	rel='stylesheet' type='text/css' />
+<!-- end: CSS -->
+
+<script src="../js/main/jquery-1.8.3.js"></script>
+
+<!-- 页面切换需要的css与js -->
+<link href="../css/main/tabstyle.css" rel="stylesheet" />
+<script src="../js/main/tab.js"></script>
+
+
+<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	  	<script src="../http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<link id="ie-style" href="css/main/ie.css" rel="stylesheet">
+	<![endif]-->
+
+<!--[if IE 9]>
+		<link id="ie9style" href="css/main/ie9.css" rel="stylesheet">
+	<![endif]-->
+
 </head>
-<body>
-	here is main pages!
+
+<body style="margin:0;">
+	<!-- start: Header -->
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+				</a> <a class="brand" href="#"><span>weAdmin</span></a>
+
+				<!-- start: Header Menu -->
+				<div class="nav-no-collapse header-nav">
+					<ul class="nav pull-right">
+						<li class="dropdown hidden-phone"><a
+							class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								<i class="icon-bell"></i> <span class="badge red"> 5 </span>
+						</a>
+							<ul class="dropdown-menu notifications">
+								<li class="dropdown-menu-title"><span>你有一条新消息</span> <a
+									href="#refresh"><i class="icon-repeat"></i></a></li>
+								<li><a href="#"> <span class="icon blue"><i
+											class="icon-user"></i></span> <span class="message">待发货订单</span> <span
+										class="time">物流：未发货</span>
+								</a></li>
+								<li><a href="#"> <span class="icon green"><i
+											class="icon-comment-alt"></i></span> <span class="message">待支付订单</span>
+										<span class="time">支付时间剩余：1:38:25</span>
+								</a></li>
+								<li><a href="#"> <span class="icon yellow"><i
+											class="icon-shopping-cart"></i></span> <span class="message">购物车</span>
+										<span class="time">1条信息</span>
+								</a></li>
+								<li class="warning"><a href="#"> <span class="icon red"><i
+											class="icon-user"></i></span> <span class="message">用户失效</span> <span
+										class="time">薛飞，杨胜</span>
+								</a></li>
+								<li class="warning"><a href="#"> <span class="icon red"><i
+											class="icon-shopping-cart"></i></span> <span class="message">New
+											comment</span> <span class="time">6 hour</span>
+								</a></li>
+								<li class="dropdown-menu-sub-footer"><a>显示全部</a></li>
+							</ul></li>
+
+						<!-- start: User Dropdown -->
+						<li class="dropdown"><a class="btn dropdown-toggle"
+							data-toggle="dropdown" href="#"> <i
+								class="halflings-icon white user"></i> 操作 <span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-menu-title"><span>用户操作</span></li>
+								<li><a href="#"><i class="halflings-icon user"></i>个人信息</a></li>
+								<li><a href="login.html"><i class="halflings-icon off"></i>
+										退出系统</a></li>
+							</ul></li>
+						<!-- end: User Dropdown -->
+					</ul>
+				</div>
+				<!-- end: Header Menu -->
+
+			</div>
+		</div>
+	</div>
+	<!-- start: Header -->
+	<div class="container-fluid-full" style="height: 90%">
+		<div class="row-fluid" style="height: 100%;">
+
+			<!-- start: Main Menu -->
+			<div id="sidebar-left" class="span2 sideMenu">
+				<div class="nav-collapse sidebar-nav">
+					<ul class="nav nav-tabs nav-stacked main-menu">
+						<li class="active"><a href="user#1" value="用户管理"
+							id="userManage" target="mainIframe"><i class="icon-bar-chart"></i><span
+								class="hidden-tablet"> 用户管理</span></a></li>
+						<li><a href="#"><i class="icon-envelope"></i><span
+								class="hidden-tablet"> 客户管理</span></a></li>
+						<li><a href="#"><i class="icon-tasks"></i><span
+								class="hidden-tablet"> 商品管理</span></a></li>
+						<li><a href="#"><i class="icon-eye-open"></i><span
+								class="hidden-tablet"> 订单管理</span></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- end: Main Menu -->
+
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>
+						You need to have <a href="http://en.wikipedia.org/wiki/JavaScript"
+							target="_blank">JavaScript</a> enabled to use this site.
+					</p>
+				</div>
+			</noscript>
+
+			<!-- 菜单HTML Start-->
+			<div class="admin-content">
+				<div id="page-tab" style="width: 85%;margin-left: 15%;">
+					<button class="tab-btn" id="page-prev"></button>
+					<nav id="page-tab-content">
+						<div id="menu-list"></div>
+					</nav>
+					<button class="tab-btn" id="page-next"></button>
+					<div id="page-operation">
+						<div id="menu-all">
+							<ul id="menu-all-ul">
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- 菜单HTML End -->
+				<!-- 主体部分DIV -->
+				<div class="admin" style="margin-left: 15%;height: 100%;">
+					<!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
+					<div id="page-content" style="overflow:hidden;height: 100%;">
+						<iframe id="mainIframe" name="mainIframe" src="welcome"
+							class="iframe-content active"> </iframe>
+					</div>
+					<!--iframe End-->
+				</div>
+
+				<!-- 主体部分DIV -->
+			</div>
+
+		</div>
+	</div>
+
+	<footer>
+
+		<p>
+			<span style="text-align:left;float:left">&copy; 2018 <a
+				href="#" alt="Bootstrap_Metro_Dashboard">weAdmin</a></span>
+
+		</p>
+
+	</footer>
+
+	<script type="text/javascript">
+		//初始化a标签链接到tab
+		$(".sideMenu a").tab();
+	</script>
+	<!-- start: JavaScript-->
+
+	<script src="../js/main/jquery-migrate-1.0.0.min.js"></script>
+	<script src="../js/main/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="../js/main/bootstrap.min.js"></script>
+	<script src='../js/main/fullcalendar.min.js'></script>
+	<script src='../js/main/jquery.dataTables.min.js'></script>
+	<script src="../js/main/jquery.chosen.min.js"></script>
+	<script src="../js/main/jquery.uniform.min.js"></script>
+	<script src="../js/main/jquery.cleditor.min.js"></script>
+	<script src="../js/main/jquery.elfinder.min.js"></script>
+	<script src="../js/main/jquery.raty.min.js"></script>
+	<script src="../js/main/jquery.uploadify-3.1.min.js"></script>
+	<script src="../js/main/jquery.masonry.min.js"></script>
+	<script src="../js/main/jquery.sparkline.min.js"></script>
+	<script src="../js/main/custom.js"></script>
+	<!-- end: JavaScript-->
+
+
+
 </body>
 </html>
