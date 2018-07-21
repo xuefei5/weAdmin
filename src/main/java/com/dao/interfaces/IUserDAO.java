@@ -21,6 +21,10 @@ public interface IUserDAO{
 	@Select("select * from user where id = #{id} and state='1'")
 	public User qryById(@Param("id")int id	);
 	
+	/*根据姓名模糊查询用户对象*/
+	@Select("select * from user where name like CONCAT('%',#{name},'%') and state='1'")
+	public List<User> qryByName(@Param("name")String name );
+	
 	/*查询所有用户对象*/
 	@Select("select * from user where state='1'")
 	public List<User> qryAll();
