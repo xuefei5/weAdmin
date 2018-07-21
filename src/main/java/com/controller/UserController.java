@@ -38,8 +38,8 @@ public class UserController {
 	 * 进入登陆页面
 	 * @author xuefei
 	 * */
- 	@RequestMapping(value="/adminLogin", method=RequestMethod.GET)
-    public String home() {
+ 	@RequestMapping(value="/toLoginPage", method=RequestMethod.GET)
+    public String toLoginPage() {
         return "adminLogin";
     }
  	
