@@ -14,7 +14,7 @@ import com.bean.User;
 public interface IUserDAO{	
 	
 	/*添加用户对象*/
-	@Insert("insert into user(id,name,password,telephone,nickName,remarks,registerTime,state)values(#{id}, #{name},#{password},#{telephone},#{nickName},#{remarks},#{registerTime},#{state})")
+	@Insert("insert into user(name,password,telephone,nickName,remarks,registerTime,state)values(#{name},#{password},#{telephone},#{nickName},#{remarks},#{registerTime},'1')")
 	public int insert(User user);
 	
 	/*根据id查询用户对象*/
