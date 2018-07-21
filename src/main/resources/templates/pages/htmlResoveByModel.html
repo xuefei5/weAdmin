@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>单级数据解析</div>
+	<p th:text="'hello:'+${name}" ></p>
+	
+	
+	<div>多级数据解析</div>
+	<table class="table" id="testList">
+	  	<tr><td>姓名</td><td>年龄</td></tr>
+	  	<tr  th:each="array : ${arrayList}">  
+	                <td th:text="${array.name}"></td>
+	                <td th:text="${array.age}"></td> 
+	                
+	                <!-- 图片展示方法  --> 
+	                <!-- <td ><img th:src="@{${array.imgRef}}" width="100" height="100" /></td> -->   
+	     </tr>  
+  	 </table>
+	
+</body>
+</html>
