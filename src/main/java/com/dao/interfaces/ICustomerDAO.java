@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.bean.Customer;
-import com.bean.User;
 
 @Mapper
 public interface ICustomerDAO{	
