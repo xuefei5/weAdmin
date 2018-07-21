@@ -2,6 +2,9 @@ package com.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,7 @@ public class UserController {
 	
 	@Autowired
 	IUserSV userSV;
+	
 	
 	/**
 	 * 查询所有用户
@@ -44,11 +48,24 @@ public class UserController {
     }
  	
  	/**
- 	 * 登录系统
- 	 * @author xuefei
+ 	 * 用户登录
+ 	 * @author yangsheng
  	 * */
- 	@RequestMapping(value="/", method=RequestMethod.GET)
- 	public String entrySystem(){
- 		return "adminIndex";
+ 	@RequestMapping(value="/login")
+ 	public String login(HttpServletRequest request){
+ 		
+ 		String name = request.getParameter("name");
+ 		String password = request.getParameter("password");
+ 		logger.info("用户"+name+"在尝试进行登录操作");
+ 		
+ 		if(userSV.login(name, password)) {
+ 			logger.info("用户"+name+"在尝试登录失败");
+ 			return "main";
+ 		}else {
+ 			logger.info("用户"+name+"在尝试登录成功");
+ 			return "login";
+ 		}
  	}
+ 	
+ 	
 }
