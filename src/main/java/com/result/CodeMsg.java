@@ -23,8 +23,22 @@ public class CodeMsg {
 	
 	//文件模块 1005XX
 	
+	//用户添加 1006xx
+	public static CodeMsg USER_ADD_SUCCESS = new CodeMsg(100601, "用户添加成功");
+	public static CodeMsg USER_ADD_FAIL = new CodeMsg(100602, "用户添加失败");
 	
+	//用户删除  1007xx
+	public static CodeMsg USER_DELETE_SUCCESS = new CodeMsg(100701, "用户删除成功");
+	public static CodeMsg USER_DELETE_FAIL = new CodeMsg(100702, "用户删除失败");
 	
+	//用户更新 1008xx
+	public static CodeMsg USER_UPDATE_SUCCESS = new CodeMsg(100801, "用户更新成功");
+	public static CodeMsg USER_UPDATE_FAIL = new CodeMsg(100802, "用户更新失败");
+	
+	//姓名查询用户 1009xx
+	public static CodeMsg QRY_USER_BY_NAME_SUCCESS = new CodeMsg(100901, "查询用户信息不为空");
+	public static CodeMsg QRY_USER_BY_NAME_FAIL = new CodeMsg(100902, "查询用户信息为空");
+		
 	private CodeMsg(int code, String msg) {
 		this.code = code;
 		this.msg = msg;

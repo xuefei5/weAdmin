@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bean.User;
 import com.dao.interfaces.IUserDAO;
@@ -52,6 +53,68 @@ public class UserSVImpl implements IUserSV{
 			return false;
 		}
 	}
-	
-	
+
+	@Override
+	public Boolean logout() {
+		try {
+			session=request.getSession();
+			if(null!=session) {
+				session.removeAttribute("isLogin");
+				session.removeAttribute("user");
+			}
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean addUser(User user) {
+		try{
+			int retNum = userDAO.insert(user);
+			if(retNum == 1) {
+				return true;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean deleteUser(int id) {
+		try{
+			int retNum = userDAO.delete(id);
+			if(retNum == 1) {
+				return true;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean updateUser(User user) {
+		try{
+			int retNum = userDAO.update(user);
+			if(retNum == 1) {
+				return true;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public List<User> qryByName(String name) {
+		try{
+			List<User> userList = userDAO.qryByName(name);
+			return userList;
+		}catch (Exception e) {
+			return null;
+		}
+	}
+
 }

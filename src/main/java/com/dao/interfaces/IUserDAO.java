@@ -19,7 +19,7 @@ public interface IUserDAO{
 	
 	/*根据id查询用户对象*/
 	@Select("select * from user where id = #{id} and state='1'")
-	public User qryById(@Param("id")int id	);
+	public User qryById(@Param("id")int id);
 	
 	/*根据姓名模糊查询用户对象*/
 	@Select("select * from user where name like CONCAT('%',#{name},'%') and state='1'")
@@ -31,11 +31,11 @@ public interface IUserDAO{
 	
 	/*更新用户对象*/
 	@Update("UPDATE user SET name = #{name},password = #{password},telephone = #{telephone},nickName = #{nickName},remarks = #{remarks},registerTime = #{registerTime} wehere id = #{id}")
-	public int update();
+	public int update(User user);
 	
 	/*删除用户对象*/
-	@Update("UPDATE user SET name = #{name},password = #{password},telephone = #{telephone},nickName = #{nickName},remarks = #{remarks},registerTime = #{registerTime} wehere state='0'")
-	public int delete();
+	@Update("UPDATE user SET state='0' wehere  id = #{id}")
+	public int delete(@Param("id")int id);
 	
 	/*根据用户名和密码查询用户对象*/
 	@Select("select * from user where name = #{name} and password = #{password} and state='1'")
