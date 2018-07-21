@@ -160,14 +160,12 @@ public class UserController {
  	 */
  	@RequestMapping(value="/qryByName")
  	@ResponseBody
- 	public Result<String> qryByName(HttpServletRequest request){
+ 	public Result<List<User>> qryByName(HttpServletRequest request){
  		
  		String name = request.getParameter("name");
  		List<User> userList = userSV.qryByName(name);
- 		if(null == userList || userList.size() == 0) {
- 			return Result.success(String.valueOf(userList));
- 		}else {
- 			return Result.error(CodeMsg.QRY_USER_BY_NAME_FAIL);
- 		}
+ 		
+ 		return Result.success(userList);
  	}
+
 }
