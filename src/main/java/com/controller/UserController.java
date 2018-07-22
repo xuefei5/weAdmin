@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bean.User;
 import com.result.CodeMsg;
 import com.result.Result;
@@ -20,7 +21,7 @@ import com.service.interfaces.IUserSV;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController{
 	
 	//日志输出
 	private static final transient Logger logger = Logger.getLogger(UserController.class);
@@ -54,18 +55,21 @@ public class UserController {
  	 * @author yangsheng
  	 * */
  	@RequestMapping(value="/login")
- 	public String login(HttpServletRequest request){
+ 	@ResponseBody
+ 	public Result<CodeMsg> login(HttpServletRequest request){
  		
- 		String name = request.getParameter("name");
- 		String password = request.getParameter("password");
+ 		JSONObject jsonObj = super.getInputObject(request);
+ 		String name = jsonObj.getString("name");
+ 		String password = jsonObj.getString("password");
+ 		
  		logger.info("用户"+name+"在尝试进行登录操作");
  		
  		if(userSV.login(name, password)) {
  			logger.info("用户"+name+"在尝试登录成功");
- 			return "main";
+ 			return Result.success(CodeMsg.LOGIN_SUCCESS);
  		}else {
  			logger.info("用户"+name+"在尝试登录失败");
- 			return "login";
+ 			return Result.error(CodeMsg.LOGIN_NAME_NOT_EXIST);
  		}
  	}
  	

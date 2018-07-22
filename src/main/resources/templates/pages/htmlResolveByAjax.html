@@ -16,6 +16,9 @@ $(document).ready(function(){
 });
 
 function post(){
+	/* 根据name值拼接样例，其他根据id，class不进行赘述 */
+	/* var data = '{ "name":"' + $("input[name='username']").val() + '","password":"' + $("input[name='password']").val() + '"}'; */
+	
 	$.ajax({
 		type: "post",
 		async: true,
