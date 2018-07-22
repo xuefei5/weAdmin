@@ -40,4 +40,9 @@ public interface IUserDAO{
 	/*根据用户名和密码查询用户对象*/
 	@Select("select * from user where name = #{name} and password = #{password} and state='1'")
 	public User qryByNameAndPswd(@Param("name")String name	,@Param("password")String password	);
+	
+	/*分页查询用户对象*/
+	@Select("select * from user where state='1' order by registerTime desc limit #{start} , #{end} ")
+	public List<User> qryUserByPageNum(@Param("start")int id,@Param("end")int end);
+
 }

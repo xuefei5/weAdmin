@@ -29,6 +29,18 @@ public class UserController extends BaseController{
 	@Autowired
 	IUserSV userSV;
 	
+	/**
+	 * 分页查询用户
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryUserByPageNum")
+    @ResponseBody
+    public Result<List<User>> qryUserByPageNum(HttpServletRequest request) {
+		
+		int pageNum = Integer.parseInt(null == request.getParameter("pageNum")?"1":request.getParameter("pageNum"));
+		List<User> userList=userSV.qryUserByPageNum(pageNum);
+ 		return Result.success(userList);
+    } 
 	
 	/**
 	 * 查询所有用户
@@ -36,9 +48,9 @@ public class UserController extends BaseController{
 	 */
 	@RequestMapping("/qryAllUser")
     @ResponseBody
-    public Result<String> qryAllUser() {
+    public Result<List<User>> qryAllUser() {
 		List<User> userList=userSV.qryAllUser();
- 		return Result.success(String.valueOf(userList));
+ 		return Result.success(userList);
     } 
 
 	/**

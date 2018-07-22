@@ -32,5 +32,8 @@ public interface IUserSV {
 	//用户是否登录判断
 	public Boolean isLoin();
 	
+	//分页查询用户列表
+	public List<User> qryUserByPageNum(int pageNum);
+	
 	
 }
