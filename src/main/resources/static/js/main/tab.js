@@ -67,7 +67,7 @@
         });
         event.stopPropagation()
     },
-    contextmenuInit=function(){
+/*    contextmenuInit=function(){
         //右键点击事件
         $("#menu-list").find("a").each(function(){
         	var con=$(this);
@@ -107,7 +107,7 @@
             });
         	
         });
-    },
+    },*/
     init = function() {
         $("#page-prev").bind("click",
         function() {
@@ -195,7 +195,7 @@
                 move(selDom)
             }
             linkframe(linkUrl, linkHtml);
-            contextmenuInit();
+            /*contextmenuInit();*/
             return false
         });
         return this

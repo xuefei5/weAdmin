@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
+<html lang="en">
 <head>
 
 <!-- start: Meta -->
@@ -110,14 +110,14 @@
 	</div>
 	<!-- start: Header -->
 	<div class="container-fluid-full" style="height: 90%">
-		<div class="row-fluid" style="height: 100%;">
+		<div class="row-fluid">
 
 			<!-- start: Main Menu -->
 			<div id="sidebar-left" class="span2 sideMenu">
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li class="active"><a href="user#1" value="用户管理"
-							id="userManage" target="mainIframe"><i class="icon-bar-chart"></i><span
+						<li><a href="user#1" value="用户管理" id="userManage"
+							target="mainIframe"><i class="icon-bar-chart"></i><span
 								class="hidden-tablet"> 用户管理</span></a></li>
 						<li><a href="#"><i class="icon-envelope"></i><span
 								class="hidden-tablet"> 客户管理</span></a></li>
@@ -129,50 +129,36 @@
 				</div>
 			</div>
 			<!-- end: Main Menu -->
-
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>
-						You need to have <a href="http://en.wikipedia.org/wiki/JavaScript"
-							target="_blank">JavaScript</a> enabled to use this site.
-					</p>
-				</div>
-			</noscript>
-
 			<!-- 菜单HTML Start-->
-			<div class="admin-content">
-				<div id="page-tab" style="width: 85%;margin-left: 15%;">
-					<button class="tab-btn" id="page-prev"></button>
-					<nav id="page-tab-content">
-						<div id="menu-list"></div>
-					</nav>
-					<button class="tab-btn" id="page-next"></button>
-					<div id="page-operation">
-						<div id="menu-all">
-							<ul id="menu-all-ul">
-							</ul>
-						</div>
+			<div id="page-tab" style="width: 85%;margin-left: 15%;">
+				<button class="tab-btn" id="page-prev"></button>
+				<nav id="page-tab-content">
+					<div id="menu-list"></div>
+				</nav>
+				<button class="tab-btn" id="page-next"></button>
+				<div id="page-operation">
+					<div id="menu-all">
+						<ul id="menu-all-ul">
+						</ul>
 					</div>
 				</div>
-
-				<!-- 菜单HTML End -->
-				<!-- 主体部分DIV -->
-				<div class="admin" style="margin-left: 15%;height: 100%;">
-					<!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
-					<div id="page-content" style="overflow:hidden;height: 100%;">
-						<iframe id="mainIframe" name="mainIframe" src="welcome"
-							class="iframe-content active"> </iframe>
-					</div>
-					<!--iframe End-->
-				</div>
-
-				<!-- 主体部分DIV -->
 			</div>
 
+			<!-- 菜单HTML End -->
+			<!-- 主体部分DIV -->
+			<div class="admin" style="margin-left: 15%;height: 100%;">
+				<!--iframe Start (根据页面顶部占用高度，自行调整高度数值)-->
+				<div id="page-content" style="overflow:hidden;height: 100%;height:auto;">
+					<iframe id="mainIframe" name="mainIframe" src="welcome"
+						class="iframe-content active"> </iframe>
+				</div>
+				<!--iframe End-->
+			</div>
+			<!-- 主体部分DIV -->
+			<div class="clearfix"></div>
 		</div>
 	</div>
-
+	<div class="clearfix"></div>
 	<footer>
 
 		<p>
