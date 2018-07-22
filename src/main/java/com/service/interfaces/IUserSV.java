@@ -29,4 +29,8 @@ public interface IUserSV {
 	//根据用户名查询用户对象列表
 	public List<User> qryByName(String name);
 	
+	//用户是否登录判断
+	public Boolean isLoin();
+	
+	
 }

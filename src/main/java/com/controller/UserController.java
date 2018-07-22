@@ -51,6 +51,18 @@ public class UserController extends BaseController{
     }
  	
  	/**
+	 * 进入登陆页面
+	 * @author yangsheng
+	 * */
+ 	@RequestMapping(value="/toMainPage", method=RequestMethod.GET)
+    public String toMainPage() {
+ 		if(userSV.isLoin()) {
+ 			return "main";
+ 		}
+        return "login";
+    }
+ 	
+ 	/**
  	 * 用户登录
  	 * @author yangsheng
  	 * */

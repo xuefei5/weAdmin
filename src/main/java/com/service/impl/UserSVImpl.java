@@ -117,4 +117,18 @@ public class UserSVImpl implements IUserSV{
 		}
 	}
 
+	@Override
+	public Boolean isLoin() {
+		try {
+			session=request.getSession();
+			if(null!=session) {
+				return true;
+			}else {
+				return false;
+			}
+		}catch(Exception e) {
+			return false;
+		}
+	}
+
 }

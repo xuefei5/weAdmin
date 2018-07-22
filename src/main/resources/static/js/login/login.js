@@ -15,7 +15,7 @@ function doLogin(){
 	var str = ""+salt.charAt(0)+salt.charAt(1) + inputPass +salt.charAt(3) + salt.charAt(5);
 	var password = md5(str);
 	
-	alert(password);
+	//alert(password);
 	
 	var data = '{ "name":"' + $("input[name='name']").val() + '","password":"' + $("input[name='password']").val() + '"}'; 
 	
@@ -28,7 +28,8 @@ function doLogin(){
         dataType: "json",
         success: function (message) {
         	if(message.code == 0){
-        		alert("返回成功结果");
+        		alert("登录成功");
+        		window.location = "/user/toMainPage";
         	}else{
         		alert("返回失败结果");
         	}
