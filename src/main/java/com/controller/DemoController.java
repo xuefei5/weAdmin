@@ -43,7 +43,7 @@ public class DemoController {
  	@RequestMapping("/hello")
     @ResponseBody
     public Result<String> hello() {
- 		return Result.success("hello,imooc");
+ 		return Result.success("hello,here");
     }
  	
  	/*json 格式错误输出*/
@@ -118,6 +118,10 @@ public class DemoController {
  		arrayList.add(jsonObj1);
  		arrayList.add(jsonObj2);
  		
+ 		logger.info(arrayList);
+ 		arrayList.size();
+ 		int [] k = null ;
+ 		int h = k.length;
  		return Result.success(arrayList);
     }
  	
