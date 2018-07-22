@@ -16,44 +16,25 @@
 <!-- end: Mobile Specific -->
 
 <!-- start: CSS -->
-<link id="bootstrap-style" href="../../css/main/bootstrap.min.css"
-	rel="stylesheet" />
-<link href="../../css/main/bootstrap-responsive.min.css"
-	rel="stylesheet" />
+<!-- layui使用的css -->
+<link href="../layui/css/layui.css" type="text/css" rel="stylesheet" />
+<link id="bootstrap-style" href="../../css/main/bootstrap.min.css" rel="stylesheet" />	
 <link id="base-style" href="../../css/main/style.css" rel="stylesheet" />
-<link id="base-style-responsive"
-	href="../../css/main/style-responsive.css" rel="stylesheet" />
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800;subset=latin,cyrillic-ext,latin-ext'
-	rel='stylesheet' type='text/css' />
-<!-- end: CSS -->
+<link id="base-style-responsive" href="../../css/main/style-responsive.css" rel="stylesheet" />
+<!-- end: CSS --> 
 
 </head>
 
 <body>
 
-	<div id="content" class="span10" style="min-height: 957px;">
+	<div style="padding: 22px;margin: 0px 0px;">
 
-
-		<ul class="breadcrumb">
-			<li><i class="icon-home"></i> <a href="index.html">Home</a> <i
-				class="icon-angle-right"></i></li>
-			<li><a href="#">Tables</a></li>
-		</ul>
-
-		<div class="row-fluid sortable ui-sortable">
+		<div class="row-fluid sortable ui-sortable" >
 			<div class="box span12">
 				<div class="box-header" data-original-title="">
 					<h2>
-						<i class="halflings-icon white user"></i><span class="break"></span>Members
+						<i class="halflings-icon white user"></i><span class="break"></span>用户信息
 					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
 				</div>
 				<div class="box-content">
 					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper"
@@ -61,18 +42,18 @@
 						<div class="row-fluid">
 							<div class="span6">
 								<div id="DataTables_Table_0_length" class="dataTables_length">
-									<label><select size="1"
+									<label>请选择条件查询：<select size="1"
 										name="DataTables_Table_0_length"
 										aria-controls="DataTables_Table_0"><option value="10"
-												selected="selected">10</option>
-											<option value="25">25</option>
-											<option value="50">50</option>
-											<option value="100">100</option></select> records per page</label>
+												selected="selected">姓名</option>
+											<option value="25">年龄</option>
+											<option value="50">用户名</option>
+											<option value="100">用户状态</option></select></label>
 								</div>
 							</div>
 							<div class="span6">
 								<div class="dataTables_filter" id="DataTables_Table_0_filter">
-									<label>Search: <input type="text"
+									<label>查询值: <input type="text"
 										aria-controls="DataTables_Table_0"/></label>
 								</div>
 							</div>
@@ -87,7 +68,7 @@
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-sort="ascending"
 										aria-label="Username: activate to sort column descending"
-										style="width: 247px;">Username</th>
+										style="width: 247px;">用户名</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Date registered: activate to sort column ascending"
@@ -252,12 +233,8 @@
 							</tbody>
 						</table>
 						<div class="row-fluid">
-							<div class="span12">
-								<div class="dataTables_info" id="DataTables_Table_0_info">Showing
-									1 to 10 of 32 entries</div>
-							</div>
 							<div class="span12 center">
-								<div class="dataTables_paginate paging_bootstrap pagination">
+								<div class="dataTables_paginate paging_bootstrap pagination" style="float: left;">
 									<ul>
 										<li class="prev disabled"><a href="#">← Previous</a></li>
 										<li class="active"><a href="#">1</a></li>
@@ -267,6 +244,8 @@
 										<li class="next"><a href="#">Next → </a></li>
 									</ul>
 								</div>
+								
+								<button id="addUser" type="submit" class="btn btn-primary" style="margin: 20px 0;float: right;">增加用户</button>
 							</div>
 						</div>
 					</div>
@@ -275,392 +254,6 @@
 			<!--/span-->
 
 		</div>
-		<!--/row-->
-
-		<div class="row-fluid sortable ui-sortable">
-			<div class="box span6">
-				<div class="box-header">
-					<h2>
-						<i class="halflings-icon white align-justify"></i><span
-							class="break"></span>Simple Table
-					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
-				</div>
-				<div class="box-content">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>Date registered</th>
-								<th>Role</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-important">Banned</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center"><span class="label">Inactive</span></td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-warning">Pending</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="pagination pagination-centered">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--/span-->
-
-			<div class="box span6">
-				<div class="box-header">
-					<h2>
-						<i class="halflings-icon white align-justify"></i><span
-							class="break"></span>Striped Table
-					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
-				</div>
-				<div class="box-content">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>Date registered</th>
-								<th>Role</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-important">Banned</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center"><span class="label">Inactive</span></td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-warning">Pending</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="pagination pagination-centered">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--/span-->
-		</div>
-		<!--/row-->
-
-		<div class="row-fluid sortable ui-sortable">
-			<div class="box span6">
-				<div class="box-header">
-					<h2>
-						<i class="halflings-icon white align-justify"></i><span
-							class="break"></span>Bordered Table
-					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
-				</div>
-				<div class="box-content">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>Date registered</th>
-								<th>Role</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-important">Banned</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center"><span class="label">Inactive</span></td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-warning">Pending</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="pagination pagination-centered">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--/span-->
-
-			<div class="box span6">
-				<div class="box-header">
-					<h2>
-						<i class="halflings-icon white align-justify"></i><span
-							class="break"></span>Condensed Table
-					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
-				</div>
-				<div class="box-content">
-					<table class="table table-condensed">
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>Date registered</th>
-								<th>Role</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-important">Banned</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center"><span class="label">Inactive</span></td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-warning">Pending</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="pagination pagination-centered">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--/span-->
-
-		</div>
-		<!--/row-->
-
-		<div class="row-fluid sortable ui-sortable">
-			<div class="box span12">
-				<div class="box-header">
-					<h2>
-						<i class="halflings-icon white align-justify"></i><span
-							class="break"></span>Combined All Table
-					</h2>
-					<div class="box-icon">
-						<a href="#" class="btn-setting"><i
-							class="halflings-icon white wrench"></i></a> <a href="#"
-							class="btn-minimize"><i
-							class="halflings-icon white chevron-up"></i></a> <a href="#"
-							class="btn-close"><i class="halflings-icon white remove"></i></a>
-					</div>
-				</div>
-				<div class="box-content">
-					<table class="table table-bordered table-striped table-condensed">
-						<thead>
-							<tr>
-								<th>Username</th>
-								<th>Date registered</th>
-								<th>Role</th>
-								<th>Status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-important">Banned</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center"><span class="label">Inactive</span></td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center"><span class="label label-warning">Pending</span>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center"><span class="label label-success">Active</span>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="pagination pagination-centered">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!--/span-->
-		</div>
-		<!--/row-->
 
 
 	</div>
@@ -668,59 +261,31 @@
 	<!-- start: JavaScript-->
 
 	<script src="../../js/main/jquery-1.9.1.min.js"></script>
-	<script src="../../js/main/jquery-migrate-1.0.0.min.js"></script>
+	<!-- layui使用的js -->
+    <script src="../layui/layui.js"></script>
+	<script type="text/javascript">
+	layui.use('upload', function(){});
+	$("#addUser").click(function(){
+    layer.open({
+        type: 2,
+        title: '添加用户信息',
+        shadeClose: false,
+        shade: 0.7,
+        maxmin: true, //开启最大化最小化按钮
+        scrollbar: true,//是否允许出现滚动条
+        anim: 5,
+        moveOut: true,//是否允许拖动到外面
+        area: ['85%', '82%'],
+        content: 'addUserHtml',
+        end:function(index, layero){
+        	
+        }
+      });
+	
+});
+	</script>
 
-	<script src="../../js/main/jquery-ui-1.10.0.custom.min.js"></script>
 
-	<script src="../../js/main/jquery.ui.touch-punch.js"></script>
-
-	<script src="../../js/main/modernizr.js"></script>
-
-	<script src="../../js/main/bootstrap.min.js"></script>
-
-	<script src="../../js/main/jquery.cookie.js"></script>
-
-	<script src='../../js/main/fullcalendar.min.js'></script>
-
-	<script src='../../js/main/jquery.dataTables.min.js'></script>
-
-	<script src="../../js/main/excanvas.js"></script>
-	<script src="../../js/main/jquery.flot.js"></script>
-	<script src="../../js/main/jquery.flot.pie.js"></script>
-	<script src="../../js/main/jquery.flot.stack.js"></script>
-	<script src="../../js/main/jquery.flot.resize.min.js"></script>
-
-	<script src="../../js/main/jquery.chosen.min.js"></script>
-
-	<script src="../../js/main/jquery.uniform.min.js"></script>
-
-	<script src="../../js/main/jquery.cleditor.min.js"></script>
-
-	<script src="../../js/main/jquery.noty.js"></script>
-
-	<script src="../../js/main/jquery.elfinder.min.js"></script>
-
-	<script src="../../js/main/jquery.raty.min.js"></script>
-
-	<script src="../../js/main/jquery.iphone.toggle.js"></script>
-
-	<script src="../../js/main/jquery.uploadify-3.1.min.js"></script>
-
-	<script src="../../js/main/jquery.gritter.min.js"></script>
-
-	<script src="../../js/main/jquery.imagesloaded.js"></script>
-
-	<script src="../../js/main/jquery.masonry.min.js"></script>
-
-	<script src="../../js/main/jquery.knob.modified.js"></script>
-
-	<script src="../../js/main/jquery.sparkline.min.js"></script>
-
-	<script src="../../js/main/counter.js"></script>
-
-	<script src="../../js/main/retina.js"></script>
-
-	<script src="../../js/main/custom.js"></script>
 	<!-- end: JavaScript-->
 </body>
 </html>

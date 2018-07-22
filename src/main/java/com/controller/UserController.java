@@ -92,6 +92,15 @@ public class UserController extends BaseController{
  	}
  	
  	/**
+ 	 * 增加用户页面
+ 	 * @author yangsheng
+ 	 * */
+ 	@RequestMapping(value="/addUserHtml")
+ 	public String addUserHtml(){
+ 		return "addUser";
+ 	}
+ 	
+ 	/**
  	 * 用户注销
  	 * @author yangsheng
  	 */
