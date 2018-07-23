@@ -4,7 +4,6 @@
 $(document).ready(function(){
 	
 	$("#loginBtn").click(function(){
-		alert(0);
 		doLogin();
 		return false;
 	})
@@ -28,10 +27,12 @@ function doLogin(){
         dataType: "json",
         success: function (message) {
         	if(message.code == 0){
-        		alert("登录成功");
         		window.location = "/user/toMainPage";
         	}else{
-        		alert("返回失败结果");
+        		layer.open({
+        			title : '提示',
+        			content : message.msg
+        		});
         	}
         	return true;
         },
