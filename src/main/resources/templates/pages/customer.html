@@ -18,10 +18,12 @@
 <!-- start: CSS -->
 <!-- layui使用的css -->
 <link href="../layui/css/layui.css" type="text/css" rel="stylesheet" />
-<link id="bootstrap-style" href="../../css/main/bootstrap.min.css" rel="stylesheet" />	
+<link id="bootstrap-style" href="../../css/main/bootstrap.min.css"
+	rel="stylesheet" />
 <link id="base-style" href="../../css/main/style.css" rel="stylesheet" />
-<link id="base-style-responsive" href="../../css/main/style-responsive.css" rel="stylesheet" />
-<!-- end: CSS --> 
+<link id="base-style-responsive"
+	href="../../css/main/style-responsive.css" rel="stylesheet" />
+<!-- end: CSS -->
 
 </head>
 
@@ -29,7 +31,7 @@
 
 	<div style="padding: 22px;margin: 0px 0px;">
 
-		<div class="row-fluid sortable ui-sortable" >
+		<div class="row-fluid sortable ui-sortable">
 			<div class="box span12">
 				<div class="box-header" data-original-title="">
 					<h2>
@@ -44,17 +46,16 @@
 								<div id="DataTables_Table_0_length" class="dataTables_length">
 									<label>请选择条件查询：<select size="1"
 										name="DataTables_Table_0_length"
-										aria-controls="DataTables_Table_0"><option value="10"
-												selected="selected">姓名</option>
-											<option value="25">年龄</option>
-											<option value="50">客户名</option>
-											<option value="100">客户状态</option></select></label>
+										aria-controls="DataTables_Table_0"><option
+												value="name" selected="selected">客户姓名</option>
+									</select>
+									</label>
 								</div>
 							</div>
 							<div class="span6">
 								<div class="dataTables_filter" id="DataTables_Table_0_filter">
 									<label>查询值: <input type="text"
-										aria-controls="DataTables_Table_0"/></label>
+										aria-controls="DataTables_Table_0" /></label>
 								</div>
 							</div>
 						</div>
@@ -68,27 +69,40 @@
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-sort="ascending"
 										aria-label="Customername: activate to sort column descending"
-										style="width: 247px;">客户名</th>
+										style="width: 247px;">客户名称</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Date registered: activate to sort column ascending"
-										style="width: 365px;">Date registered</th>
+										style="width: 365px;">性别</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Role: activate to sort column ascending"
-										style="width: 205px;">Role</th>
+										style="width: 205px;">出生日期</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">联系电话</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">添加时间</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">备注</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Status: activate to sort column ascending"
-										style="width: 221px;">Status</th>
+										style="width: 221px;">状态</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Actions: activate to sort column ascending"
-										style="width: 424px;">Actions</th>
+										style="width: 424px;">操作</th>
 								</tr>
 							</thead>
 
-							<tbody role="alert" aria-live="polite" aria-relevant="all">
+							<tbody role="alert" aria-live="polite" aria-relevant="all"
+								id="tbody">
 								<tr class="odd">
 									<td class="  sorting_1">Dennis Ji</td>
 									<td class="center ">2012/01/01</td>
@@ -234,7 +248,8 @@
 						</table>
 						<div class="row-fluid">
 							<div class="span12 center">
-								<div class="dataTables_paginate paging_bootstrap pagination" style="float: left;">
+								<div class="dataTables_paginate paging_bootstrap pagination"
+									style="float: left;">
 									<ul>
 										<li class="prev disabled"><a href="#">← Previous</a></li>
 										<li class="active"><a href="#">1</a></li>
@@ -244,8 +259,9 @@
 										<li class="next"><a href="#">Next → </a></li>
 									</ul>
 								</div>
-								
-								<button id="addCustomer" type="submit" class="btn btn-primary" style="margin: 20px 0;float: right;">增加客户</button>
+
+								<button id="addCustomer" type="submit" class="btn btn-primary"
+									style="margin: 20px 0;float: right;">增加客户</button>
 							</div>
 						</div>
 					</div>
@@ -262,27 +278,77 @@
 
 	<script src="../../js/main/jquery-1.9.1.min.js"></script>
 	<!-- layui使用的js -->
-    <script src="../layui/layui.js"></script>
+	<script src="../layui/layui.js"></script>
 	<script type="text/javascript">
 	layui.use('upload', function(){});
-	$("#addCustomer").click(function(){
-    layer.open({
-        type: 2,
-        title: '添加客户信息',
-        shadeClose: false,
-        shade: 0.7,
-        maxmin: true, //开启最大化最小化按钮
-        scrollbar: true,//是否允许出现滚动条
-        anim: 5,
-        moveOut: true,//是否允许拖动到外面
-        area: ['85%', '82%'],
-        content: 'addCustomerHtml',
-        end:function(index, layero){
-        	
-        }
-      });
 	
-});
+	//加载就利用ajax访问服务器获取客户信息
+ 	$.ajax({
+		type: "post",
+		async: true,
+        url: "/cust/qryAllCustomer",
+        contentType: "application/json; charset=utf-8",
+        data: "",
+        dataType: "json",
+        success: function (message) {
+        	if(message.code == 0){
+				var rtnData = JSON.parse(message.data);
+            	alert(rtnData);
+            	var html ;
+            	
+            	for (var i=0;i<rtnData.length;i++)
+            	{
+            	var trHead;
+            	//如果是偶数
+            	if(i%2==0){
+            		trHead = '<tr class="odd">';
+            	}else{
+            		trHead = '<tr class="even">';
+            	}
+      				var tdName = '<td class="sorting_1">'+rtnData[i].name+'</td>';
+      				var tdSex = '<td class="center">'+rtnData[i].sex+'</td>';
+      				var tdBirthday = '<td class="center">'+rtnData[i].birthday+'</td>';
+      				var tdPhone = '<td class="center">'+rtnData[i].telephone+'</td>';
+      				var tdAddTime = '<td class="center">'+rtnData[i].addTime+'</td>';
+      				var tdRemarks= '<td class="center">'+rtnData[i].remarks+'</td>';
+      				var tdState= '<td class="center">'+rtnData[i].state+'</td>';
+      				var trTail = '</tr>';
+      				html+= trHead + tdName + tdSex + tdBirthday + tdPhone + tdAddTime + tdRemarks +tdState + trTail;
+      			 }
+      			}
+            	
+            	$("#tbody").html(html);	
+        	}else{
+        		layer.open({
+        			title : '提示',
+        			content : message.msg
+        		});
+        	}
+        	return true;
+        },
+        error: function (message) {
+            alert("系统环境异常");
+            return false;
+        
+	//
+		$("#addCustomer").click(function() {
+			layer.open({
+				type : 2,
+				title : '添加客户信息',
+				shadeClose : false,
+				shade : 0.7,
+				maxmin : true, //开启最大化最小化按钮
+				scrollbar : true,//是否允许出现滚动条
+				anim : 5,
+				moveOut : true,//是否允许拖动到外面
+				area : [ '85%', '82%' ],
+				content : 'addCustomerHtml',
+				end : function(index, layero) {
+
+				}
+			});
+
+		});
 	</script>
 
 

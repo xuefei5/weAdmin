@@ -52,6 +52,7 @@ public class CustomController extends BaseController{
 	@ResponseBody
 	public Result<List<Customer>> qryAllCustomer() {
 		List<Customer> CustomerList = iCustSV.qryAllCustomer();
+		logger.info(CustomerList);
 		return Result.success(CustomerList);
 	}
 
