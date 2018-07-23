@@ -8,14 +8,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bean.Customer;
 import com.result.CodeMsg;
 import com.result.Result;
-import com.service.interfaces.ICustomerSV;
 import com.service.interfaces.ICustomerSV;
 
 
@@ -81,7 +78,7 @@ public class CustomController extends BaseController{
 	/**
 	 * 客户添加
 	 * 
-	 * @author yangsheng
+	 * @author xuefei
 	 */
 	@RequestMapping(value = "/addCustomer")
 	@ResponseBody
@@ -99,7 +96,7 @@ public class CustomController extends BaseController{
 	/**
 	 * 客户删除
 	 * 
-	 * @author yangsheng
+	 * @author xuefei
 	 */
 	@RequestMapping(value = "/deleteCustomer")
 	@ResponseBody
@@ -118,7 +115,7 @@ public class CustomController extends BaseController{
 	/**
 	 * 客户更新
 	 * 
-	 * @author yangsheng
+	 * @author xuefei
 	 */
 	@RequestMapping(value = "/updateCustomer")
 	@ResponseBody
@@ -136,7 +133,7 @@ public class CustomController extends BaseController{
 	/**
 	 * 姓名查询客户
 	 * 
-	 * @author yangsheng
+	 * @author xuefei
 	 */
 	@RequestMapping(value = "/qryByName")
 	@ResponseBody
