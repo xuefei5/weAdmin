@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,13 +39,17 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/qryUserByPageNum")
 	@ResponseBody
-	public Result<List<User>> qryUserByPageNum(HttpServletRequest request) {
+	public Result<Map<String,Object>> qryUserByPageNum(HttpServletRequest request) {
 
 		int pageNum = Integer
 				.parseInt(null == request.getParameter("pageNum") ? "1"
 						: request.getParameter("pageNum"));
 		List<User> userList = userSV.qryUserByPageNum(pageNum);
-		return Result.success(userList);
+		
+		Map<String,Object> rtnMap = new HashMap<String, Object>();
+		rtnMap.put("userList", userList);
+		rtnMap.put("pageNum", userSV.qryPageNum());
+		return Result.success(rtnMap);
 	}
 
 	/**

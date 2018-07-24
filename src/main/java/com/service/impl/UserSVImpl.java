@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -137,6 +138,19 @@ public class UserSVImpl implements IUserSV{
 			return (List<User>) userDAO.qryUserByPageNum(LocalConstants.PAGE_SET.PAGE_SIZE*(pageNum-1), LocalConstants.PAGE_SET.PAGE_SIZE*pageNum);
 		}catch(Exception e) {
 			return null;
+		}
+	}
+
+	@Override
+	public List<Integer> qryPageNum() {
+		List<Integer> pageNum = new ArrayList<Integer>();
+		try {
+			for(int i=0;i<(userDAO.qryUserCount()%10==0?userDAO.qryUserCount()/10:userDAO.qryUserCount()/10+1);i++) {
+				pageNum.add(i+1);
+			}
+			return pageNum;
+		}catch(Exception e){
+			return pageNum;
 		}
 	}
 

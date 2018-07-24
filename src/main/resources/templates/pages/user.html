@@ -23,6 +23,9 @@
 <link id="base-style-responsive" href="../../css/main/style-responsive.css" rel="stylesheet" />
 <!-- end: CSS --> 
 
+<!-- start: JS -->
+<script src="../js/user/user.js"></script>
+<!-- end: JS --> 
 </head>
 
 <body>
@@ -39,7 +42,7 @@
 				<div class="box-content">
 					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper"
 						role="grid">
-						<div class="row-fluid">
+						<!-- <div class="row-fluid">
 							<div class="span6">
 								<div id="DataTables_Table_0_length" class="dataTables_length">
 									<label>请选择条件查询：<select size="1"
@@ -57,7 +60,7 @@
 										aria-controls="DataTables_Table_0"/></label>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<table
 							class="table table-striped table-bordered bootstrap-datatable datatable dataTable"
 							id="DataTables_Table_0"
@@ -68,32 +71,33 @@
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-sort="ascending"
 										aria-label="Username: activate to sort column descending"
-										style="width: 247px;">用户名</th>
+										style="width: 247px;">用户姓名</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Date registered: activate to sort column ascending"
-										style="width: 365px;">Date registered</th>
+										style="width: 365px;">手机号码</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Role: activate to sort column ascending"
-										style="width: 205px;">Role</th>
-									<th class="sorting" role="columnheader" tabindex="0"
-										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-										aria-label="Status: activate to sort column ascending"
-										style="width: 221px;">Status</th>
+										style="width: 205px;">用户简介</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Actions: activate to sort column ascending"
-										style="width: 424px;">Actions</th>
+										style="width: 424px;">添加日期</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Actions: activate to sort column ascending"
+										style="width: 424px;">用户操作</th>
 								</tr>
 							</thead>
 
-							<tbody role="alert" aria-live="polite" aria-relevant="all">
-								<tr class="odd">
-									<td class="  sorting_1">Dennis Ji</td>
-									<td class="center ">2012/01/01</td>
-									<td class="center ">Member</td>
-									<td class="center "><span class="label label-success">Active</span>
+							<tbody role="alert" aria-live="polite" aria-relevant="all" id="userInfo">
+								<!-- <tr class="odd">
+									<td class="  sorting_1">薛飞</td>
+									<td class="center ">1854312419</td>
+									<td class="center ">为了测试</td>
+									<td class="center ">2018-03-23
+									<span class="label label-success">hello</span>
 									</td>
 									<td class="center "><a class="btn btn-success" href="#">
 											<i class="halflings-icon white zoom-in"></i>
@@ -104,20 +108,21 @@
 									</a></td>
 								</tr>
 								<tr class="even">
-									<td class="  sorting_1">Dennis Ji</td>
-									<td class="center ">2012/01/01</td>
-									<td class="center ">Member</td>
-									<td class="center "><span class="label label-success">Active</span>
+									<td class="  sorting_1">杨胜</td>
+									<td class="center ">15845214521</td>
+									<td class="center ">不仅仅是测试</td>
+									<td class="center ">2018-03-25
 									</td>
 									<td class="center "><a class="btn btn-success" href="#">
 											<i class="halflings-icon white zoom-in"></i>
-									</a> <a class="btn btn-info" href="#"> <i
+									</a> <a class="btn btn-info"  href="#"> <i
 											class="halflings-icon white edit"></i>
 									</a> <a class="btn btn-danger" href="#"> <i
 											class="halflings-icon white trash"></i>
 									</a></td>
-								</tr>
-								<tr class="odd">
+								</tr> -->
+								
+								<!-- <tr class="odd">
 									<td class="  sorting_1">Dennis Ji</td>
 									<td class="center ">2012/01/01</td>
 									<td class="center ">Member</td>
@@ -159,8 +164,8 @@
 									</a> <a class="btn btn-danger" href="#"> <i
 											class="halflings-icon white trash"></i>
 									</a></td>
-								</tr>
-								<tr class="even">
+								</tr> -->
+								<!-- <tr class="even">
 									<td class="  sorting_1">Dennis Ji</td>
 									<td class="center ">2012/02/01</td>
 									<td class="center ">Staff</td>
@@ -229,19 +234,19 @@
 									</a> <a class="btn btn-danger" href="#"> <i
 											class="halflings-icon white trash"></i>
 									</a></td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 						<div class="row-fluid">
 							<div class="span12 center">
 								<div class="dataTables_paginate paging_bootstrap pagination" style="float: left;">
-									<ul>
-										<li class="prev disabled"><a href="#">← Previous</a></li>
+									<ul id="pageInfo">
+										<!-- <li class="prev disabled"><a href="#">← Previous</a></li>
 										<li class="active"><a href="#">1</a></li>
 										<li><a href="#">2</a></li>
 										<li><a href="#">3</a></li>
 										<li><a href="#">4</a></li>
-										<li class="next"><a href="#">Next → </a></li>
+										<li class="next"><a href="#">Next → </a></li> -->
 									</ul>
 								</div>
 								
@@ -264,6 +269,75 @@
 	<!-- layui使用的js -->
     <script src="../layui/layui.js"></script>
 	<script type="text/javascript">
+	
+	$(function(){
+		getDefaultData();
+	});
+	
+	function getDefaultData(){
+
+		$.ajax({
+			type: "post",
+			async: true,
+	        url: "/user/qryUserByPageNum",
+	        contentType: "application/json; charset=utf-8",
+	        data: "",
+	        dataType: "json",
+	        success: function (message) {
+	        	if(message.code == 0){
+	        		var rtnData = message.data.userList;
+	        		var pageNum = message.data.pageNum;
+	            	
+	        		debugger;
+	        		
+					var html = '';	            	
+	            	for (var order in rtnData)
+	            	{
+            			var trHead = '<tr class="odd">';
+            			var name = '<td class="  sorting_1">'+rtnData[order].name+'</td>';
+            			var telephone = '<td class="center ">'+rtnData[order].telephone+'</td>';
+            			var remarks = '<td class="center ">'+rtnData[order].remarks+'</td>';
+            			var registerTime = '<td class="center ">'+rtnData[order].registerTime+'</td>';
+            			var btn = '<td class="center "><a class="btn btn-info" href="#"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a></td>'; 
+            			var trTail = '</tr>';
+	      				html = html + trHead + name + telephone +remarks +registerTime+ btn+ trTail;
+	            	}
+	            	$("#userInfo").html(html);	
+	        		
+	            	alert(pageNum);
+	            	var pageHtml = '';
+	            	var liHead = '<li class="prev disabled"><a href="#">← 上一页</a></li>';
+        			pageHtml = pageHtml + liHead;
+	            	for (var page in pageNum)
+	            	{
+            			if(page==1){
+            				pageItem = '<li class="active"><a href="#">'+pageNum[page]+'</a></li>';
+            				pageHtml = pageHtml + pageItem;
+            			}else{
+            				pageItem = '<li><a href="#">'+pageNum[page]+'</a></li>';
+            				pageHtml = pageHtml + pageItem;
+            			}
+	            	}
+	            	var liTail = '<li class="next"><a href="#">下一页   →</a></li>';
+        			pageHtml = pageHtml + liTail;
+	            	$("#pageInfo").html(pageHtml);	
+	
+	        	}else{
+	        		layer.open({
+	        			title : '提示',
+	        			content : message.msg
+	        		});
+	        	}
+	        	return true;
+	        },
+	        error: function (message) {
+	            alert("系统环境异常");
+	            return false;
+	        }
+		});
+	}
+	
+	
 	layui.use('upload', function(){});
 	$("#addUser").click(function(){
     layer.open({
@@ -281,8 +355,7 @@
         	
         }
       });
-	
-});
+    });
 	</script>
 
 

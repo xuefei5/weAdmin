@@ -35,5 +35,7 @@ public interface IUserSV {
 	//分页查询用户列表
 	public List<User> qryUserByPageNum(int pageNum);
 	
+	//查询用户页数
+	public List<Integer> qryPageNum();
 	
 }
