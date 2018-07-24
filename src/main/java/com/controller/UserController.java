@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.bean.Test;
 import com.bean.User;
 import com.result.CodeMsg;
 import com.result.Result;
@@ -168,8 +171,11 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/addUser")
 	@ResponseBody
-	public Result<CodeMsg> addUser(User user) {
-
+	public Result<CodeMsg> addUser(HttpServletRequest request) {
+		
+		String inputStr = super.getInputString(request);
+		User user = JSON.parseObject(inputStr, new TypeReference<User>() {});
+		
 		if (userSV.addUser(user)) {
 			logger.info("用户添加成功");
 			return Result.success(CodeMsg.USER_ADD_SUCCESS);

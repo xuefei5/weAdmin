@@ -14,6 +14,7 @@ import com.bean.User;
 import com.dao.interfaces.IUserDAO;
 import com.service.interfaces.IUserSV;
 import com.utils.LocalConstants;
+import com.utils.RooCommonUtils;
 
 @Service
 public class UserSVImpl implements IUserSV{
@@ -72,6 +73,8 @@ public class UserSVImpl implements IUserSV{
 	@Override
 	public Boolean addUser(User user) {
 		try{
+			user.setRegisterTime(RooCommonUtils.getCurrentDate());
+			user.setState("1");
 			int retNum = userDAO.insert(user);
 			if(retNum == 1) {
 				return true;

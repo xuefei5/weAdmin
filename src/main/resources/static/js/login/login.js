@@ -14,8 +14,6 @@ function doLogin(){
 	var str = ""+salt.charAt(0)+salt.charAt(1) + inputPass +salt.charAt(3) + salt.charAt(5);
 	var password = md5(str);
 	
-	//alert(password);
-	
 	var data = '{ "name":"' + $("input[name='name']").val() + '","password":"' + $("input[name='password']").val() + '"}'; 
 	
 	$.ajax({
