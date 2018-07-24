@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.bean.Customer;
+import com.bean.User;
 
 @Mapper
 public interface ICustomerDAO{	
@@ -36,5 +37,9 @@ public interface ICustomerDAO{
 	/*删除客户对象*/
 	@Update("UPDATE customer SET state='0' wehere  id = #{id}")
 	public int delete(@Param("id")int id);
+	
+	/*分页查询用户对象*/
+	@Select("select * from customer where state='1' order by registerTime desc limit #{start} , #{end} ")
+	public List<Customer> qryCustomerByPageNum(@Param("start")int id,@Param("end")int end);
 	
 }

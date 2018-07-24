@@ -38,6 +38,24 @@ public class CodeMsg {
 	//姓名查询用户 1009xx
 	public static CodeMsg QRY_USER_BY_NAME_SUCCESS = new CodeMsg(100901, "查询用户信息不为空");
 	public static CodeMsg QRY_USER_BY_NAME_FAIL = new CodeMsg(100902, "查询用户信息为空");
+	
+	
+	
+	//客户添加 1010xx
+	public static CodeMsg CUSTOMER_ADD_SUCCESS = new CodeMsg(101001, "客户添加成功");
+	public static CodeMsg CUSTOMER_ADD_FAIL = new CodeMsg(101002, "客户添加失败");
+	
+	//客户删除  1011xx
+	public static CodeMsg CUSTOMER_DELETE_SUCCESS = new CodeMsg(101101, "客户删除成功");
+	public static CodeMsg CUSTOMER_DELETE_FAIL = new CodeMsg(101102, "客户删除失败");
+	
+	//客户更新 1012xx
+	public static CodeMsg CUSTOMER_UPDATE_SUCCESS = new CodeMsg(101201, "客户更新成功");
+	public static CodeMsg CUSTOMER_UPDATE_FAIL = new CodeMsg(101202, "客户更新失败");
+	
+	//姓名查询客户 1013xx
+	public static CodeMsg CUSTOMER_USER_BY_NAME_SUCCESS = new CodeMsg(101301, "查询客户信息不为空");
+	public static CodeMsg CUSTOMER_USER_BY_NAME_FAIL = new CodeMsg(101302, "查询客户信息为空");
 		
 	private CodeMsg(int code, String msg) {
 		this.code = code;
