@@ -280,57 +280,8 @@
 	<!-- layui使用的js -->
 	<script src="../layui/layui.js"></script>
 	<script type="text/javascript">
-	layui.use('upload', function(){});
-	
-	//加载就利用ajax访问服务器获取客户信息
- 	$.ajax({
-		type: "post",
-		async: true,
-        url: "/cust/qryAllCustomer",
-        contentType: "application/json; charset=utf-8",
-        data: "",
-        dataType: "json",
-        success: function (message) {
-        	if(message.code == 0){
-				var rtnData = JSON.parse(message.data);
-            	alert(rtnData);
-            	var html ;
-            	
-            	for (var i=0;i<rtnData.length;i++)
-            	{
-            	var trHead;
-            	//如果是偶数
-            	if(i%2==0){
-            		trHead = '<tr class="odd">';
-            	}else{
-            		trHead = '<tr class="even">';
-            	}
-      				var tdName = '<td class="sorting_1">'+rtnData[i].name+'</td>';
-      				var tdSex = '<td class="center">'+rtnData[i].sex+'</td>';
-      				var tdBirthday = '<td class="center">'+rtnData[i].birthday+'</td>';
-      				var tdPhone = '<td class="center">'+rtnData[i].telephone+'</td>';
-      				var tdAddTime = '<td class="center">'+rtnData[i].addTime+'</td>';
-      				var tdRemarks= '<td class="center">'+rtnData[i].remarks+'</td>';
-      				var tdState= '<td class="center">'+rtnData[i].state+'</td>';
-      				var trTail = '</tr>';
-      				html+= trHead + tdName + tdSex + tdBirthday + tdPhone + tdAddTime + tdRemarks +tdState + trTail;
-      			 }
-      			}
-            	
-            	$("#tbody").html(html);	
-        	}else{
-        		layer.open({
-        			title : '提示',
-        			content : message.msg
-        		});
-        	}
-        	return true;
-        },
-        error: function (message) {
-            alert("系统环境异常");
-            return false;
-        
-	//
+	layui.use('upload', function(){}); 
+	//添加客户信息
 		$("#addCustomer").click(function() {
 			layer.open({
 				type : 2,
@@ -349,6 +300,67 @@
 			});
 
 		});
+	
+		
+		//加载就利用ajax访问服务器获取客户信息
+		post();
+function post(){
+	 	$.ajax({
+			type: "post",
+			async: true,
+	        url: "/cust/qryAllCustomer",
+	        contentType: "application/json; charset=utf-8",
+	        data: "",
+	        dataType: "json",
+	        success: function (message) {
+	        	if(message.code == 0){
+	        		var rtnData = message.data;
+	        		var html = '';
+	            	$.each(rtnData,function(i,item){
+	            		
+	                	    var r = Number(i);
+	                	    var trHead = '<tr class="even">';
+	                	    //如果是偶数
+	                	    if(r%2==0){trHead = '<tr class="odd"/>';}
+	          				var tdName = '<td class="sorting_1">'+item.name+'</td>';
+	          				//性别判断
+	          				var tdSex;
+	          				if(item.sex == 0){//男
+	          					tdSex = '<td class="center">'+'男'+'</td>';
+	          				}else{
+	          					tdSex = '<td class="center">'+'女'+'</td>';
+	          				} 
+	          				var tdBirthday = '<td class="center">'+item.birthday+'</td>';
+	          				var tdPhone = '<td class="center">'+item.telephone+'</td>';
+	          				var tdAddTime = '<td class="center">'+item.addTime+'</td>';
+	          				var tdRemarks= '<td class="center">'+item.remarks+'</td>';
+	          				//状态判断
+	          				var tdState;
+	          				if(item.state == 0){//正常
+	          					tdState = '<td class="center">'+'正常'+'</td>';
+	          				}
+	          				
+	            			var btn = '<td class="center "><a class="btn btn-info" href="/cust/updateCustomer?id='+item.id+'"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="/cust/deleteCustomer?id='+item.id+'"><i class="halflings-icon white trash"></i></a></td>'; 
+	          				var trTail = '</tr>';
+	          				html+= trHead + tdName + tdSex + tdBirthday + tdPhone + tdAddTime + tdRemarks + tdState + btn + trTail;
+
+	            	});
+	            	
+	            	$("#tbody").html(html);
+	        	}else{
+	        		layer.open({
+	        			title : '提示',
+	        			content : message.msg
+	        		});
+	        	}
+	        	return true;
+	        },
+	        error: function (message) {
+	            alert("系统环境异常");
+	            return false;
+				}
+			});
+}
 	</script>
 
 

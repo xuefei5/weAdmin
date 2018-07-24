@@ -15,19 +15,19 @@ import com.bean.User;
 public interface ICustomerDAO{	
 	
 	/*添加客户对象*/
-	@Insert("insert into customer(name,nickName,sex,birthday,telephone,imgRef,addTime,remarks,state)values(#{name},#{nickName},#{sex},#{birthday},#{telephone},#{imgRef},#{addTime}, #{remarks}, '1')")
+	@Insert("insert into customer(name,nickName,sex,birthda0,telephone,imgRef,addTime,remarks,state)values(#{name},#{nickName},#{sex},#{birthda0},#{telephone},#{imgRef},#{addTime}, #{remarks}, '0')")
 	public int insert(Customer customer);
 	
 	/*根据id查询客户对象*/
-	@Select("select * from customer where id = #{id} and state='1'")
+	@Select("select * from customer where id = #{id} and state='0'")
 	public Customer qryById(@Param("id")int id);
 	
 	/*根据姓名模糊查询客户对象*/
-	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state='1'")
+	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state='0'")
 	public List<Customer> qryByName(@Param("name")String name );
 	
 	/*查询所有客户对象*/
-	@Select("select * from customer where state='1'")
+	@Select("select * from customer where state='0'")
 	public List<Customer> qryAll();
 	
 	/*更新客户对象*/
@@ -39,7 +39,7 @@ public interface ICustomerDAO{
 	public int delete(@Param("id")int id);
 	
 	/*分页查询用户对象*/
-	@Select("select * from customer where state='1' order by registerTime desc limit #{start} , #{end} ")
+	@Select("select * from customer where state='0' order b0 registerTime desc limit #{start} , #{end} ")
 	public List<Customer> qryCustomerByPageNum(@Param("start")int id,@Param("end")int end);
 	
 }
