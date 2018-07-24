@@ -41,43 +41,70 @@
 				</div>
 			</div>
 			<div class="box-content">
-				<form class="form-horizontal">
+				<form class="form-horizontal" id="CustomerForm"  enctype="multipart/form-data">
 					<fieldset>
+					     <!-- 客户名  -->
 						<div class="control-group">
 							<label class="control-label" for="typeahead">客户名 </label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" id="typeahead"
-									data-provide="typeahead" data-items="4"
-									data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' />
-								<p class="help-block">必须以数字英文组合!</p>
+								<input type="text" class="span6 typeahead" name="name" />
+								<!-- <p class="help-block">必须中文</p> -->
 							</div>
 						</div>
+						
 						<div class="control-group">
-							<label class="control-label" for="date01">生效时间 </label>
+							<label class="control-label" for="typeahead">昵称 </label>
 							<div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date01"
-									value="02/16/12" />
+								<input type="text" class="span6 typeahead" name="nickName" />
+								<!-- <p class="help-block">必须中文</p> -->
+							</div>
+						</div>
+						
+						<div class="control-group">
+								<label class="control-label" for="selectError3">性别</label>
+								<div class="controls">
+								  <select name="sex">
+									<option value="0">男</option>
+									<option value="1">女</option>
+								  </select>
+								</div>
+							  </div>
+						
+						<div class="control-group">
+							<label class="control-label" for="date01">出生日期 </label>
+							<div class="controls">
+								<input type="text" class="input-xlarge datepicker" name="birthday"
+									value="08/16/1995" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="typeahead">联系电话 </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="telephone" />
+								<!-- <p class="help-block">必须中文</p> -->
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="fileInput">上传头像 </label>
 							<div class="controls">
-								<input class="input-file uniform_on" id="fileInput" type="file" />
+								<input class="input-file uniform_on" name="headFile" type="file" />
 							</div>
 						</div>
 						<div class="control-group hidden-phone">
 							<label class="control-label" for="textarea2">备注 </label>
 							<div class="controls">
-								<textarea class="cleditor" id="textarea2" rows="3"></textarea>
+								<textarea class="cleditor" name="remarks" rows="3"></textarea>
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">保存</button>
+							<button id="custSubmitBtn" type="submit" class="btn btn-primary">保存</button>
 							<button id="closePage" type="reset" class="btn">取消</button>
 						</div>
 					</fieldset>
 				</form>
+				<iframe id="file_upload_return" name="file_upload_return"></iframe>    <!-- 提交表单处理iframe框架 -->
 
 			</div>
 		</div>
@@ -89,6 +116,7 @@
 	<!-- start: JavaScript-->
 	<!-- layui使用的js -->
 	<script src="../../js/main/jquery-1.9.1.min.js"></script>
+	<script src="../../js/main/jquery-form.js"></script>
 	<script src="../layui/layui.js"></script>
 	<script type="text/javascript">
 	layui.use('upload', function(){});
@@ -97,6 +125,33 @@
     	layer.confirm('确定关闭此页面?', {icon: 3, title:'提示'}, function(){  
     		parent.layer.close(index);
     		});
+    })
+    
+    $("#custSubmitBtn").click(function(){
+    	$("#CustomerForm").ajaxSubmit({
+    	type:"post",
+    	url:"/cust/addCustomer",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        success: function (message) {
+        	if(message.code == 0){
+        		layer.open({
+        			title : '提示',
+        			content : "客户添加成功"
+        		});
+        	}else{
+        		layer.open({
+        			title : '提示',
+        			content : message.msg
+        		});
+        	}
+        	return true;
+        },
+        error: function (message) {
+	            alert("系统环境异常");
+	            return false;
+				}
+			});
     })
     </script>
 

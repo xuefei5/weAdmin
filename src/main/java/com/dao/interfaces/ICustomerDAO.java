@@ -15,7 +15,7 @@ import com.bean.User;
 public interface ICustomerDAO{	
 	
 	/*添加客户对象*/
-	@Insert("insert into customer(name,nickName,sex,birthda0,telephone,imgRef,addTime,remarks,state)values(#{name},#{nickName},#{sex},#{birthda0},#{telephone},#{imgRef},#{addTime}, #{remarks}, '0')")
+	@Insert("insert into customer(name,nickName,sex,birthday,telephone,imgRef,addTime,remarks,state)values(#{name},#{nickName},#{sex},#{birthday},#{telephone},#{imgRef},#{addTime}, #{remarks}, '0')")
 	public int insert(Customer customer);
 	
 	/*根据id查询客户对象*/

@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,12 +11,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bean.Customer;
 import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.ICustomerSV;
+import com.utils.CommonUtil;
 
 
 @Controller
@@ -80,12 +87,21 @@ public class CustomController extends BaseController{
 	 * 客户添加
 	 * 
 	 * @author xuefei
+	 * @throws ParseException 
 	 */
-	@RequestMapping(value = "/addCustomer")
+	@RequestMapping(value = "/addCustomer",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<CodeMsg> addCustomer(Customer Customer) {
+	public Result<CodeMsg> addCustomer(Customer customer,@RequestParam("headFile") MultipartFile file) throws ParseException {
+		//添加时间--获取当前时间
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		String addTime = df.format(new Date());
+		customer.setAddTime(addTime);
+		
+		//出身日期--格式转换
+		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+		customer.setBirthday(birthday);
 
-		if (iCustSV.addCustomer(Customer)) {
+		if (iCustSV.addCustomer(customer)) {
 			logger.info("客户添加成功");
 			return Result.success(CodeMsg.CUSTOMER_ADD_SUCCESS);
 		} else {

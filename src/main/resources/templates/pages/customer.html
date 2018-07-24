@@ -334,9 +334,10 @@
 	            	$.each(rtnData,function(i,item){
 	            		
 	                	    var r = Number(i);
-	                	    var trHead = '<tr class="even">';
+	                	    var className = "";
 	                	    //如果是偶数
-	                	    if(r%2==0){trHead = '<tr class="odd"/>';}
+	                	    if(r%2==0){className = "even"}else{className = "odd"}
+	                	    var trHead = '<tr class="'+className+'">';
 	          				var tdName = '<td class="sorting_1">'+item.name+'</td>';
 	          				//性别判断
 	          				var tdSex;
