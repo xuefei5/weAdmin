@@ -35,7 +35,10 @@ function doLogin(){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+        	layer.open({
+    			title : '注意',
+    			content : '系统环境异常'
+    		});
             return false;
         }
 	});
