@@ -5,7 +5,7 @@
 
 <meta name="keywords" content="keyword1,keyword2,keyword3" />
 <meta name="description" content="this is my page" />
-<meta name="content-type" content="text/html; charset=UTF-8" />
+<meta name="content-type" content="multipart/form-data; charset=UTF-8" />
 
 <!-- start: CSS -->
 <!-- layui使用的css -->
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="box-content">
-				<form class="form-horizontal" id="CustomerForm"  enctype="multipart/form-data">
+				<form class="form-horizontal" id="CustomerForm" enctype="multipart/form-data">
 					<fieldset>
 					     <!-- 客户名  -->
 						<div class="control-group">
@@ -89,7 +89,7 @@
 						<div class="control-group">
 							<label class="control-label" for="fileInput">上传头像 </label>
 							<div class="controls">
-								<input class="input-file uniform_on" name="headFile" type="file" />
+								<input class="input-file uniform_on" name="headFile" type="file"/>
 							</div>
 						</div>
 						<div class="control-group hidden-phone">
@@ -99,13 +99,11 @@
 							</div>
 						</div>
 						<div class="form-actions">
-							<button id="custSubmitBtn" type="submit" class="btn btn-primary">保存</button>
+							<button id="custSubmitBtn" type="button" class="btn btn-primary">保存</button>
 							<button id="closePage" type="reset" class="btn">取消</button>
 						</div>
 					</fieldset>
 				</form>
-				<iframe id="file_upload_return" name="file_upload_return"></iframe>    <!-- 提交表单处理iframe框架 -->
-
 			</div>
 		</div>
 		<!--/span-->
@@ -115,8 +113,9 @@
 
 	<!-- start: JavaScript-->
 	<!-- layui使用的js -->
-	<script src="../../js/main/jquery-1.9.1.min.js"></script>
+	 <script src="../../js/main/jquery-1.9.1.min.js"></script>
 	<script src="../../js/main/jquery-form.js"></script>
+	
 	<script src="../layui/layui.js"></script>
 	<script type="text/javascript">
 	layui.use('upload', function(){});
@@ -125,30 +124,38 @@
     	layer.confirm('确定关闭此页面?', {icon: 3, title:'提示'}, function(){  
     		parent.layer.close(index);
     		});
-    })
+    });
+    
+    function layuiAlert(content){
+    layer.open({
+        			title : '提示',
+        			content : content
+        		});
+    }   
     
     $("#custSubmitBtn").click(function(){
+    var files = $('input[name="headFile"]').prop('files');//获取到文件列表
+    if(undefined==files[0]){
+    layuiAlert("必须选择文件!");
+    return false;
+    }	
     	$("#CustomerForm").ajaxSubmit({
     	type:"post",
+    	forceSync: false,
     	url:"/cust/addCustomer",
-        dataType: "html",
-        contentType: "application/json; charset=utf-8",
         success: function (message) {
         	if(message.code == 0){
-        		layer.open({
-        			title : '提示',
-        			content : "客户添加成功"
-        		});
+        	var index=parent.layer.getFrameIndex(window.name);
+        		layer.confirm('客户添加成功', {icon: 1, title:'提示'}, function(){  
+    		    parent.layer.close(index);
+    		    });
         	}else{
-        		layer.open({
-        			title : '提示',
-        			content : message.msg
-        		});
+        	layuiAlert(message.msg);
         	}
         	return true;
         },
         error: function (message) {
-	            alert("系统环境异常");
+	            layuiAlert("系统环境异常");
 	            return false;
 				}
 			});
