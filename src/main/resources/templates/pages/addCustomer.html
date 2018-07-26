@@ -47,16 +47,16 @@
 						<div class="control-group">
 							<label class="control-label" for="typeahead">客户名 </label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" name="name" />
-								<!-- <p class="help-block">必须中文</p> -->
+								<input type="text" class="span6 typeahead" name="name" onchange="checkForm()"/>
+								<p class="help-block" id="name_p">不可为空且必须是中文</p> 
 							</div>
 						</div>
 						
 						<div class="control-group">
 							<label class="control-label" for="typeahead">昵称 </label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" name="nickName" />
-								<!-- <p class="help-block">必须中文</p> -->
+								<input type="text" class="span6 typeahead" name="nickName" onchange="checkForm()"/>
+								<p class="help-block" id="nickName_p">不可为空且必须是中文</p> 
 							</div>
 						</div>
 						
@@ -81,8 +81,8 @@
 						<div class="control-group">
 							<label class="control-label" for="typeahead">联系电话 </label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" name="telephone" />
-								<!-- <p class="help-block">必须中文</p> -->
+								<input type="text" class="span6 typeahead" name="telephone" onchange="checkForm()"/>
+								<p class="help-block" id="telephone_p">不可为空且必须符合格式</p> 
 							</div>
 						</div>
 
@@ -117,45 +117,7 @@
 	<script src="../../js/main/jquery-form.js"></script>
 	
 	<script src="../layui/layui.js"></script>
-	<script type="text/javascript">
-	layui.use('upload', function(){});
-    $("#closePage").click(function(){
-    	var index=parent.layer.getFrameIndex(window.name);
-    	layer.confirm('确定关闭此页面?', {icon: 3, title:'提示'}, function(){  
-    		parent.layer.close(index);
-    		});
-    });
-    
-    function layuiAlert(content){
-            layer.open({
-        			title : '提示',
-        			content : content
-        		});
-    }   
-    
-    $("#custSubmitBtn").click(function(){
-    	$("#CustomerForm").ajaxSubmit({
-    	type:"post",
-    	forceSync: false,
-    	url:"/cust/addCustomer",
-        success: function (message) {
-        	if(message.code == 0){
-        	var index=parent.layer.getFrameIndex(window.name);
-        		layer.confirm('客户添加成功', {icon: 1, title:'提示'}, function(){  
-    		    parent.layer.close(index);
-    		    });
-        	}else{
-        	layuiAlert(message.msg);
-        	}
-        	return true;
-        },
-        error: function (message) {
-	            layuiAlert("系统环境异常");
-	            return false;
-				}
-			});
-    })
-    </script>
+	<script src="../../js/customer/addCustomer.js"></script>
 
 	
 	<script src="../../js/main/jquery-migrate-1.0.0.min.js"></script>

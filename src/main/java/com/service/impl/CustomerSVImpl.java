@@ -59,6 +59,7 @@ public class CustomerSVImpl implements ICustomerSV{
 				return true;
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		return false;

@@ -281,6 +281,14 @@
 	<script src="../layui/layui.js"></script>
 	<script type="text/javascript">
 	layui.use('upload', function(){}); 
+	//layui统一弹框
+	function layuiAlert(content) {
+		layer.open({
+			title : '提示',
+			content : content
+		});
+	}
+	
 	//添加客户信息
 		$("#addCustomer").click(function() {
 			layer.open({
@@ -319,6 +327,36 @@
 			}
 		});
 	}
+	
+	//删除客户信息
+	function deleteCustomer(id){
+		$.ajax({
+			type: "post",
+			async: true,
+	        url: "/cust/deleteCustomer?id="+id,
+	        contentType: "application/json; charset=utf-8",
+	        data: "",
+	        dataType: "json",
+	        success: function (message) {
+	        	if(message.code == 0){
+	        		layer.msg('删除成功', {
+						icon : 1,
+						time : 500//1秒关闭（如果不配置，默认是3秒）
+					}, function() {
+						//刷新页面
+						location.reload();
+					});
+	        	}else{
+	        		layuiAlert(message.msg);
+	        	}
+	        	return true;
+	        },
+	        error:function(){
+	        	layuiAlert("系统环境异常");
+	        	return false;
+	        }
+	  });
+	}
 	//进来就加载信息
 	 	$.ajax({
 			type: "post",
@@ -356,7 +394,7 @@
 	          					tdState = '<td class="center">'+'正常'+'</td>';
 	          				}
 	          				
-	            			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateCustomer('+item.id+')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="/cust/deleteCustomer?id='+item.id+'"><i class="halflings-icon white trash"></i></a></td>'; 
+	            			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateCustomer('+item.id+')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteCustomer('+item.id+')"><i class="halflings-icon white trash"></i></a></td>'; 
 	          				var trTail = '</tr>';
 	          				html+= trHead + tdName + tdSex + tdBirthday + tdPhone + tdAddTime + tdRemarks + tdState + btn + trTail;
 
@@ -364,15 +402,12 @@
 	            	
 	            	$("#tbody").html(html);
 	        	}else{
-	        		layer.open({
-	        			title : '提示',
-	        			content : message.msg
-	        		});
+	        		layuiAlert(message.msg);
 	        	}
 	        	return true;
 	        },
 	        error: function (message) {
-	            alert("系统环境异常");
+	        	layuiAlert("系统环境异常");
 	            return false;
 				}
 			});

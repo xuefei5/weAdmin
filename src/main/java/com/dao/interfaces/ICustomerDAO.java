@@ -35,7 +35,7 @@ public interface ICustomerDAO{
 	public int update(Customer customer);
 	
 	/*删除客户对象*/
-	@Update("UPDATE customer SET state='0' wehere  id = #{id}")
+	@Update("DELETE FROM customer WHERE  id = #{id}")
 	public int delete(@Param("id")int id);
 	
 	/*分页查询用户对象*/
