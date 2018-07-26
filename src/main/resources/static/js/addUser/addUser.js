@@ -22,7 +22,7 @@ function addUser(){
         data: data,
         dataType: "json",
         success: function (message) {
-        	if(message.code == 100601){
+        	if(message.code != '100602'){
         		layer.open({
         			title : '提示',
         			content : "用户添加成功"
