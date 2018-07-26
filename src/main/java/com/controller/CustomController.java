@@ -95,7 +95,7 @@ public class CustomController extends BaseController{
 		//对上传的文件进行处理
 		List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("headFile");
 		//进入文件处理代码段
-		if(null!=files||files.size()>=0){
+		if(null!=files&&files.size()>=0){
 			
 		}
 			

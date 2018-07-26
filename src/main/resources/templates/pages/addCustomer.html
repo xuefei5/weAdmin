@@ -127,18 +127,13 @@
     });
     
     function layuiAlert(content){
-    layer.open({
+            layer.open({
         			title : '提示',
         			content : content
         		});
     }   
     
     $("#custSubmitBtn").click(function(){
-    var files = $('input[name="headFile"]').prop('files');//获取到文件列表
-    if(undefined==files[0]){
-    layuiAlert("必须选择文件!");
-    return false;
-    }	
     	$("#CustomerForm").ajaxSubmit({
     	type:"post",
     	forceSync: false,
