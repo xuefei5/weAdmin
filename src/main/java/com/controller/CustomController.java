@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bean.Customer;
 import com.result.CodeMsg;
@@ -91,7 +91,14 @@ public class CustomController extends BaseController{
 	 */
 	@RequestMapping(value = "/addCustomer",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<CodeMsg> addCustomer(Customer customer,@RequestParam("headFile") MultipartFile file) throws ParseException {
+	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) throws ParseException {
+		//对上传的文件进行处理
+		List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("headFile");
+		//进入文件处理代码段
+		if(null!=files||files.size()>=0){
+			
+		}
+			
 		//添加时间--获取当前时间
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String addTime = df.format(new Date());
