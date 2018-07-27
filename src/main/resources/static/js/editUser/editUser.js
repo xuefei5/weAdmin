@@ -1,57 +1,37 @@
 /**
  * 用户页面
  */
-
-$(function(){
-	getDefaultData();
+$(document).ready(function(){
+	    var id = getUrlParam("id");
+	    getDefaultData(id);
+	    alert(id);
 });
 
-function getDefaultData(){
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
 
+function getDefaultData(id){
+	var data ='{ "id":"' + id + '"}';
 	$.ajax({
 		type: "post",
 		async: true,
-        url: "/user/qryUserByPageNum",
+        url: "/user/qryUserById",
         contentType: "application/json; charset=utf-8",
-        data: "",
+        data: data,
         dataType: "json",
         success: function (message) {
         	if(message.code == 0){
-        		var rtnData = message.data.userList;
-        		var pageNum = message.data.pageNum;
+        		var rtnData = message.data;
             	
-        		debugger;
-        		
-				var html = '';	            	
-            	for (var order in rtnData)
-            	{
-        			var trHead = '<tr class="odd">';
-        			var name = '<td class="  sorting_1">'+rtnData[order].name+'</td>';
-        			var telephone = '<td class="center ">'+rtnData[order].telephone+'</td>';
-        			var remarks = '<td class="center ">'+rtnData[order].remarks+'</td>';
-        			var registerTime = '<td class="center ">'+rtnData[order].registerTime+'</td>';
-        			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateUser('+rtnData[order].id+')"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a></td>'; 
-        			var trTail = '</tr>';
-      				html = html + trHead + name + telephone +remarks +registerTime+ btn+ trTail;
-            	}
-            	$("#userInfo").html(html);	
-        		
-            	var pageHtml = '';
-            	var liHead = '<li class="prev disabled"><a href="#">← 上一页</a></li>';
-    			pageHtml = pageHtml + liHead;
-            	for (var page in pageNum)
-            	{
-        			if(page==1){
-        				pageItem = '<li class="active"><a href="#">'+pageNum[page]+'</a></li>';
-        				pageHtml = pageHtml + pageItem;
-        			}else{
-        				pageItem = '<li><a href="#">'+pageNum[page]+'</a></li>';
-        				pageHtml = pageHtml + pageItem;
-        			}
-            	}
-            	var liTail = '<li class="next"><a href="#">下一页   →</a></li>';
-    			pageHtml = pageHtml + liTail;
-            	$("#pageInfo").html(pageHtml);	
+        		$("input[name='id']").val(rtnData.id);
+        		$("input[name='name']").val(rtnData.name);
+        		$("input[name='nickName']").val(rtnData.nickName);
+        		$("input[name='telephone']").val(rtnData.telephone);
+        		$("input[name='password']").val(rtnData.password);
+        		$("input[name='remarks']").text(rtnData.remarks);
 
         	}else{
         		layer.open({
@@ -67,45 +47,3 @@ function getDefaultData(){
         }
 	});
 }
-
-
-layui.use('upload', function(){});
-$("#addUser").click(function(){
-layer.open({
-    type: 2,
-    title: '添加用户信息',
-    shadeClose: false,
-    shade: 0.7,
-    maxmin: true, //开启最大化最小化按钮
-    scrollbar: true,//是否允许出现滚动条
-    anim: 5,
-    moveOut: true,//是否允许拖动到外面
-    area: ['85%', '82%'],
-    content: 'addUserHtml',
-    end:function(index, layero){
-    	
-    }
-  });
-});
-
-
-//修改用户信息
-function updateUser(id){
-	layer.open({
-        type: 2,
-        title: '修改用户信息',
-        shadeClose: false,
-        shade: 0.7,
-        maxmin: true, //开启最大化最小化按钮
-        scrollbar: true,//是否允许出现滚动条
-        anim: 5,
-        moveOut: true,//是否允许拖动到外面
-        area: ['85%', '82%'],
-        content: 'addUserHtml',
-        end:function(index, layero){
-        	
-        }
-      });
-}
-
-

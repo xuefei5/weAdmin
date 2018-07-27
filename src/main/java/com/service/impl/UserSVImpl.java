@@ -157,4 +157,13 @@ public class UserSVImpl implements IUserSV{
 		}
 	}
 
+	@Override
+	public User qryUserById(int id) {
+		try {
+			return userDAO.qryById(id);
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 }

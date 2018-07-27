@@ -237,5 +237,19 @@ public class UserController extends BaseController {
 
 		return Result.success(userList);
 	}
+	
+	/**
+	 * id查询用户
+	 * 
+	 * @author yangsheng
+	 */
+	@RequestMapping(value = "/qryUserById")
+	@ResponseBody
+	public Result<User> qryUserById(HttpServletRequest request) {
 
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
+
+		return Result.success(userSV.qryUserById(id));
+	}
 }
