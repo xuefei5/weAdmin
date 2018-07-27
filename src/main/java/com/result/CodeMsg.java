@@ -44,6 +44,7 @@ public class CodeMsg {
 	//客户添加 1010xx
 	public static CodeMsg CUSTOMER_ADD_SUCCESS = new CodeMsg(101001, "客户添加成功");
 	public static CodeMsg CUSTOMER_ADD_FAIL = new CodeMsg(101002, "客户添加失败");
+	public static CodeMsg CUSTOMER_ADD_FAIL_EXCEPTION = new CodeMsg(101003, "系统内部异常");
 	
 	//客户删除  1011xx
 	public static CodeMsg CUSTOMER_DELETE_SUCCESS = new CodeMsg(101101, "客户删除成功");
@@ -57,10 +58,11 @@ public class CodeMsg {
 	public static CodeMsg CUSTOMER_USER_BY_NAME_SUCCESS = new CodeMsg(101301, "查询客户信息不为空");
 	public static CodeMsg CUSTOMER_USER_BY_NAME_FAIL = new CodeMsg(101302, "查询客户信息为空");
 		
-	private CodeMsg(int code, String msg) {
+	public CodeMsg(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}
+	
 	
 	public int getCode() {
 		return code;

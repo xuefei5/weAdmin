@@ -9,6 +9,10 @@ public class LocalConstants {
 	/*系统静态字段*/
 	public static abstract interface CONST_SET {
 		String RESP_OUTOBJECT = "rtnObject";
+		//文件上传路径
+		String FILE_UPLOAD_PATH = "G:\\FtpFile\\custHead\\";
+		//文件最大允许上传
+		int FILE_MAX_SIZE = 4*1024*1024;
 	}
 
 	/*常量映射-示范*/

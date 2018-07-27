@@ -2,7 +2,6 @@ package com.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +24,7 @@ import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.ICustomerSV;
 import com.utils.CommonUtil;
-import com.utils.FtpUtil;
+import com.utils.LocalConstants;
 
 
 @Controller
@@ -97,32 +96,33 @@ public class CustomController extends BaseController{
 	 */
 	@RequestMapping(value = "/addCustomer",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) throws ParseException, IOException {
+	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) {
+		try{
+		//上传到服务器的文件名
+		String fileNameToUpload = "";
 		//对上传的文件进行处理
 		List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("headFile");
 		//进入文件处理代码段
 		if(null!=files&&files.size()>=0){
 			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 			String fileTime = df.format(new Date());
-			
+			//文件大小
+			int fileSize = (int) files.get(0).getSize();
+			if(fileSize>LocalConstants.CONST_SET.FILE_MAX_SIZE){
+				throw new Exception("文件最大允许上传4M,请重新选择!");
+			}
+			//文件名
 			String fileName = files.get(0).getOriginalFilename();
-			//获取到文件:时间+后缀名
-			String fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
-			// 文件上传后的路径
-	        String filePath = "G:\\FtpFile\\custHead\\";
-	        File dest = new File(filePath + fileName);
+			//文件名:时间+客户名+后缀名
+			fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
+			
+	        File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
 	        // 检测是否存在目录
 	        if (!dest.getParentFile().exists()) {
 	            dest.getParentFile().mkdirs();
 	        }
-	        try {
-	        	files.get(0).transferTo(dest);
-	        } catch (IllegalStateException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-			
+	        //上传
+	        files.get(0).transferTo(dest);
 		}
 			
 		//添加时间--获取当前时间
@@ -141,6 +141,15 @@ public class CustomController extends BaseController{
 			logger.info("客户添加失败");
 			return Result.error(CodeMsg.CUSTOMER_ADD_FAIL);
 		}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+			if(null==e.getMessage()){
+				return Result.error(CodeMsg.CUSTOMER_ADD_FAIL_EXCEPTION);
+			}
+			return Result.error(new CodeMsg(101004, e.getMessage()));
+		}
+		
 	}
 
 	/**
