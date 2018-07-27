@@ -30,7 +30,7 @@ public interface IUserDAO{
 	public List<User> qryAll();
 	
 	/*更新用户对象*/
-	@Update("UPDATE user SET name = #{name},password = #{password},telephone = #{telephone},nickName = #{nickName},remarks = #{remarks},registerTime = #{registerTime} wehere id = #{id}")
+	@Update("UPDATE user SET name = #{name},password = #{password},telephone = #{telephone},nickName = #{nickName},remarks = #{remarks} where id = #{id}")
 	public int update(User user);
 	
 	/*删除用户对象*/

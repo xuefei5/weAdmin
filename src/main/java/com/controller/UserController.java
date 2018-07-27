@@ -212,8 +212,11 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/updateUser")
 	@ResponseBody
-	public Result<CodeMsg> updateUser(User user) {
-
+	public Result<CodeMsg> updateUser(HttpServletRequest request) {
+		
+		String inputStr = super.getInputString(request);
+		User user = JSON.parseObject(inputStr, new TypeReference<User>() {});
+		
 		if (userSV.updateUser(user)) {
 			logger.info("用户更新成功");
 			return Result.success(CodeMsg.USER_UPDATE_SUCCESS);

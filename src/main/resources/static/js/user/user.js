@@ -132,7 +132,7 @@
 	        anim: 5,
 	        moveOut: true,//是否允许拖动到外面
 	        area: ['85%', '82%'],
-	        content: '../staticPages/editUser.html?id=1',
+	        content: '../staticPages/editUser.html?id='+id,
 	        end:function(index, layero){
 	        	
 	        }

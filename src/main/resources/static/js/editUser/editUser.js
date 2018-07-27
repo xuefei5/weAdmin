@@ -1,9 +1,11 @@
 /**
  * 用户页面
  */
-$(document).ready(function(){
-	    var id = getUrlParam("id");
-	    getDefaultData(id);
+
+
+$(function(){
+	var id = getUrlParam("id");
+	getDefaultData(id);
 });
 
 function getUrlParam(name) {
@@ -45,3 +47,44 @@ function getDefaultData(id){
         }
 	});
 }
+
+//用户修改提交
+layui.use('upload', function(){});
+$("#editUserBtn").click(function(){
+	debugger;
+	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()
+				+ '","nickName":"' + $("input[name='nickName']").val()
+				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
+				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}'; 
+	$.ajax({
+		type: "post",
+		async: true,
+        url: "/user/updateUser",
+        contentType: "application/json; charset=utf-8",
+        data: data,
+        dataType: "json",
+        success: function (message) {
+        	if(message.code == 0){
+        		var index = parent.layer.getFrameIndex(window.name);
+        		layer.msg('修改成功', {
+					icon : 1,
+					time : 500//1秒关闭（如果不配置，默认是3秒）
+				}, function() {
+					//刷新页面
+					parent.layer.close(index);
+					parent.location.reload();
+				});
+        	}else{
+        		layer.open({
+        			title : '提示',
+        			content : message.msg
+        		});
+        	}
+        	return true;
+        },
+        error: function (message) {
+            alert("系统环境异常");
+            return false;
+        }
+	});
+});
