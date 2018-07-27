@@ -3,6 +3,9 @@
  * @author xuefei
  */
 
+//最大上传文件的大小设定
+var FILE_MAX_SIZE = 4*1024*1024;
+
 layui.use('upload', function() {});
 //获取参数方法
 function getUrlParam(name) {
@@ -100,6 +103,20 @@ function checkForm() {
 	}else{
 		telephone_p.css("color","#578ebe");
 	}
+	//对文件大小以及文件类型做判断
+	var headFile = $("input[name='headFile']");
+	var headFile_p = $("#headFile_p");
+	var fileSize = headFile[0].files[0].size;
+	var path = headFile.val();
+	var extStart = path.lastIndexOf('.'),
+    ext = path.substring(extStart, path.length).toUpperCase();
+    if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG' && ext !== '.GIF'&&fileSize>FILE_MAX_SIZE) {
+    	headFile_p.css("color","red");
+    	headFile.val(""); 
+ 	    return false;
+    }else{
+    	headFile_p.css("color","#578ebe");
+     }
 	return true;
 }
 
