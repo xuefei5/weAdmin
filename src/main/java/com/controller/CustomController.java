@@ -169,5 +169,19 @@ public class CustomController extends BaseController{
 
 		return Result.success(CustomerList);
 	}
+	
+	/**
+	 * 姓名查询客户
+	 * 
+	 * @author xuefei
+	 */
+	@RequestMapping(value = "/qryCustomerById")
+	@ResponseBody
+	public Result<Customer> qryCustomerById(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
+		Customer Customer = iCustSV.qryById(id);
+		return Result.success(Customer);
+	}
 
 }

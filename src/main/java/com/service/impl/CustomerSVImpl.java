@@ -97,4 +97,13 @@ public class CustomerSVImpl implements ICustomerSV{
 		}
 	}
 
+	@Override
+	public com.bean.Customer qryById(int id) {
+		try {
+			return (Customer) CustomerDAO.qryById(id);
+		}catch(Exception e) {
+			return null;
+		}
+	}
+
 }

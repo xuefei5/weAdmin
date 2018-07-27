@@ -21,6 +21,9 @@ public interface ICustomerSV {
 	//根据客户名查询客户对象列表
 	public List<Customer> qryByName(String name);
 	
+	//根据客户ID查询客户对象
+	public Customer qryById(int id);
+	
 	//分页查询客户列表
 	public List<Customer> qryCustomerByPageNum(int pageNum);
 
