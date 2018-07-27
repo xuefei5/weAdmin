@@ -30,7 +30,7 @@
             			var telephone = '<td class="center ">'+rtnData[order].telephone+'</td>';
             			var remarks = '<td class="center ">'+rtnData[order].remarks+'</td>';
             			var registerTime = '<td class="center ">'+rtnData[order].registerTime+'</td>';
-            			var btn = '<td class="center "><a class="btn btn-info" href="#"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"  onClick="deleteUser('+rtnData[order].id+')"><i class="halflings-icon white trash"></i></a></td>'; 
+            			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="editUser('+rtnData[order].id+')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"  onClick="deleteUser('+rtnData[order].id+')"><i class="halflings-icon white trash"></i></a></td>'; 
             			var trTail = '</tr>';
 	      				html = html + trHead + name + telephone +remarks +registerTime+ btn+ trTail;
 	            	}
@@ -68,7 +68,7 @@
 		});
 	}
 	
-	
+	//用户添加
 	layui.use('upload', function(){});
 	$("#addUser").click(function(){
     layer.open({
@@ -117,4 +117,24 @@
 	        	return false;
 	        }
 	  });
+	}
+	
+	//修改用户信息
+	function editUser(id){
+		var data ='{ "id":"' + id + '"}';
+		layer.open({
+	        type: 2,
+	        title: '修改用户信息',
+	        shadeClose: false,
+	        shade: 0.7,
+	        maxmin: true, //开启最大化最小化按钮
+	        scrollbar: true,//是否允许出现滚动条
+	        anim: 5,
+	        moveOut: true,//是否允许拖动到外面
+	        area: ['85%', '82%'],
+	        content: '../staticPages/editUser.html',
+	        end:function(index, layero){
+	        	
+	        }
+	      });
 	}
