@@ -30,7 +30,7 @@ function getDefaultData(id){
         		$("input[name='nickName']").val(rtnData.nickName);
         		$("input[name='telephone']").val(rtnData.telephone);
         		$("input[name='password']").val(rtnData.password);
-        		$("input[name='remarks']").val(rtnData.remarks);
+        		$("textarea[name='remarks']").val(rtnData.remarks);
         	}else{
         		layer.open({
         			title : '提示',
