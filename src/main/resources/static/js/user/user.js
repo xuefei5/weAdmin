@@ -30,7 +30,7 @@
             			var telephone = '<td class="center ">'+rtnData[order].telephone+'</td>';
             			var remarks = '<td class="center ">'+rtnData[order].remarks+'</td>';
             			var registerTime = '<td class="center ">'+rtnData[order].registerTime+'</td>';
-            			var btn = '<td class="center "><a class="btn btn-info" href="#"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a></td>'; 
+            			var btn = '<td class="center "><a class="btn btn-info" href="#"> <i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"  onClick="deleteUser('+rtnData[order].id+')"><i class="halflings-icon white trash"></i></a></td>'; 
             			var trTail = '</tr>';
 	      				html = html + trHead + name + telephone +remarks +registerTime+ btn+ trTail;
 	            	}
@@ -81,9 +81,40 @@
         anim: 5,
         moveOut: true,//是否允许拖动到外面
         area: ['85%', '82%'],
-        content: 'addUserHtml',
+        content: '../staticPages/addCustomer.html',
         end:function(index, layero){
         	
         }
       });
     });
+	
+	//删除用户信息
+	function deleteUser(id){
+		var data ='{ "id":"' + id + '"}'
+		$.ajax({
+			type: "post",
+			async: true,
+	        url: "/user/deleteUser",
+	        contentType: "application/json; charset=utf-8",
+	        data: data,
+	        dataType: "json",
+	        success: function (message) {
+	        	if(message.code == 0){
+	        		layer.msg('删除成功', {
+						icon : 1,
+						time : 500//1秒关闭（如果不配置，默认是3秒）
+					}, function() {
+						//刷新页面
+						location.reload();
+					});
+	        	}else{
+	        		layuiAlert(message.msg);
+	        	}
+	        	return true;
+	        },
+	        error:function(){
+	        	layuiAlert("系统环境异常");
+	        	return false;
+	        }
+	  });
+	}

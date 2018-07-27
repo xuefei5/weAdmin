@@ -193,8 +193,9 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/deleteUser")
 	@ResponseBody
 	public Result<CodeMsg> deleteUser(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
+		
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
 		if (userSV.deleteUser(id)) {
 			logger.info("用户删除成功");
 			return Result.success(CodeMsg.USER_DELETE_SUCCESS);

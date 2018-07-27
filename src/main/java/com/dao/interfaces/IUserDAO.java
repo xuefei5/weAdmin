@@ -34,7 +34,7 @@ public interface IUserDAO{
 	public int update(User user);
 	
 	/*删除用户对象*/
-	@Update("UPDATE user SET state='0' wehere  id = #{id}")
+	@Update("UPDATE user SET state='0' where  id = #{id}")
 	public int delete(@Param("id")int id);
 	
 	/*根据用户名和密码查询用户对象*/
