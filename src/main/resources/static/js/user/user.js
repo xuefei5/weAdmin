@@ -81,7 +81,7 @@
         anim: 5,
         moveOut: true,//是否允许拖动到外面
         area: ['85%', '82%'],
-        content: '../staticPages/addCustomer.html',
+        content: '../staticPages/addUser.html',
         end:function(index, layero){
         	
         }
