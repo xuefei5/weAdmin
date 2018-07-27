@@ -4,11 +4,49 @@
  */
 
 layui.use('upload', function() {});
+//获取参数方法
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
 //获取前面传过来的状态：0-增加,1-修改
 var updateFlag = getUrlParam("updateFlag");
 //如果是修改就进行查询然后填入表格中
 if(null!=updateFlag&&updateFlag==1){
 	var id = getUrlParam("id");
+	
+	var data ='{ "id":"' + id + '"}'
+	$.ajax({
+		type: "post",
+		async: true,
+        url: "/cust/qryCustomerById",
+        contentType: "application/json; charset=utf-8",
+        data: data,
+        dataType: "json",
+        success: function (message) {
+        	if(message.code == 0){
+        		var customer = message.data;
+        		$("input[name='id']").val(customer.id);
+        		$("input[name='name']").val(customer.name);
+        		$("input[name='nickName']").val(customer.nickName);
+        		$("input[name='sex']").val(customer.sex);
+        		$("input[name='birthday']").val(customer.birthday);
+        		$("input[name='telephone']").val(customer.telephone);
+        		//$("input[name='headFile']").val(customer.headFile);
+        		$("input[name='remarks']").val(customer.remarks);
+        	}else{
+        		layuiAlert(message.msg);
+        	}
+        	return true;
+        },
+        error:function(){
+        	layuiAlert("系统环境异常");
+        	return false;
+        }
+  });
+}else{//如果是新增就移除该插件，否则会出错
+	$("input[name='id']").remove();
 }
 //关闭页面
 $("#closePage").click(function() {
@@ -68,10 +106,15 @@ $("#custSubmitBtn").click(function() {
 	if(!checkForm()){
 		return false;
 	}
+	var sendUrl = "/cust/addCustomer";
+	//如果是修改操作
+	if(null!=updateFlag&&updateFlag==1){
+		sendUrl = "/cust/updateCustomer";
+	}
 	$("#CustomerForm").ajaxSubmit({
 		type : "post",
 		forceSync : false,
-		url : "/cust/addCustomer",
+		url : sendUrl,
 		success : function(message) {
 			if (message.code == 0) {
 				//点击确认关闭该层
