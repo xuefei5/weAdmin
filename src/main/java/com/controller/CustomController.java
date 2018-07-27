@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bean.Customer;
 import com.result.CodeMsg;
 import com.result.Result;
@@ -125,8 +126,8 @@ public class CustomController extends BaseController{
 	@RequestMapping(value = "/deleteCustomer")
 	@ResponseBody
 	public Result<CodeMsg> deleteCustomer(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
 		if (iCustSV.deleteCustomer(id)) {
 			logger.info("客户删除成功");
 			return Result.success(CodeMsg.CUSTOMER_DELETE_SUCCESS);

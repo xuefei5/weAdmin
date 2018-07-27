@@ -4,6 +4,13 @@
  */
 
 layui.use('upload', function() {});
+//获取前面传过来的状态：0-增加,1-修改
+var updateFlag = getUrlParam("updateFlag");
+//如果是修改就进行查询然后填入表格中
+if(null!=updateFlag&&updateFlag==1){
+	var id = getUrlParam("id");
+}
+//关闭页面
 $("#closePage").click(function() {
 	var index = parent.layer.getFrameIndex(window.name);
 	layer.confirm('确定关闭此页面?', {
