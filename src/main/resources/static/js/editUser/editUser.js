@@ -16,7 +16,7 @@ function getDefaultData(id){
 	var data ='{ "id":"' + id + '"}';
 	$.ajax({
 		type: "post",
-		async: true,
+		async: false,
         url: "/user/qryUserById",
         contentType: "application/json; charset=utf-8",
         data: data,

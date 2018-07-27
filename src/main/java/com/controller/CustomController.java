@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +25,7 @@ import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.ICustomerSV;
 import com.utils.CommonUtil;
+import com.utils.FtpUtil;
 
 
 @Controller
@@ -89,14 +93,35 @@ public class CustomController extends BaseController{
 	 * 
 	 * @author xuefei
 	 * @throws ParseException 
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/addCustomer",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) throws ParseException {
+	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) throws ParseException, IOException {
 		//对上传的文件进行处理
 		List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("headFile");
 		//进入文件处理代码段
 		if(null!=files&&files.size()>=0){
+			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+			String fileTime = df.format(new Date());
+			
+			String fileName = files.get(0).getOriginalFilename();
+			//获取到文件:时间+后缀名
+			String fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
+			// 文件上传后的路径
+	        String filePath = "G:\\FtpFile\\custHead\\";
+	        File dest = new File(filePath + fileName);
+	        // 检测是否存在目录
+	        if (!dest.getParentFile().exists()) {
+	            dest.getParentFile().mkdirs();
+	        }
+	        try {
+	        	files.get(0).transferTo(dest);
+	        } catch (IllegalStateException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 			
 		}
 			
