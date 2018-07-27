@@ -4,7 +4,6 @@
 $(document).ready(function(){
 	    var id = getUrlParam("id");
 	    getDefaultData(id);
-	    alert(id);
 });
 
 function getUrlParam(name) {
@@ -31,8 +30,7 @@ function getDefaultData(id){
         		$("input[name='nickName']").val(rtnData.nickName);
         		$("input[name='telephone']").val(rtnData.telephone);
         		$("input[name='password']").val(rtnData.password);
-        		$("input[name='remarks']").text(rtnData.remarks);
-
+        		$("input[name='remarks']").val(rtnData.remarks);
         	}else{
         		layer.open({
         			title : '提示',
