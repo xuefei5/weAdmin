@@ -313,7 +313,7 @@
 	function updateCustomer(id){
 		layer.open({
 			type : 2,
-			title : '添加客户信息',
+			title : '修改客户信息',
 			shadeClose : false,
 			shade : 0.7,
 			maxmin : true, //开启最大化最小化按钮
@@ -321,7 +321,7 @@
 			anim : 5,
 			moveOut : true,//是否允许拖动到外面
 			area : [ '85%', '82%' ],
-			content : 'addCustomerHtml?updateFlag=1?id='+id,
+			content : '../staticPages/addCustomer.html?updateFlag=1?id='+id,
 			end : function(index, layero) {
 
 			}
