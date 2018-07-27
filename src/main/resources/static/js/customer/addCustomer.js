@@ -19,7 +19,7 @@ if(null!=updateFlag&&updateFlag==1){
 	var data ='{ "id":"' + id + '"}'
 	$.ajax({
 		type: "post",
-		async: true,
+		async: false,
         url: "/cust/qryCustomerById",
         contentType: "application/json; charset=utf-8",
         data: data,
@@ -30,12 +30,13 @@ if(null!=updateFlag&&updateFlag==1){
         		$("input[name='id']").val(customer.id);
         		$("input[name='name']").val(customer.name);
         		$("input[name='nickName']").val(customer.nickName);
-        		$("input[name='sex']").val(customer.sex);
+        		$("select[name='sex']").val(customer.sex);
+        		//时间格式转换
         		var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
         		$("input[name='birthday']").val((customer.birthday).replace(reg,"$2/$3/$1"));
         		$("input[name='telephone']").val(customer.telephone);
         		//$("input[name='headFile']").val(customer.headFile);
-        		$("input[name='remarks']").val(customer.remarks);
+        		$("textarea[name='remarks']").val(customer.remarks);
         	}else{
         		layuiAlert(message.msg);
         	}

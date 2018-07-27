@@ -31,11 +31,11 @@ public interface ICustomerDAO{
 	public List<Customer> qryAll();
 	
 	/*更新客户对象*/
-	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},addTime = #{addTime},remarks = #{remarks},state = #{state} wehere id = #{id}")
+	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},birthday = #{birthday},remarks = #{remarks},state = 0 where id = #{id}")
 	public int update(Customer customer);
 	
 	/*删除客户对象*/
-	@Update("DELETE FROM customer WHERE  id = #{id}")
+	@Update("UPDATE customer SET state = 1 WHERE  id = #{id}")
 	public int delete(@Param("id")int id);
 	
 	/*分页查询用户对象*/

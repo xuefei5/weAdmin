@@ -141,12 +141,17 @@ public class CustomController extends BaseController{
 	 * 客户更新
 	 * 
 	 * @author xuefei
+	 * @throws ParseException 
 	 */
 	@RequestMapping(value = "/updateCustomer")
 	@ResponseBody
-	public Result<CodeMsg> updateCustomer(Customer Customer) {
+	public Result<CodeMsg> updateCustomer(Customer customer) throws ParseException {
+		
+		//出身日期--格式转换
+		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+		customer.setBirthday(birthday);
 
-		if (iCustSV.updateCustomer(Customer)) {
+		if (iCustSV.updateCustomer(customer)) {
 			logger.info("客户更新成功");
 			return Result.success(CodeMsg.CUSTOMER_UPDATE_SUCCESS);
 		} else {
