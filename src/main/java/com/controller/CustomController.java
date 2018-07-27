@@ -124,6 +124,8 @@ public class CustomController extends BaseController{
 	        //上传
 	        files.get(0).transferTo(dest);
 		}
+		
+		customer.setImgRef(fileNameToUpload);
 			
 		//添加时间--获取当前时间
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
