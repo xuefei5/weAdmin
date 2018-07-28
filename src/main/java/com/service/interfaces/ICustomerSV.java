@@ -9,6 +9,9 @@ public interface ICustomerSV {
 	//查询全部客户对象
 	public List<Customer> qryAllCustomer();
 	
+	//获取总条数
+	public int getCustomerAllCount();
+	
 	//客户添加操作
 	public Boolean addCustomer(Customer Customer);
 	
@@ -25,6 +28,6 @@ public interface ICustomerSV {
 	public Customer qryById(int id);
 	
 	//分页查询客户列表
-	public List<Customer> qryCustomerByPageNum(int pageNum);
+	public List<Customer> qryCustomerByPageNum(int startPage,int endPage);
 
 }

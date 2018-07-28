@@ -30,6 +30,10 @@ public interface ICustomerDAO{
 	@Select("select * from customer where state='0'")
 	public List<Customer> qryAll();
 	
+	/*获取客户总条数*/
+	@Select("select count(*) from customer where state='0'")
+	public int getCustomerAllCount();
+	
 	/*更新客户对象*/
 	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},birthday = #{birthday},remarks = #{remarks},state = 0 where id = #{id}")
 	public int update(Customer customer);
@@ -39,7 +43,7 @@ public interface ICustomerDAO{
 	public int delete(@Param("id")int id);
 	
 	/*分页查询用户对象*/
-	@Select("select * from customer where state='0' order b0 registerTime desc limit #{start} , #{end} ")
+	@Select("select * from customer where state='0' order by addTime desc limit #{start} , #{end} ")
 	public List<Customer> qryCustomerByPageNum(@Param("start")int id,@Param("end")int end);
 	
 }

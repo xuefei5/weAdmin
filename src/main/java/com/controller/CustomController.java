@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,15 +47,32 @@ public class CustomController extends BaseController{
 	 */
 	@RequestMapping("/qryCustomerByPageNum")
 	@ResponseBody
-	public Result<List<Customer>> qryCustomerByPageNum(HttpServletRequest request) {
+	public Result<Map<String,Object>> qryCustomerByPageNum(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
+		int endPage = Integer.parseInt(jsonObj.getString("endPage"));
+		//定义返回前端的map
+		Map<String,Object> mapToClient = new HashMap<String,Object>();
 
-		int pageNum = Integer
-				.parseInt(null == request.getParameter("pageNum") ? "1"
-						: request.getParameter("pageNum"));
-		List<Customer> CustomerList = iCustSV.qryCustomerByPageNum(pageNum);
-		return Result.success(CustomerList);
+		List<Customer> CustomerList = iCustSV.qryCustomerByPageNum(startPage,endPage);
+		//封装客户信息
+		mapToClient.put("customerList", CustomerList);
+		return Result.success(mapToClient);
 	}
-
+	
+	/**
+	 * 查询总条数
+	 * 
+	 * @author xuefei
+	 */
+	@RequestMapping("/qryAllCustomerCount")
+	@ResponseBody
+	public Result<Integer> qryAllCustomerCount() {
+		int customerAllCount = iCustSV.getCustomerAllCount();
+		logger.info("客户信息总条数为："+customerAllCount);
+		return Result.success(customerAllCount);
+	}
+	
 	/**
 	 * 查询所有客户
 	 * 

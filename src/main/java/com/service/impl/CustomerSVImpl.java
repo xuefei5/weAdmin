@@ -36,6 +36,11 @@ public class CustomerSVImpl implements ICustomerSV{
 	public List<Customer> qryAllCustomer() {
 		return (List<Customer>) CustomerDAO.qryAll();
 	}
+	
+	@Override
+	public int getCustomerAllCount() {
+		return CustomerDAO.getCustomerAllCount();
+	}
 
 	@Override
 	public Boolean addCustomer(Customer Customer) {
@@ -90,10 +95,11 @@ public class CustomerSVImpl implements ICustomerSV{
 	}
 
 	@Override
-	public List<Customer> qryCustomerByPageNum(int pageNum) {
+	public List<Customer> qryCustomerByPageNum(int startPage,int endPage) {
 		try {
-			return (List<Customer>) CustomerDAO.qryCustomerByPageNum(LocalConstants.PAGE_SET.PAGE_SIZE*(pageNum-1), LocalConstants.PAGE_SET.PAGE_SIZE*pageNum);
+			return (List<Customer>) CustomerDAO.qryCustomerByPageNum(startPage, endPage);
 		}catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -106,5 +112,7 @@ public class CustomerSVImpl implements ICustomerSV{
 			return null;
 		}
 	}
+
+	
 
 }
