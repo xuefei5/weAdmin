@@ -9,8 +9,45 @@ $(document).ready(function(){
 	})
 });
 
+//验证表单
+function checkForm() {
+	//客户名验证-只能是汉字
+	var name = $("input[name='name']");
+	var name_p = $("#name_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	if (name.val() == "" || !reg.test(name.val())) {
+		name_p.css("color","red");
+		return false;
+	}else{
+		name_p.css("color","#578ebe");
+	}
+	//昵称验证-只能是汉字
+	var nickName = $("input[name='nickName']");
+	var nickName_p = $("#nickName_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	if (nickName.val() == "" || !reg.test(nickName.val())) {
+		nickName_p.css("color","red");
+		return false;
+	}else{
+		nickName_p.css("color","#578ebe");
+	}
+	//联系方式验证-符合手机号规范
+	var telephone = $("input[name='telephone']");
+	var telephone_p = $("#telephone_p");
+	var reg = /^1[3,5,8]\d{9}$/;
+	if (telephone.val() == "" || !reg.test(telephone.val())) {
+		telephone_p.css("color","red");
+		return false;
+	}else{
+		telephone_p.css("color","#578ebe");
+	}
+	return true;
+}
+
 function addUser(){
-	debugger;
+	if(!checkForm()){
+		return false;
+	}
 	var data = '{ "name":"' + $("input[name='name']").val() + '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
 				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}'; 
