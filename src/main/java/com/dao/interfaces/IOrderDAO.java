@@ -22,5 +22,8 @@ public interface IOrderDAO{
 	/*删除订单对象*/
 	@Update("UPDATE order SET state='0' where  id = #{id}")
 	public int delete(@Param("id")int id);
-
+	
+	/*查询订单数据条数*/
+	@Select("select count(*) from order")
+	public int qryOrderCount();
 }
