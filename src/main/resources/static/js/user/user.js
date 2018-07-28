@@ -3,15 +3,15 @@
  */
 
 	$(function(){
-		getDefaultData();
+		getDefaultData(1);
 	});
 	
-	function getDefaultData(){
+	function getDefaultData(pageNum){
 
 		$.ajax({
 			type: "post",
 			async: true,
-	        url: "/user/qryUserByPageNum",
+	        url: "/user/qryUserByPageNum?pageNum="+pageNum,
 	        contentType: "application/json; charset=utf-8",
 	        data: "",
 	        dataType: "json",
@@ -42,10 +42,10 @@
 	            	for (var page in pageNum)
 	            	{
             			if(page==1){
-            				pageItem = '<li class="active"><a href="#">'+pageNum[page]+'</a></li>';
+            				pageItem = '<li class="active" ><a href="#" onClick="getUserInfoByPage('+pageNum[page]+')">'+pageNum[page]+'</a></li>';
             				pageHtml = pageHtml + pageItem;
             			}else{
-            				pageItem = '<li><a href="#">'+pageNum[page]+'</a></li>';
+            				pageItem = '<li><a href="#" onClick="getUserInfoByPage('+pageNum[page]+')">'+pageNum[page]+'</a></li>';
             				pageHtml = pageHtml + pageItem;
             			}
 	            	}
@@ -87,6 +87,10 @@
         }
       });
     });
+	
+	function getUserInfoByPage(pageNum){
+		getDefaultData(pageNum);
+	}
 	
 	//删除用户信息
 	function deleteUser(id){
