@@ -1,25 +1,42 @@
 /**
  * 用户页面
  */
+var custTotal = 0;
+//获取总条数
+$.ajax({
+	type : "post",
+	async : false,
+	url : "/user/qryAllUserCount",
+	contentType : "application/json; charset=utf-8",
+	data : "",
+	dataType : "json",
+	success : function(message) {
+		if (message.code == 0) {
+			custTotal =  message.data;
+			}
+		else {
+			layuiAlert(message.msg);
+		}
+		return true;
+	},
+	error : function() {
+		layuiAlert("系统环境异常");
+		return false;
+	}
+});
 
-	$(function(){
-		getDefaultData(1);
-	});
-	
-	function getDefaultData(pageNum){
-
+	function getDefaultData(startPage, endPage){
+		var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
 		$.ajax({
 			type: "post",
 			async: true,
-	        url: "/user/qryUserByPageNum?pageNum="+pageNum,
+	        url: "/user/qryUserByPageNum",
 	        contentType: "application/json; charset=utf-8",
-	        data: "",
+	        data: data,
 	        dataType: "json",
 	        success: function (message) {
 	        	if(message.code == 0){
 	        		var rtnData = message.data.userList;
-	        		var pageNum = message.data.pageNum;
-	            	
 	        		debugger;
 	        		
 					var html = '';	            	
@@ -35,24 +52,7 @@
 	      				html = html + trHead + name + telephone +remarks +registerTime+ btn+ trTail;
 	            	}
 	            	$("#userInfo").html(html);	
-	        		
-	            	var pageHtml = '';
-	            	var liHead = '<li class="prev disabled"><a href="#">← 上一页</a></li>';
-        			pageHtml = pageHtml + liHead;
-	            	for (var page in pageNum)
-	            	{
-            			if(page==1){
-            				pageItem = '<li class="active" ><a href="#" onClick="getUserInfoByPage('+pageNum[page]+')">'+pageNum[page]+'</a></li>';
-            				pageHtml = pageHtml + pageItem;
-            			}else{
-            				pageItem = '<li><a href="#" onClick="getUserInfoByPage('+pageNum[page]+')">'+pageNum[page]+'</a></li>';
-            				pageHtml = pageHtml + pageItem;
-            			}
-	            	}
-	            	var liTail = '<li class="next"><a href="#">下一页   →</a></li>';
-        			pageHtml = pageHtml + liTail;
-	            	$("#pageInfo").html(pageHtml);	
-	
+	        	
 	        	}else{
 	        		layer.open({
 	        			title : '提示',
@@ -142,3 +142,30 @@
 	        }
 	      });
 	}
+	
+	//分页有关的js
+	layui.use('laypage', function() {
+		var laypage = layui.laypage;
+		//执行一个laypage实例
+		laypage.render({
+			elem : 'paging', //注意，这里的 test1 是 ID，不用加 # 号
+			count : custTotal,//数据总数，从服务端得到
+			//curr:1,//获取起始页
+			groups : 3,//连续出现的页码个数
+			theme : '#578ebe',//自定义颜色
+			limits:[10, 20, 30, 50],
+			jump : function(obj, first) {//切换分页的回调
+				//首次执行
+				if (first) {
+					getDefaultData(0, obj.limit);
+				} else {
+					//obj包含了当前分页的所有参数
+					var custCurr = obj.curr;//当前页
+					var custLimit = obj.limit;//每页显示的条数
+					getDefaultData((custCurr - 1) * custLimit, obj.limit);
+				}
+			},
+			layout:['count','prev','page','next','limit','refresh','skip']
+
+		});
+	});

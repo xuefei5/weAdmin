@@ -166,4 +166,13 @@ public class UserSVImpl implements IUserSV{
 		}
 	}
 
+	@Override
+	public int qryUserCount() {
+		try {
+			return userDAO.qryUserCount();
+		}catch(Exception e){
+			return 0;
+		}
+	}
+
 }

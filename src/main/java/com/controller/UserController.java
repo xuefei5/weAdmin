@@ -255,4 +255,16 @@ public class UserController extends BaseController {
 
 		return Result.success(userSV.qryUserById(id));
 	}
+	
+	/**
+	 * 查询总条数
+	 * 
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryAllUserCount")
+	@ResponseBody
+	public Result<Integer> qryAllUserCount() {
+		int customerAllCount = userSV.qryUserCount();
+		return Result.success(customerAllCount);
+	}
 }
