@@ -2,11 +2,8 @@
  * 用户页面
  */
 
-
-$(function(){
-	var id = getUrlParam("id");
-	getDefaultData(id);
-});
+var id = getUrlParam("id");
+getDefaultData(id);
 
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -51,9 +48,12 @@ function getDefaultData(id){
 //用户修改提交
 layui.use('upload', function(){});
 $("#editUserBtn").click(function(){
+	editUser();
+});
+
+function editUser(){
 	debugger;
-	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()
-				+ '","nickName":"' + $("input[name='nickName']").val()
+	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
 				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}'; 
 	$.ajax({
@@ -64,16 +64,11 @@ $("#editUserBtn").click(function(){
         data: data,
         dataType: "json",
         success: function (message) {
-        	if(message.code == 0){
-        		var index = parent.layer.getFrameIndex(window.name);
-        		layer.msg('修改成功', {
-					icon : 1,
-					time : 500//1秒关闭（如果不配置，默认是3秒）
-				}, function() {
-					//刷新页面
-					parent.layer.close(index);
-					parent.location.reload();
-				});
+        	if(message.code == 100801){
+        		layer.open({
+        			title : '提示',
+        			content : "修改成功"
+        		})
         	}else{
         		layer.open({
         			title : '提示',
@@ -87,4 +82,4 @@ $("#editUserBtn").click(function(){
             return false;
         }
 	});
-});
+}

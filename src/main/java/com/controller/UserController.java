@@ -210,7 +210,7 @@ public class UserController extends BaseController {
 	 * 
 	 * @author yangsheng
 	 */
-	@RequestMapping(value = "/updateUser")
+	@RequestMapping(value = "/updateUser",method = RequestMethod.POST)
 	@ResponseBody
 	public Result<CodeMsg> updateUser(HttpServletRequest request) {
 		
