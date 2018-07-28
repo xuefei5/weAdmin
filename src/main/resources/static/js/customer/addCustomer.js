@@ -105,18 +105,21 @@ function checkForm() {
 	}
 	//对文件大小以及文件类型做判断
 	var headFile = $("input[name='headFile']");
-	var headFile_p = $("#headFile_p");
-	var fileSize = headFile[0].files[0].size;
 	var path = headFile.val();
-	var extStart = path.lastIndexOf('.'),
-    ext = path.substring(extStart, path.length).toUpperCase();
-    if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG' && ext !== '.GIF'&&fileSize>FILE_MAX_SIZE) {
-    	headFile_p.css("color","red");
-    	headFile.val(""); 
- 	    return false;
-    }else{
-    	headFile_p.css("color","#578ebe");
-     }
+	var headFile_p = $("#headFile_p");
+	if (path != "") {
+		var fileSize = headFile[0].files[0].size;
+		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
+				path.length).toUpperCase();
+		if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG'
+				&& ext !== '.GIF' && fileSize > FILE_MAX_SIZE) {
+			headFile_p.css("color", "red");
+			headFile.val("");
+			return false;
+		} else {
+			headFile_p.css("color", "#578ebe");
+		}
+	}
 	return true;
 }
 
