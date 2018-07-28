@@ -199,6 +199,7 @@ layui.use('laypage', function() {
 		//curr:1,//获取起始页
 		groups : 3,//连续出现的页码个数
 		theme : '#578ebe',//自定义颜色
+		limits:[10, 20, 30, 50],
 		jump : function(obj, first) {//切换分页的回调
 			//首次执行
 			if (first) {
@@ -207,9 +208,10 @@ layui.use('laypage', function() {
 				//obj包含了当前分页的所有参数
 				var custCurr = obj.curr;//当前页
 				var custLimit = obj.limit;//每页显示的条数
-				getAllCustomerInfo((custCurr - 1) * custLimit, custCurr * custLimit);
+				getAllCustomerInfo((custCurr - 1) * custLimit, obj.limit);
 			}
-		}
+		},
+		layout:['count','prev','page','next','limit','refresh','skip']
 
 	});
 });
