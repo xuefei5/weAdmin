@@ -1,7 +1,5 @@
 package com.dao.interfaces;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +7,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.bean.Order;
-import com.bean.User;
 
 @Mapper
 public interface IOrderDAO{	
@@ -23,7 +20,7 @@ public interface IOrderDAO{
 	public Order qryById(@Param("id")int id);
 	
 	/*删除订单对象*/
-	@Update("UPDATE order SET state='0' wehere  id = #{id}")
+	@Update("UPDATE order SET state='0' where  id = #{id}")
 	public int delete(@Param("id")int id);
 
 }
