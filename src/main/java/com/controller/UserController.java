@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.bean.Customer;
 import com.bean.Test;
 import com.bean.User;
 import com.result.CodeMsg;
@@ -42,15 +43,14 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public Result<Map<String,Object>> qryUserByPageNum(HttpServletRequest request) {
 
-		int pageNum = Integer
-				.parseInt(null == request.getParameter("pageNum") ? "1"
-						: request.getParameter("pageNum"));
-		List<User> userList = userSV.qryUserByPageNum(pageNum);
+		JSONObject jsonObj = super.getInputObject(request);
+		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
+		int endPage = Integer.parseInt(jsonObj.getString("endPage"));
 		
-		Map<String,Object> rtnMap = new HashMap<String, Object>();
-		rtnMap.put("userList", userList);
-		rtnMap.put("pageNum", userSV.qryPageNum());
-		return Result.success(rtnMap);
+		Map<String,Object> mapToClient = new HashMap<String,Object>();
+		List<User> userList = userSV.qryUserByPageNum(startPage,endPage);
+		mapToClient.put("userList", userList);
+		return Result.success(mapToClient);
 	}
 
 	/**

@@ -33,7 +33,7 @@ public interface IUserSV {
 	public Boolean isLoin();
 	
 	//分页查询用户列表
-	public List<User> qryUserByPageNum(int pageNum);
+	public List<User> qryUserByPageNum(int startPage,int count);
 	
 	//查询用户页数
 	public List<Integer> qryPageNum();

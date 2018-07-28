@@ -136,9 +136,9 @@ public class UserSVImpl implements IUserSV{
 	}
 
 	@Override
-	public List<User> qryUserByPageNum(int pageNum) {
+	public List<User> qryUserByPageNum(int startPage,int count) {
 		try {
-			return (List<User>) userDAO.qryUserByPageNum(LocalConstants.PAGE_SET.PAGE_SIZE*(pageNum-1), LocalConstants.PAGE_SET.PAGE_SIZE*pageNum);
+			return (List<User>) userDAO.qryUserByPageNum(startPage, count);
 		}catch(Exception e) {
 			return null;
 		}
