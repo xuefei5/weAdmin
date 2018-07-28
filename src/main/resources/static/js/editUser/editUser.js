@@ -55,20 +55,27 @@ function editUser(){
 	debugger;
 	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
-				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}'; 
+				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}';
 	$.ajax({
 		type: "post",
-		async: true,
+		forceSync : false,
         url: "/user/updateUser",
         contentType: "application/json; charset=utf-8",
         data: data,
         dataType: "json",
         success: function (message) {
-        	if(message.code == 100801){
-        		layer.open({
-        			title : '提示',
-        			content : "修改成功"
-        		})
+        	if(message.code == 0){
+        		//点击确认关闭该层
+				var index = parent.layer.getFrameIndex(window.name);
+				layer.msg('保存成功', {
+					icon : 1,
+					time : 1200
+				//1.2秒关闭（如果不配置，默认是3秒）
+				}, function() {
+					//关闭弹出层并且刷新父页面
+					parent.layer.close(index);
+					parent.location.reload();
+				});
         	}else{
         		layer.open({
         			title : '提示',
@@ -82,4 +89,5 @@ function editUser(){
             return false;
         }
 	});
+	
 }
