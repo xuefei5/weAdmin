@@ -10,6 +10,7 @@ public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	private int userId;
 	private int customerId;
 	private String ordertime;
 	private int total;
@@ -24,6 +25,12 @@ public class Order implements Serializable{
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public int getCustomerId() {
 		return customerId;
