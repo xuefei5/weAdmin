@@ -43,7 +43,7 @@ public interface IUserDAO{
 	
 	/*分页查询用户对象*/
 	@Select("select * from user where state='1' order by registerTime desc limit #{start} , #{end} ")
-	public List<User> qryUserByPageNum(@Param("start")int id,@Param("end")int end);
+	public List<User> qryUserByPageNum(@Param("start")int start,@Param("end")int end);
 
 	/*查询用户数据条数*/
 	@Select("select count(*) from user where state='1'")
