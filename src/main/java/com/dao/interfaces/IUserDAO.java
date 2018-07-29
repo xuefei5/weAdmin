@@ -46,6 +46,6 @@ public interface IUserDAO{
 	public List<User> qryUserByPageNum(@Param("start")int id,@Param("end")int end);
 
 	/*查询用户数据条数*/
-	@Select("select count(*) from user")
+	@Select("select count(*) from user where state='1'")
 	public int qryUserCount();
 }

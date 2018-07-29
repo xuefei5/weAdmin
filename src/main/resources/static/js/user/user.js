@@ -1,6 +1,7 @@
 /**
  * 用户页面
  */
+debugger;
 var custTotal = 0;
 //获取总条数
 $.ajax({
@@ -37,7 +38,6 @@ $.ajax({
 	        success: function (message) {
 	        	if(message.code == 0){
 	        		var rtnData = message.data.userList;
-	        		debugger;
 	        		
 					var html = '';	            	
 	            	for (var order in rtnData)
@@ -163,10 +163,9 @@ $.ajax({
 					//obj包含了当前分页的所有参数
 					var custCurr = obj.curr;//当前页
 					var custLimit = obj.limit;//每页显示的条数
-					getDefaultData((custCurr - 1) * custLimit, obj.limit);
+					getDefaultData((custCurr - 1) * custLimit, custLimit);
 				}
 			},
-			layout:['count','prev','page','next','limit','refresh','skip']
-
+			layout : [ 'prev', 'page', 'next', 'skip', 'count', 'limit','refresh' ]
 		});
 	});
