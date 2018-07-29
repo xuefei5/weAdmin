@@ -17,7 +17,7 @@ public interface IOrderDAO{
 	
 	/*根据客户id分页查询订单对象*/
 	@Select("select * from order where customerId = #{customerId} and state='1' order by ordertime desc limit #{start} , #{end}")
-	public Order qryById(@Param("id")int id,@Param("start")int start,@Param("end")int end);
+	public Order qryOrderByPageNum(@Param("id")int id,@Param("start")int start,@Param("end")int end);
 	
 	/*删除订单对象*/
 	@Update("UPDATE order SET state='0' where  id = #{id}")
