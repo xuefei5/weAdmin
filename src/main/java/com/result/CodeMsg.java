@@ -19,7 +19,10 @@ public class CodeMsg {
 	
 	
 	//订单模块 1004XX
-
+	public static CodeMsg ORDER_ADD_SUCCESS = new CodeMsg(100401, "添加订单成功");
+	public static CodeMsg ORDER_ADD_FAIL = new CodeMsg(100402, "添加订单失败");
+	public static CodeMsg ORDER_DELETE_SUCCESS = new CodeMsg(100403, "删除订单成功");
+	public static CodeMsg ORDER_DELETE_FAIL = new CodeMsg(100404, "删除订单失败");
 	
 	//文件模块 1005XX
 	
