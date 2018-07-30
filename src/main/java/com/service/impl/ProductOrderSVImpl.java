@@ -9,20 +9,20 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bean.ProductCart;
-import com.dao.interfaces.IProductCartDAO;
-import com.service.interfaces.IProductCartSV;
+import com.bean.ProductOrder;
+import com.dao.interfaces.IProductOrderDAO;
+import com.service.interfaces.IProductOrderSV;
 
 @Service
-public class ProductCartSVImpl implements IProductCartSV{
+public class ProductOrderSVImpl implements IProductOrderSV{
 
-	private static final transient Logger logger = Logger.getLogger(ProductCartSVImpl.class);
+	private static final transient Logger logger = Logger.getLogger(ProductOrderSVImpl.class);
 	
 	@Autowired
-	ProductCart productCart;
+	ProductOrder productOrder;
 	
 	@Autowired
-	IProductCartDAO productCartDAO;
+	IProductOrderDAO productOrderDAO;
 	
 	@Autowired  
 	private HttpServletRequest request; 
@@ -31,10 +31,10 @@ public class ProductCartSVImpl implements IProductCartSV{
 	private HttpSession session;  
 
 	@Override
-	public Boolean addProductCart(ProductCart productCart) {
+	public Boolean addProductOrder(ProductOrder productOrder) {
 		try{
-			productCart.setState("1");
-			int retNum = productCartDAO.insert(productCart);
+			productOrder.setState("1");
+			int retNum = productOrderDAO.insert(productOrder);
 			if(retNum == 1) {
 				return true;
 			}
@@ -45,9 +45,9 @@ public class ProductCartSVImpl implements IProductCartSV{
 	}
 
 	@Override
-	public Boolean deleteProductCart(int id) {
+	public Boolean deleteProductOrder(int id) {
 		try{
-			int retNum = productCartDAO.delete(id);
+			int retNum = productOrderDAO.delete(id);
 			if(retNum == 1) {
 				return true;
 			}
@@ -58,9 +58,9 @@ public class ProductCartSVImpl implements IProductCartSV{
 	}
 
 	@Override
-	public List<ProductCart> qryProductCartByPageNum(int startPage, int count) {
+	public List<com.bean.ProductOrder> qryProductOrderByOrderId(int orderId) {
 		try {
-			return productCartDAO.qryProductCartByPageNum(startPage, count);
+			return productOrderDAO.qryProductOrderByOrderId(orderId);
 		}catch(Exception e) {
 			return null;
 		}
