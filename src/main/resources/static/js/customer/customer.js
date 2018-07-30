@@ -5,6 +5,8 @@
  */
 // 定义客户信息的总条数
 var custTotal = 0;
+//客户查看-弹出层ID
+var LAY_layuipro;
 // 获取总条数
 $.ajax({
 	type : "post",
@@ -135,31 +137,28 @@ function seeCustomerInfo(id) {
 }
 //弹出框
 function openSeeCustInfo(customer){
-/*    layer.open({
+	LAY_layuipro=layer.open({
         type: 1
+        ,offset :"["+getMouseXY()+"]"
         ,title: false //不显示标题栏
         ,closeBtn: false
-        ,area: '300px;'
+        ,area: ['50%','30%']
         ,shade: 0
         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-        ,btn: ['火速围观', '残忍拒绝']
         ,moveType: 1 //拖拽模式，0或者1
-        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
-        ,success: function(layero){
-          var btn = layero.find('.layui-layer-btn');
-          btn.css('text-align', 'center');
-          btn.find('.layui-layer-btn0').attr({
-            href: 'http://www.layui.com/'
-            ,target: '_blank'
-          });
-        }
-      });*/
+        ,content: '这是一个提示层'
+      });
 }
 
 //鼠标移出事件
 function mouseOut(){
-	var layuiPro = layer.getFrameIndex("LAY_layuipro");
-	layer.close(layuiPro);
+	layer.close(LAY_layuipro);
+}
+
+function getMouseXY(){  
+    var varpositionX=$("#aaaaa").pageX-$("#aaaaa").offset().left; //获取当前鼠标相对img的X坐标  
+    var varpositionY=$("#aaaaa").offset().top; //获取当前鼠标相对img的Y坐标  
+    return [varpositionX,varpositionY];
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
@@ -273,3 +272,4 @@ layui.use('laypage', function() {
 
 			});
 });
+$("[data-toggle='tooltip']").tooltip();
