@@ -43,5 +43,5 @@ public interface IProductDAO{
 	
 	/*查询商品数据条数*/
 	@Select("select count(*) from product where name like CONCAT('%',#{name},'%') and state='1' ")
-	public int qryProductByNameCount();
+	public int qryProductByNameCount(@Param("name")String name);
 }
