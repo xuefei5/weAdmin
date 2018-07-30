@@ -9,6 +9,10 @@ public class LocalConstants {
 	/*系统静态字段*/
 	public static abstract interface CONST_SET {
 		String RESP_OUTOBJECT = "rtnObject";
+		//文件上传路径
+		String FILE_UPLOAD_PATH = "G:\\FtpFile\\custHead\\";
+		//文件最大允许上传
+		int FILE_MAX_SIZE = 4*1024*1024;
 	}
 
 	/*常量映射-示范*/
@@ -138,16 +142,5 @@ public class LocalConstants {
 		//设置分页的大小为10
 		int PAGE_SIZE = 10;
 	}
-	
-	/**
-	 *订单状态
-	 *下单 1
-	 *退单 2
-	 *接单 3
-	 *完成 4
-	 *验收 5
-	 *追加 6
-	 *二次接单 7
-	 *二次完成 8
-	 */
+
 }

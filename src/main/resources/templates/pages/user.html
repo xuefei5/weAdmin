@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- start: Meta -->
+<meta charset="utf-8" />
+<title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
+<meta name="description" content="Bootstrap Metro Dashboard" />
+<meta name="author" content="Dennis Ji" />
+<meta name="keyword"
+	content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina" />
+<!-- end: Meta -->
+
+<!-- start: Mobile Specific -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end: Mobile Specific -->
+
+<!-- start: CSS -->
+<!-- layui使用的css -->
+<link href="../layui/css/layui.css" type="text/css" rel="stylesheet" />
+<link id="bootstrap-style" href="../../css/main/bootstrap.min.css" rel="stylesheet" />	
+<link id="base-style" href="../../css/main/style.css" rel="stylesheet" />
+<link id="base-style-responsive" href="../../css/main/style-responsive.css" rel="stylesheet" />
+<!-- end: CSS --> 
+
+
+</head>
+
+<body>
+
+	<div style="padding: 22px;margin: 0px 0px;">
+
+		<div class="row-fluid sortable ui-sortable" >
+			<div class="box span12">
+				<div class="box-header" data-original-title="">
+					<h2>
+						<i class="halflings-icon white user"></i><span class="break"></span>用户信息
+					</h2>
+				</div>
+				<div class="box-content">
+					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper"
+						role="grid">
+						<!-- <div class="row-fluid">
+							<div class="span6">
+								<div id="DataTables_Table_0_length" class="dataTables_length">
+									<label>请选择条件查询：<select size="1"
+										name="DataTables_Table_0_length"
+										aria-controls="DataTables_Table_0"><option value="10"
+												selected="selected">姓名</option>
+											<option value="25">年龄</option>
+											<option value="50">用户名</option>
+											<option value="100">用户状态</option></select></label>
+								</div>
+							</div>
+							<div class="span6">
+								<div class="dataTables_filter" id="DataTables_Table_0_filter">
+									<label>查询值: <input type="text"
+										aria-controls="DataTables_Table_0"/></label>
+								</div>
+							</div>
+						</div> -->
+						<table
+							class="table table-striped table-bordered bootstrap-datatable datatable dataTable"
+							id="DataTables_Table_0"
+							aria-describedby="DataTables_Table_0_info">
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Username: activate to sort column descending"
+										style="width: 247px;">用户姓名</th>
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Username: activate to sort column descending"
+										style="width: 247px;">用户昵称</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Date registered: activate to sort column ascending"
+										style="width: 365px;">手机号码</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">用户简介</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Actions: activate to sort column ascending"
+										style="width: 424px;">添加日期</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Actions: activate to sort column ascending"
+										style="width: 424px;">用户操作</th>
+								</tr>
+							</thead>
+
+							<tbody role="alert" aria-live="polite" aria-relevant="all" id="userInfo">
+								<!-- <tr class="odd">
+									<td class="  sorting_1">薛飞</td>
+									<td class="center ">1854312419</td>
+									<td class="center ">为了测试</td>
+									<td class="center ">2018-03-23
+									<span class="label label-success">hello</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="even">
+									<td class="  sorting_1">杨胜</td>
+									<td class="center ">15845214521</td>
+									<td class="center ">不仅仅是测试</td>
+									<td class="center ">2018-03-25
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info"  href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr> -->
+								
+								<!-- <tr class="odd">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/01/01</td>
+									<td class="center ">Member</td>
+									<td class="center "><span class="label label-success">Active</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+
+								</tr>
+								<tr class="even">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/01/01</td>
+									<td class="center ">Member</td>
+									<td class="center "><span class="label label-success">Active</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="odd">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/02/01</td>
+									<td class="center ">Staff</td>
+									<td class="center "><span class="label label-important">Banned</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr> -->
+								<!-- <tr class="even">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/02/01</td>
+									<td class="center ">Staff</td>
+									<td class="center "><span class="label label-important">Banned</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="odd">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/03/01</td>
+									<td class="center ">Member</td>
+									<td class="center "><span class="label label-warning">Pending</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="even">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/03/01</td>
+									<td class="center ">Member</td>
+									<td class="center "><span class="label label-warning">Pending</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="odd">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/01/21</td>
+									<td class="center ">Staff</td>
+									<td class="center "><span class="label label-success">Active</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr>
+								<tr class="even">
+									<td class="  sorting_1">Dennis Ji</td>
+									<td class="center ">2012/01/21</td>
+									<td class="center ">Staff</td>
+									<td class="center "><span class="label label-success">Active</span>
+									</td>
+									<td class="center "><a class="btn btn-success" href="#">
+											<i class="halflings-icon white zoom-in"></i>
+									</a> <a class="btn btn-info" href="#"> <i
+											class="halflings-icon white edit"></i>
+									</a> <a class="btn btn-danger" href="#"> <i
+											class="halflings-icon white trash"></i>
+									</a></td>
+								</tr> -->
+							</tbody>
+						</table>
+						<div class="row-fluid">
+							<div class="span12 center">
+								<div class="dataTables_paginate paging_bootstrap pagination" style="float: left;" id="paging">
+									<!-- <ul id="pageInfo">
+										<li class="prev disabled"><a href="#">← Previous</a></li>
+										<li class="active"><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li class="next"><a href="#">Next → </a></li>
+									</ul> -->
+								</div>
+								
+								<button id="addUser" type="button" class="btn btn-primary" style="margin: 20px 0;float: right;">增加用户</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/span-->
+
+		</div>
+
+
+	</div>
+
+	<!-- start: JavaScript-->
+
+	<script src="../../js/main/jquery-1.9.1.min.js"></script>
+	<!-- layui使用的js -->
+    <script src="../layui/layui.js"></script>
+    
+    <!-- start: JS -->
+	<script src="../js/user/user.js"></script>
+	<!-- end: JS --> 
+
+	<!-- end: JavaScript-->
+</body>
+</html>

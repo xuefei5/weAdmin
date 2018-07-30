@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <script src="../js/main/jquery-1.8.3.js"></script>
+    
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#ajaxTest").click(function(){
+		post();
+		return false;
+	})
+});
+
+function post(){
+	/* 根据name值拼接样例，其他根据id，class不进行赘述 */
+	/* var data = '{ "name":"' + $("input[name='username']").val() + '","password":"' + $("input[name='password']").val() + '"}'; */
+	
+	$.ajax({
+		type: "post",
+		async: true,
+        url: "/demo/resolveByAjax",
+        contentType: "application/json; charset=utf-8",
+        data: "",
+        dataType: "json",
+        success: function (message) {
+        	if(message.code == 0){
+        		alert("返回成功结果");
+        		
+        		debugger;
+				var rtnData = message.data;
+            	
+            	var html = '<table class="table" id="testList"><tr><td>姓名</td><td>年龄</td></tr>';
+            	
+            	for (var testObj in rtnData)
+            	{
+            		var trHead = '<tr>';
+      				var tdName = '<td>'+rtnData[testObj].name+'</td>';
+      				var tdAge = '<td>'+rtnData[testObj].age+'</td>';
+      				var trTail = '</tr>';
+      				html = html + trHead + tdName + tdAge + trTail;
+            	}
+            	
+            	html+='</table>';
+            	
+            	$("#contentShow").html(html);	
+        	}else{
+        		alert("返回失败结果");
+        	}
+        	return true;
+        },
+        error: function (message) {
+            alert("系统环境异常");
+            return false;
+        }
+	});
+}
+</script>
+</head>
+<body>
+	<button id="ajaxTest">Ajax 提交</button>
+	<div id="contentShow" style="height:800px;width:200px"></div>
+</body>
+</html>

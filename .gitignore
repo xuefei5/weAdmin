@@ -1,8 +1,9 @@
 /target/
-/.idea/
 /.settings/
 .project
-crmpfcore.iml
 .classpath
 .class
-/bin/
+usingStandards.txt
+.properties
+.prefs
+pom.properties
