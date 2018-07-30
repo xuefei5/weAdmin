@@ -142,4 +142,20 @@ public class ProductController extends BaseController {
 		int productCount = productSV.qryProductByNameCount(name);
 		return Result.success(productCount);
 	}
+	
+	/**
+	 * 商品购买
+	 * @author yangsheng
+	 */
+	@RequestMapping("/purchaseProduct")
+	@ResponseBody
+	public Result<CodeMsg> purchaseProduct(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		
+		if (productSV.purchaseProduct(jsonObj)) {
+			return Result.success(CodeMsg.PRODUCT_PURCHASE_SUCCESS);
+		} else {
+			return Result.error(CodeMsg.PRODUCT_PURCHASE_FAIL);
+		}
+	}
 }

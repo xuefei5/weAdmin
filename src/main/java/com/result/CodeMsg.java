@@ -22,6 +22,8 @@ public class CodeMsg {
 	public static CodeMsg PRODUCT_DELETE_FAIL = new CodeMsg(100305, "删除商品失败");
 	public static CodeMsg PRODUCT_UPDATE_SUCCESS = new CodeMsg(100306, "商品更新成功");
 	public static CodeMsg PRODUCT_UPDATE_FAIL = new CodeMsg(100307, "商品更新失败");
+	public static CodeMsg PRODUCT_PURCHASE_SUCCESS = new CodeMsg(100308, "商品购买成功");
+	public static CodeMsg PRODUCT_PURCHASE_FAIL = new CodeMsg(100309, "商品购买失败");
 	
 	//订单模块 1004XX
 	public static CodeMsg ORDER_ADD_SUCCESS = new CodeMsg(100401, "添加订单成功");

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
 import com.bean.User;
 import com.dao.interfaces.IProductDAO;
@@ -112,5 +113,13 @@ public class ProductSVImpl implements IProductSV{
 		}catch(Exception e){
 			return 0;
 		}
+	}
+
+	@Override
+	public Boolean purchaseProduct(JSONObject jsonObject) {
+		Boolean falg;
+		int customerId = (Integer) (null == jsonObject.get("customerId")?0:jsonObject.get("customerId"));
+		
+		return null;
 	}
 }

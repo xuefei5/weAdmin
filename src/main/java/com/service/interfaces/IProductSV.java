@@ -2,6 +2,7 @@ package com.service.interfaces;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
 
 
@@ -27,4 +28,7 @@ public interface IProductSV {
 	
 	//商品名称模糊查询商品对象条数
 	public int qryProductByNameCount(String name);
+	
+	//商品购买
+	public Boolean purchaseProduct(JSONObject jsonObject);
 }
