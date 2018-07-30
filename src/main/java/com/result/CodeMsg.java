@@ -16,7 +16,12 @@ public class CodeMsg {
 	
 	//商品模块 1003XX
 	public static CodeMsg PRODUCT_NOT_EXIST = new CodeMsg(100301, "商品信息不存在");
-	
+	public static CodeMsg PRODUCT_ADD_SUCCESS = new CodeMsg(100302, "添加商品成功");
+	public static CodeMsg PRODUCT_ADD_FAIL = new CodeMsg(100303, "添加商品失败");
+	public static CodeMsg PRODUCT_DELETE_SUCCESS = new CodeMsg(100304, "删除商品成功");
+	public static CodeMsg PRODUCT_DELETE_FAIL = new CodeMsg(100305, "删除商品失败");
+	public static CodeMsg PRODUCT_UPDATE_SUCCESS = new CodeMsg(100306, "商品更新成功");
+	public static CodeMsg PRODUCT_UPDATE_FAIL = new CodeMsg(100307, "商品更新失败");
 	
 	//订单模块 1004XX
 	public static CodeMsg ORDER_ADD_SUCCESS = new CodeMsg(100401, "添加订单成功");
