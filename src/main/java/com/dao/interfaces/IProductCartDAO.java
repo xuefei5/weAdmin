@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.bean.Product;
 import com.bean.ProductCart;
 
 @Mapper
@@ -18,11 +19,10 @@ public interface IProductCartDAO{
 	public int insert(ProductCart productCart);
 	
 	/*删除购物车商品对象*/
-	@Update("UPDATE productcart SET state='0' where  id = #{id}")
+	@Update("UPDATE productcart SET state='0' where id = #{id}")
 	public int delete(@Param("id")int id);
 	
-	/*查询购物车商品*/
-	@Select("select * from productcart where state='1'")
-	public List<ProductCart> qryAll();
-
+	/*分页查询购物车商品*/
+	@Select("select * from productcart where state='1' limit #{start} , #{end} ")
+	public List<ProductCart> qryProductCartByPageNum(@Param("start")int start,@Param("end")int end);
 }
