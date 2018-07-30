@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
@@ -116,9 +117,23 @@ public class ProductSVImpl implements IProductSV{
 	}
 
 	@Override
+	@Transactional
 	public Boolean purchaseProduct(JSONObject jsonObject) {
-		Boolean falg;
-		int customerId = (Integer) (null == jsonObject.get("customerId")?0:jsonObject.get("customerId"));
+		Boolean falg = false;
+		if(null == jsonObject.get("customerId")) {
+			return falg;
+		}
+		int customerId = (Integer) (jsonObject.get("customerId"));
+		
+		@SuppressWarnings("unchecked")
+		List<JSONObject> productList = (List<JSONObject>) jsonObject.get("productList");
+		if(null == productList||productList.size() == 0) {
+			return falg;
+		}
+		
+		
+		
+		
 		
 		return null;
 	}
