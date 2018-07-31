@@ -1,6 +1,7 @@
 package com.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
+import com.bean.ProductOrder;
 import com.bean.User;
 import com.dao.interfaces.IProductDAO;
 import com.dao.interfaces.IUserDAO;
@@ -130,8 +132,32 @@ public class ProductSVImpl implements IProductSV{
 		if(null == productList||productList.size() == 0) {
 			return falg;
 		}
+		int orderId;
+		
+		//生成订单，并返回订单编号
+		String orderProductName;
+		String orderProductTip;
+		String orderProductImgRef;
+		int orderTotal = 0;
+		for(int i=0;i<productList.size();i++) {
+			JSONObject object=productList.get(i);
+			if(i == 0) {
+				orderProductName=(String) object.get("productName");
+				orderProductTip=(String) object.get("productTip");
+				orderProductImgRef=(String) object.get("productImgRef");
+			}
+			orderTotal += Integer.parseInt(String.valueOf(object.get("productPrice")))
+							*Integer.parseInt(String.valueOf(object.get("productCount")));
+		}
 		
 		
+		//已经获取订单号，添加订单商品
+		for(JSONObject object:productList) {
+			HashMap<String,Object> product = (HashMap<String, Object>) object.get("product");
+			
+			//进行订单商品添加
+			ProductOrder productOrder = new ProductOrder();
+		}
 		
 		
 		
