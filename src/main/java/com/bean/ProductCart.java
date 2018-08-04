@@ -11,7 +11,6 @@ public class ProductCart implements Serializable{
 	
 	private int id;
 	private String userId;
-	private String customerId;
 	private String productId;
 	private String productName;
 	private String productTip;
@@ -30,12 +29,6 @@ public class ProductCart implements Serializable{
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-	public String getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
 	}
 	public String getProductId() {
 		return productId;
