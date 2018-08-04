@@ -41,7 +41,7 @@ function layuiAlert(content) {
 }
 
 // 添加商品信息
-$("#addCustomer").click(function() {
+$("#addProduct").click(function() {
 	layer.open({
 		type : 2,
 		title : '添加商品信息',
@@ -80,12 +80,12 @@ function updateCustomer(id) {
 }
 
 // 删除商品信息
-function deleteCustomer(id) {
+function deleteProduct(id) {
 	var data = '{ "id":"' + id + '"}';
 	$.ajax({
 		type : "post",
 		async : true,
-		url : "/cust/deleteProduct",
+		url : "/prod/deleteProduct",
 		contentType : "application/json; charset=utf-8",
 		data : data,
 		dataType : "json",
@@ -206,7 +206,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.id
 													+ ')" onmouseout="mouseOut()"><i class=" halflings-icon shopping-cart white"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
 													+ item.id
-													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteCustomer('
+													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProduct('
 													+ item.id
 													+ ')"><i class="halflings-icon white trash"></i></a></td>';
 											var trTail = '</tr>';
