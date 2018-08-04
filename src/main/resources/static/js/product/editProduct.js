@@ -16,7 +16,7 @@ function getDefaultData(id){
 	$.ajax({
 		type: "post",
 		async: false,
-        url: "/user/qryUserById",
+        url: "/prod/qryProductById",
         contentType: "application/json; charset=utf-8",
         data: data,
         dataType: "json",
@@ -26,10 +26,8 @@ function getDefaultData(id){
             	
         		$("input[name='id']").val(rtnData.id);
         		$("input[name='name']").val(rtnData.name);
-        		$("input[name='nickName']").val(rtnData.nickName);
-        		$("input[name='telephone']").val(rtnData.telephone);
-        		$("input[name='password']").val(rtnData.password);
-        		$("textarea[name='remarks']").val(rtnData.remarks);
+        		$("input[name='tip']").val(rtnData.tip);
+        		$("input[name='price']").val(rtnData.price);
         	}else{
         		layer.open({
         			title : '提示',
@@ -47,19 +45,18 @@ function getDefaultData(id){
 
 //用户修改提交
 layui.use('upload', function(){});
-$("#editUserBtn").click(function(){
-	editUser();
+$("#editProductBtn").click(function(){
+	editProduct();
 });
 
-function editUser(){
+function editProduct(){
 	debugger;
-	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
-				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
-				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}';
+	var data = '{ "name":"' + $("input[name='name']").val() + '",id:' + $("input[name='id']").val()+ ',"tip":"' + $("input[name='tip']").val()
+				+'","price":' + $("input[name='price']").val() + '}';
 	$.ajax({
 		type: "post",
 		forceSync : false,
-        url: "/user/updateUser",
+        url: "/prod/updateProduct",
         contentType: "application/json; charset=utf-8",
         data: data,
         dataType: "json",

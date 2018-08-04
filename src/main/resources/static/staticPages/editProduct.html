@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>addCustomer.html</title>
+<title>editProduct.html</title>
 
 <meta name="keywords" content="keyword1,keyword2,keyword3" />
 <meta name="description" content="this is my page" />
@@ -43,8 +43,15 @@
 			<div class="box-content">
 				<form class="form-horizontal" id="CustomerForm" enctype="multipart/form-data">
 					<fieldset>
+						<!-- id -->
+						<div class="control-group" style="display: none;">
+							<label class="control-label" for="typeahead">ID </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="id"/>
+							</div>
+						</div>
 						
-					     <!-- 客户名  -->
+					    <!-- 客户名  -->
 						<div class="control-group">
 							<label class="control-label" for="typeahead">商品名称 </label>
 							<div class="controls">
@@ -78,7 +85,7 @@
 						</div>
 	
 						<div class="form-actions">
-							<button id="prodSubmitBtn" type="button" class="btn btn-primary">保存</button>
+							<button id="editProductBtn" type="button" class="btn btn-primary">保存</button>
 							<button id="closePage" type="reset" class="btn">取消</button>
 						</div>
 					</fieldset>
@@ -96,7 +103,7 @@
 	<script src="../../js/main/jquery-form.js"></script>
 	
 	<script src="../layui/layui.js"></script>
-	<script src="../../js/product/addProduct.js"></script>
+	<script src="../../js/product/editProduct.js"></script>
 
 	
 	<script src="../../js/main/jquery-migrate-1.0.0.min.js"></script>

@@ -192,4 +192,13 @@ public class ProductSVImpl implements IProductSV{
 		
 		return null;
 	}
+
+	@Override
+	public Product qryProductById(int id) {
+		try {
+			return productDAO.qryById(id);
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

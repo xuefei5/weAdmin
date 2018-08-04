@@ -34,4 +34,7 @@ public interface IProductSV {
 	
 	//商品添加购物车
 	public Boolean addProdToCart(int productId);
+	
+	//id查询商品对象
+	public Product qryProductById(int id);
 }

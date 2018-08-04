@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.bean.Product;
+import com.bean.User;
 import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.IProductSV;
@@ -101,7 +102,7 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/updateProduct",method = RequestMethod.POST)
 	@ResponseBody
 	public Result<CodeMsg> updateProduct(HttpServletRequest request) {
-		
+
 		String inputStr = super.getInputString(request);
 		Product Product = JSON.parseObject(inputStr, new TypeReference<Product>() {});
 		
@@ -185,5 +186,20 @@ public class ProductController extends BaseController {
 		} else {
 			return Result.error(CodeMsg.PRODUCT_PURCHASE_FAIL);
 		}
+	}
+	
+	/**
+	 * id查询商品
+	 * 
+	 * @author yangsheng
+	 */
+	@RequestMapping(value = "/qryProductById")
+	@ResponseBody
+	public Result<Product> qryProductById(HttpServletRequest request) {
+
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
+
+		return Result.success(productSV.qryProductById(id));
 	}
 }
