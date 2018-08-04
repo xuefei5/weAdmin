@@ -73,6 +73,7 @@ public class OrderSVImpl implements IOrderSV{
 		try {
 			return (List<Order>) orderDAO.qryOrderByPageNum(customerId, startPage, count);
 		}catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

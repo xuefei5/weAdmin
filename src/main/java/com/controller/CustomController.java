@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Customer;
+import com.bean.Order;
 import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.ICustomerSV;
@@ -39,6 +40,8 @@ public class CustomController extends BaseController{
 	
 	@Autowired
 	ICustomerSV iCustSV;
+	@Autowired
+	OrderController orderController;
 
 	/**
 	 * 分页查询客户
@@ -231,7 +234,7 @@ public class CustomController extends BaseController{
 	}
 	
 	/**
-	 * 姓名查询客户
+	 * Id查询客户
 	 * 
 	 * @author xuefei
 	 */
@@ -242,6 +245,29 @@ public class CustomController extends BaseController{
 		int id = Integer.parseInt(jsonObj.getString("id"));
 		Customer Customer = iCustSV.qryById(id);
 		return Result.success(Customer);
+	}
+	
+	/**
+	 * Id查询客户
+	 * 
+	 * @author xuefei
+	 */
+	@RequestMapping(value = "/qryCustAndOrderByCustId")
+	@ResponseBody
+	public Result<Map<String,Object>> qryCustAndOrderByCustId(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		//根据客户ID查询客户信息
+		int id = Integer.parseInt(jsonObj.getString("id"));
+		Customer customer = iCustSV.qryById(id);
+		//根据客户信息ID查询订单信息
+		List<Order> orders = orderController.qryOrderByPageNumForIndoor(id,"0","10");
+		
+		//封装出参
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("customer", customer);
+		result.put("orderList", orders);
+		
+		return Result.success(result);
 	}
 
 }
