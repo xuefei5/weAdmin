@@ -39,7 +39,6 @@ function layuiAlert(content) {
 		content : content
 	});
 }
-
 // 添加客户信息
 $("#addCustomer").click(function() {
 	layer.open({
@@ -123,7 +122,7 @@ function seeCustomerInfo(id) {
 		success : function(message) {
 			//成功返回则弹出层
 			if (message.code == 0) {
-				openSeeCustInfo(message.data);
+				openSeeCustInfo(message.data,id);
 			} else {
 				layuiAlert(message.msg);
 			}
@@ -136,17 +135,18 @@ function seeCustomerInfo(id) {
 	});
 }
 //弹出框
-function openSeeCustInfo(customer){
+function openSeeCustInfo(customer,id){
 	LAY_layuipro=layer.open({
         type: 1
-        ,offset :"["+getMouseXY()+"]"
+        ,skin:'layui-layer'
+        ,offset :[getMouseY(id),getMouseX(id)]
         ,title: false //不显示标题栏
         ,closeBtn: false
-        ,area: ['50%','30%']
+        ,area: ['30%','40%']
         ,shade: 0
         ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
         ,moveType: 1 //拖拽模式，0或者1
-        ,content: '这是一个提示层'
+        ,content: '<div style="background:#00000072;border-radius:15px;height:99.9%;">你好啊</div>'
       });
 }
 
@@ -155,10 +155,18 @@ function mouseOut(){
 	layer.close(LAY_layuipro);
 }
 
-function getMouseXY(){  
-    var varpositionX=$("#aaaaa").pageX-$("#aaaaa").offset().left; //获取当前鼠标相对img的X坐标  
-    var varpositionY=$("#aaaaa").offset().top; //获取当前鼠标相对img的Y坐标  
-    return [varpositionX,varpositionY];
+function getMouseX(id){  
+    var varpositionX=$("#seeA"+id).offset().left; //获取当前鼠标相对img的X坐标  
+    return varpositionX-200+'px';
+}
+
+function getMouseY(id){  
+    var varpositionY=$("#seeA"+id).offset().top; //获取当前鼠标相对img的Y坐标  
+    //如果超过第5个,就显示到上面
+    if(varpositionY>350){
+    	return varpositionY-350+'px';
+    }
+    return varpositionY+50+'px';
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
@@ -219,7 +227,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											// <a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
-											var btn = '<td class="center "><a class="btn btn-success" href="#" onmouseover="seeCustomerInfo('
+											var btn = '<td class="center "><a class="btn btn-success" href="#" id="seeA'+item.id+'" onmouseover="seeCustomerInfo('
 													+ item.id
 													+ ')" onmouseout="mouseOut()"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
 													+ item.id
@@ -272,4 +280,3 @@ layui.use('laypage', function() {
 
 			});
 });
-$("[data-toggle='tooltip']").tooltip();
