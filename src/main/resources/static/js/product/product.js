@@ -41,7 +41,7 @@ function layuiAlert(content) {
 }
 
 // 添加商品信息
-$("#addProduct").click(function() {
+$("#addProd").click(function() {
 	layer.open({
 		type : 2,
 		title : '添加商品信息',
@@ -52,7 +52,7 @@ $("#addProduct").click(function() {
 		anim : 5,
 		moveOut : true,// 是否允许拖动到外面
 		area : [ '85%', '82%' ],
-		content : '../staticPages/addProduct.html?updateFlag=0',
+		content : '../staticPages/addProduct.html',
 		end : function(index, layero) {
 
 		}
@@ -61,7 +61,7 @@ $("#addProduct").click(function() {
 });
 
 // 修改商品信息
-function updateCustomer(id) {
+function updateProduct(id) {
 	layer.open({
 		type : 2,
 		title : '修改商品信息',
@@ -72,7 +72,7 @@ function updateCustomer(id) {
 		anim : 5,
 		moveOut : true,// 是否允许拖动到外面
 		area : [ '85%', '82%' ],
-		content : '../staticPages/addProduct.html?updateFlag=1&id=' + id,
+		content : '../staticPages/editProduct.html?id=' + id,
 		end : function(index, layero) {
 
 		}
