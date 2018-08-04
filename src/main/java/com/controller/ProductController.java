@@ -22,7 +22,7 @@ import com.result.Result;
 import com.service.interfaces.IProductSV;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/prod")
 public class ProductController extends BaseController {
 
 	// 日志输出
@@ -30,6 +30,16 @@ public class ProductController extends BaseController {
 			
 	@Autowired
 	IProductSV productSV;
+	
+	/**
+	 * 商品页面
+	 * 
+	 * @author yangsheng
+	 * */
+	@RequestMapping(value = "/product")
+	public String Customer() {
+		return "product";
+	}
 
 	/**
 	 * 商品添加
