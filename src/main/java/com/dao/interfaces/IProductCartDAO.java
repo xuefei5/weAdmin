@@ -15,7 +15,7 @@ import com.bean.ProductCart;
 public interface IProductCartDAO{
 
 	/*添加商品到购物车*/
-	@Insert("insert into Productcart(userId,customerId,productId,productName,productTip,productImgRef,productPrice,state)values(#{userId},#{customerId},#{productId},#{productName},#{productTip},#{productImgRef},#{productPrice},'1')")
+	@Insert("insert into Productcart(userId,productId,productName,productTip,productImgRef,productPrice,state)values(#{userId},#{productId},#{productName},#{productTip},#{productImgRef},#{productPrice},'1')")
 	public int insert(ProductCart productCart);
 	
 	/*删除购物车商品对象*/

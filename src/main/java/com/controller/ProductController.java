@@ -42,6 +42,24 @@ public class ProductController extends BaseController {
 	}
 
 	/**
+	 * 商品添加购物车 
+	 * @author yangsheng
+	 */
+	@RequestMapping(value = "/addProdToCart")
+	@ResponseBody
+	public Result<CodeMsg> addProdToCart(HttpServletRequest request) {
+		
+		JSONObject inputObj = super.getInputObject(request);
+		int productId = Integer.parseInt(inputObj.getString("id"));
+		
+		if (productSV.addProdToCart(productId)) {
+			return Result.success(CodeMsg.PRODUCT_ADDTOCART_SUCCESS);
+		} else {
+			return Result.error(CodeMsg.PRODUCT_ADDTOCART_FAIL);
+		}
+	}
+	
+	/**
 	 * 商品添加
 	 * @author yangsheng
 	 */

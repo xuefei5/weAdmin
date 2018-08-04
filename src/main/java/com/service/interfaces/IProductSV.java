@@ -31,4 +31,7 @@ public interface IProductSV {
 	
 	//商品购买
 	public Boolean purchaseProduct(JSONObject jsonObject);
+	
+	//商品添加购物车
+	public Boolean addProdToCart(int productId);
 }

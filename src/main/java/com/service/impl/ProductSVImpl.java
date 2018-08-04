@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
+import com.bean.ProductCart;
 import com.bean.ProductOrder;
 import com.bean.User;
 import com.dao.interfaces.IProductDAO;
 import com.dao.interfaces.IUserDAO;
+import com.service.interfaces.IProductCartSV;
 import com.service.interfaces.IProductSV;
 import com.service.interfaces.IUserSV;
 import com.utils.LocalConstants;
@@ -39,6 +41,9 @@ public class ProductSVImpl implements IProductSV{
 	
 	@Autowired  
 	private HttpSession session;  
+	
+	@Autowired
+	private IProductCartSV productCartSV;
 
 	@Override
 	public List<Product> qryProductByPageNum(int startPage, int count) {
@@ -116,6 +121,30 @@ public class ProductSVImpl implements IProductSV{
 		}catch(Exception e){
 			return 0;
 		}
+	}
+	
+	@Override
+	@Transactional
+	public Boolean addProdToCart(int productId) {
+		Boolean flag = false;
+		
+		ProductCart productCart = new ProductCart();
+		session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		if(null != user) {
+			productCart.setUserId(String.valueOf(user.getId()));
+		}
+		
+		Product product =productDAO.qryById(productId);
+		
+		productCart.setProductId(String.valueOf(productId));
+		productCart.setProductName(product.getName());
+		productCart.setProductTip(product.getTip());
+		productCart.setProductImgRef(product.getImgRef());
+		productCart.setProductPrice(String.valueOf(product.getPrice()));
+		
+		flag = productCartSV.addProductCart(productCart);
+		return flag;
 	}
 
 	@Override

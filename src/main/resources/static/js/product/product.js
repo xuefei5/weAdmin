@@ -110,6 +110,40 @@ function deleteProduct(id) {
 		}
 	});
 }
+
+//添加商品购物车信息
+function addProdToCart(id) {
+	alert(4);
+	var data = '{ "id":"' + id + '"}';
+	$.ajax({
+		type : "post",
+		async : true,
+		url : "/prod/addProdToCart",
+		contentType : "application/json; charset=utf-8",
+		data : data,
+		dataType : "json",
+		success : function(message) {
+			if (message.code == 0) {
+				layer.msg('添加到购物车成功', {
+					icon : 1,
+					time : 500
+				// 1秒关闭（如果不配置，默认是3秒）
+				}, function() {
+					// 刷新页面
+					location.reload();
+				});
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function() {
+			layuiAlert("系统环境异常");
+			return false;
+		}
+	});
+}
+
 //显示商品信息
 function seeCustomerInfo(id) {
 	var data = '{ "id":"' + id + '"}';
@@ -202,9 +236,9 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.price + '</td>';
 											var tdAddTime = '<td class="center">'
 													+ item.addTime + '</td>';
-											var btn = '<td class="center "><a class="btn btn-success" href="#" onmouseover="seeCustomerInfo('
+											var btn = '<td class="center "><a class="btn btn-success" href="#"  onClick="addProdToCart('
 													+ item.id
-													+ ')" onmouseout="mouseOut()"><i class=" halflings-icon shopping-cart white"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
+													+ ')" onmouseout="mouseOut()"><i class=" halflings-icon shopping-cart white"></i></a><a class="btn btn-info" href="#" onClick="updateProduct('
 													+ item.id
 													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProduct('
 													+ item.id
