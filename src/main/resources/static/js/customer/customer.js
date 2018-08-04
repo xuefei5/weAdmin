@@ -115,7 +115,7 @@ function seeCustomerInfo(id) {
 	$.ajax({
 		type : "post",
 		async : true,
-		url : "/cust/qryCustomerById",
+		url : "/cust/qryCustAndOrderByCustId",
 		contentType : "application/json; charset=utf-8",
 		data : data,
 		dataType : "json",
@@ -135,12 +135,25 @@ function seeCustomerInfo(id) {
 	});
 }
 // 弹出框
-function openSeeCustInfo(customer, id) {
+function openSeeCustInfo(data, id) {
+	var customer = data.customer;
+	var orderList = data.orderList;
 	var tdSex ="";
 	if (customer.sex == 0) {// 男
 		tdSex = '男';
 	} else {
 		tdSex = '女';
+	}
+	//画订单页面
+	var orderHtml = "";
+	if(orderList==null){
+		orderHtml = '<span style="color:#70f3ff;margin-left:20px;">暂无!</span>';
+	}else{
+		
+	$.each(orderList,function(i, item) {
+				orderHtml+='<span style="color:#70f3ff;margin-left:20px;">'+item.productName+'</span><span style="color:#70f3ff;margin-left:20px;">'+item.ordertime+'</span></br>';
+				
+			});
 	}
 	LAY_layuipro = layer
 			.open({
@@ -153,7 +166,7 @@ function openSeeCustInfo(customer, id) {
 				shade : 0,
 				id : 'LAY_layuipro', // 设定一个id，防止重复弹出
 				moveType : 1, // 拖拽模式，0或者1
-				content : '<div style="background:#00000072;border-radius:15px;height:99.9%;">'
+				content : '<div style="background:#00000099;border-radius:15px;height:99.9%;">'
 						+ '<span style="color:#FFFFFF;margin-left:20px;">姓名:</span><span style="color:#70f3ff;margin-left:20px;">'
 						+ customer.name
 						+ '</span></br>'
@@ -172,9 +185,8 @@ function openSeeCustInfo(customer, id) {
 						+ '<span style="color:#FFFFFF;margin-left:20px;">添加时间:</span><span style="color:#70f3ff;margin-left:20px;">'
 						+ customer.addTime
 						+ '</span></br>'
-						+ '<span style="color:#FFFFFF;margin-left:20px;">TA的订单:</span><span style="color:#70f3ff;margin-left:20px;">'
-						+ '暂无'
-						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">TA的订单:</span></br>'
+						+orderHtml
 						+'</div>'
 			});
 }

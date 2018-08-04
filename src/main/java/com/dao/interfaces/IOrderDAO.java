@@ -1,5 +1,7 @@
 package com.dao.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,8 +18,8 @@ public interface IOrderDAO{
 	public int insert(Order user);
 	
 	/*根据客户id分页查询订单对象*/
-	@Select("select * from order where customerId = #{customerId} and state='1' order by ordertime desc limit #{start} , #{end}")
-	public Order qryOrderByPageNum(@Param("id")int id,@Param("start")int start,@Param("end")int end);
+	@Select("select * from `order` where customerId = #{customerId} and state='1' order by ordertime desc limit #{start} , #{end}")
+	public List<Order> qryOrderByPageNum(@Param("customerId")int customerId,@Param("start")int start,@Param("end")int end);
 	
 	/*删除订单对象*/
 	@Update("UPDATE order SET state='0' where  id = #{id}")
