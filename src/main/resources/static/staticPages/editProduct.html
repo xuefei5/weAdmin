@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>editProduct.html</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3" />
+<meta name="description" content="this is my page" />
+<meta name="content-type" content="multipart/form-data; charset=UTF-8" />
+
+<!-- start: CSS -->
+<!-- layui使用的css -->
+<link href="../layui/css/layui.css" type="text/css" rel="stylesheet" />
+<link id="bootstrap-style" href="../../css/main/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="../../css/main/bootstrap-responsive.min.css"
+	rel="stylesheet" />
+<link id="base-style" href="../../css/main/style.css" rel="stylesheet" />
+<link id="base-style-responsive"
+	href="../../css/main/style-responsive.css" rel="stylesheet" />
+<!-- end: CSS -->
+
+
+
+
+
+</head>
+
+<body>
+	<div class="row-fluid sortable">
+		<div class="box span12">
+			<div class="box-header" data-original-title="">
+				<h2>
+					<i class="halflings-icon white edit"></i><span class="break"></span>商品修改
+				</h2>
+				<div class="box-icon">
+					<a href="#" class="btn-setting"><i
+						class="halflings-icon white wrench"></i></a> <a href="#"
+						class="btn-minimize"><i
+						class="halflings-icon white chevron-up"></i></a> <a href="#"
+						class="btn-close"><i class="halflings-icon white remove"></i></a>
+				</div>
+			</div>
+			<div class="box-content">
+				<form class="form-horizontal" id="CustomerForm" enctype="multipart/form-data">
+					<fieldset>
+						<!-- id -->
+						<div class="control-group" style="display: none;">
+							<label class="control-label" for="typeahead">ID </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="id"/>
+							</div>
+						</div>
+						
+					    <!-- 客户名  -->
+						<div class="control-group">
+							<label class="control-label" for="typeahead">商品名称 </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="name" onchange="checkForm()"/>
+								<p class="help-block" id="name_p">不可为空且必须是中文</p> 
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="typeahead">商品备注 </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="tip" onchange="checkForm()"/>
+								<p class="help-block" id="tip_p">不可为空且必须是中文</p> 
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="typeahead">商品单价 </label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="price" onchange="checkForm()"/>
+								<p class="help-block" id="price_p">不可为空且必须符合格式</p> 
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="fileInput">上传图片 </label>
+							<div class="controls">
+								<input class="input-file uniform_on" name="headFile" type="file" onchange="checkForm()"/>
+								<p class="help-block" id="headFile_p">文件最大允许上传4M并且必须为图片</p>
+							</div>
+						</div>
+	
+						<div class="form-actions">
+							<button id="editProductBtn" type="button" class="btn btn-primary">保存</button>
+							<button id="closePage" type="reset" class="btn">取消</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		<!--/span-->
+
+	</div>
+	<!--/row-->
+
+	<!-- start: JavaScript-->
+	<!-- layui使用的js -->
+	 <script src="../../js/main/jquery-1.9.1.min.js"></script>
+	<script src="../../js/main/jquery-form.js"></script>
+	
+	<script src="../layui/layui.js"></script>
+	<script src="../../js/product/editProduct.js"></script>
+
+	
+	<script src="../../js/main/jquery-migrate-1.0.0.min.js"></script>
+
+	<script src="../../js/main/jquery-ui-1.10.0.custom.min.js"></script>
+
+	<script src="../../js/main/jquery.ui.touch-punch.js"></script>
+
+	<script src="../../js/main/modernizr.js"></script>
+
+	<script src="../../js/main/bootstrap.min.js"></script>
+
+	<script src="../../js/main/jquery.cookie.js"></script>
+
+	<script src='../../js/main/fullcalendar.min.js'></script>
+
+	<script src='../../js/main/jquery.dataTables.min.js'></script>
+
+	<script src="../../js/main/excanvas.js"></script>
+	<script src="../../js/main/jquery.flot.js"></script>
+	<script src="../../js/main/jquery.flot.pie.js"></script>
+	<script src="../../js/main/jquery.flot.stack.js"></script>
+	<script src="../../js/main/jquery.flot.resize.min.js"></script>
+
+	<script src="../../js/main/jquery.chosen.min.js"></script>
+
+	<script src="../../js/main/jquery.uniform.min.js"></script>
+
+	<script src="../../js/main/jquery.cleditor.min.js"></script>
+
+	<script src="../../js/main/jquery.noty.js"></script>
+
+	<script src="../../js/main/jquery.elfinder.min.js"></script>
+
+	<script src="../../js/main/jquery.raty.min.js"></script>
+
+	<script src="../../js/main/jquery.iphone.toggle.js"></script>
+
+	<script src="../../js/main/jquery.uploadify-3.1.min.js"></script>
+
+	<script src="../../js/main/jquery.gritter.min.js"></script>
+
+	<script src="../../js/main/jquery.imagesloaded.js"></script>
+
+	<script src="../../js/main/jquery.masonry.min.js"></script>
+
+	<script src="../../js/main/jquery.knob.modified.js"></script>
+
+	<script src="../../js/main/jquery.sparkline.min.js"></script>
+
+	<script src="../../js/main/counter.js"></script>
+
+	<script src="../../js/main/retina.js"></script>
+
+	<script src="../../js/main/custom.js"></script>
+	<!-- end: JavaScript-->
+</body>
+</html>

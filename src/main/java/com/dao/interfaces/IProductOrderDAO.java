@@ -22,7 +22,7 @@ public interface IProductOrderDAO{
 	public int delete(@Param("id")int id);
 	
 	/*订单号查询商品订单对象*/
-	@Select("select * from productorder where orderId=#{orderId}")
-	public List<ProductOrder> qryProductOrderByOrderId();
+	@Select("select * from productorder where orderId=#{orderId} and state='1'")
+	public List<ProductOrder> qryProductOrderByOrderId(@Param("orderId")int orderId);
 
 }

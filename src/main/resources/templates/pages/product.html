@@ -16,7 +16,6 @@
 <!-- end: Mobile Specific -->
 
 <!-- start: CSS -->
-
 <!-- layui使用的css -->
 <link href="../layui/css/layui.css" type="text/css" rel="stylesheet" />
 <link id="bootstrap-style" href="../../css/main/bootstrap.min.css"
@@ -25,14 +24,6 @@
 <link id="base-style-responsive"
 	href="../../css/main/style-responsive.css" rel="stylesheet" />
 <!-- end: CSS -->
-<!-- 移动显示圆角 -->
-<style type="text/css">
-body .layui-openFillet {
-	border-radius: 15px;
-	background-color:rgba(0,0,0,0.5);;
-}
-</style>
-
 
 </head>
 
@@ -44,7 +35,7 @@ body .layui-openFillet {
 			<div class="box span12">
 				<div class="box-header" data-original-title="">
 					<h2>
-						<i class="halflings-icon white Customer"></i><span class="break"></span>客户信息
+						<i class="halflings-icon white Product"></i><span class="break"></span>商品信息
 					</h2>
 				</div>
 				<div class="box-content">
@@ -56,7 +47,7 @@ body .layui-openFillet {
 									<label>请选择条件查询：<select size="1"
 										name="DataTables_Table_0_length"
 										aria-controls="DataTables_Table_0"><option
-												value="name" selected="selected">客户姓名</option>
+												value="name" selected="selected">商品名称</option>
 									</select>
 									</label>
 								</div>
@@ -78,31 +69,24 @@ body .layui-openFillet {
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-sort="ascending"
 										aria-label="Customername: activate to sort column descending"
-										style="width: 247px;">客户名称</th>
+										style="width: 247px;">商品图片</th>
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Customername: activate to sort column descending"
+										style="width: 247px;">商品名称</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Date registered: activate to sort column ascending"
-										style="width: 365px;">性别</th>
+										style="width: 365px;">商品备注</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Role: activate to sort column ascending"
-										style="width: 205px;">出生日期</th>
-									<th class="sorting" role="columnheader" tabindex="0"
-										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-										aria-label="Role: activate to sort column ascending"
-										style="width: 205px;">联系电话</th>
+										style="width: 205px;">商品单价</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Role: activate to sort column ascending"
 										style="width: 205px;">添加时间</th>
-									<th class="sorting" role="columnheader" tabindex="0"
-										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-										aria-label="Role: activate to sort column ascending"
-										style="width: 205px;">备注</th>
-									<th class="sorting" role="columnheader" tabindex="0"
-										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-										aria-label="Status: activate to sort column ascending"
-										style="width: 221px;">状态</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Actions: activate to sort column ascending"
@@ -116,13 +100,23 @@ body .layui-openFillet {
 						</table>
 						<div class="row-fluid">
 							<div class="span12 center">
-							<!-- 分页DIV -->
 								<div class="dataTables_paginate paging_bootstrap pagination"
 									style="float: left;" id="paging">
+									<!-- <ul>
+										<li class="prev disabled"><a href="#">← Previous</a></li>
+										<li class="active"><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+										<li class="next"><a href="#">Next → </a></li>
+									</ul> -->
 								</div>
-
-								<button id="addCustomer" type="submit" class="btn btn-primary"
-									style="margin: 20px 0;float: right;">增加客户</button>
+	
+								<button id="prodCart" type="submit" class="btn btn-primary red"
+									style="margin: 20px 0;float: right;">购物车</button>
+								
+								<button id="addProd" type="submit" class="btn btn-primary"
+									style="margin: 20px 0;float: right;">增加商品</button>
 							</div>
 						</div>
 					</div>
@@ -138,10 +132,9 @@ body .layui-openFillet {
 	<!-- start: JavaScript-->
 
 	<script src="../../js/main/jquery-1.9.1.min.js"></script>
-	<script src="../../js/main/bootstrap.min.js"></script>
 	<!-- layui使用的js -->
 	<script src="../layui/layui.js"></script>
-	<script src="../js/customer/customer.js"></script>
+	<script src="../js/product/product.js"></script>
 
 
 	<!-- end: JavaScript-->

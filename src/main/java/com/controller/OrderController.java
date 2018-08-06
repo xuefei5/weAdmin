@@ -47,6 +47,22 @@ public class OrderController extends BaseController {
 		mapToClient.put("orderList", orderList);
 		return Result.success(mapToClient);
 	}
+	
+	/**
+	 * 分页查询客户订单
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryOrderByPageNumForIndoor")
+	@ResponseBody
+	public List<Order> qryOrderByPageNumForIndoor(int custId,String startPageForIndoor,String endPageForIndoor) {
+
+		int customerId = custId;
+		int startPage = Integer.parseInt(startPageForIndoor);
+		int endPage = Integer.parseInt(endPageForIndoor);
+		
+		List<Order> orderList = orderSV.qryOrderByPageNum(customerId,startPage,endPage);
+		return orderList;
+	}
 
 	/**
 	 * 订单添加

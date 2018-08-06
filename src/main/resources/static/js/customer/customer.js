@@ -5,6 +5,8 @@
  */
 // 定义客户信息的总条数
 var custTotal = 0;
+// 客户查看-弹出层ID
+var LAY_layuipro;
 // 获取总条数
 $.ajax({
 	type : "post",
@@ -37,7 +39,6 @@ function layuiAlert(content) {
 		content : content
 	});
 }
-
 // 添加客户信息
 $("#addCustomer").click(function() {
 	layer.open({
@@ -108,20 +109,20 @@ function deleteCustomer(id) {
 		}
 	});
 }
-//显示客户信息
+// 显示客户信息
 function seeCustomerInfo(id) {
 	var data = '{ "id":"' + id + '"}';
 	$.ajax({
 		type : "post",
 		async : true,
-		url : "/cust/qryCustomerById",
+		url : "/cust/qryCustAndOrderByCustId",
 		contentType : "application/json; charset=utf-8",
 		data : data,
 		dataType : "json",
 		success : function(message) {
-			//成功返回则弹出层
+			// 成功返回则弹出层
 			if (message.code == 0) {
-				openSeeCustInfo(message.data);
+				openSeeCustInfo(message.data, id);
 			} else {
 				layuiAlert(message.msg);
 			}
@@ -133,38 +134,86 @@ function seeCustomerInfo(id) {
 		}
 	});
 }
-//弹出框
-function openSeeCustInfo(customer){
-/*    layer.open({
-        type: 1
-        ,title: false //不显示标题栏
-        ,closeBtn: false
-        ,area: '300px;'
-        ,shade: 0
-        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-        ,btn: ['火速围观', '残忍拒绝']
-        ,moveType: 1 //拖拽模式，0或者1
-        ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br>layer只是作为Layui的一个弹层模块，由于其用户基数较大，所以常常会有人以为layui是layerui<br><br>layer虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级。<br><br>我们此后的征途是星辰大海 ^_^</div>'
-        ,success: function(layero){
-          var btn = layero.find('.layui-layer-btn');
-          btn.css('text-align', 'center');
-          btn.find('.layui-layer-btn0').attr({
-            href: 'http://www.layui.com/'
-            ,target: '_blank'
-          });
-        }
-      });*/
+// 弹出框
+function openSeeCustInfo(data, id) {
+	var customer = data.customer;
+	var orderList = data.orderList;
+	var tdSex ="";
+	if (customer.sex == 0) {// 男
+		tdSex = '男';
+	} else {
+		tdSex = '女';
+	}
+	//画订单页面
+	var orderHtml = "";
+	if(orderList==null){
+		orderHtml = '<span style="color:#70f3ff;margin-left:20px;">暂无!</span>';
+	}else{
+		
+	$.each(orderList,function(i, item) {
+				orderHtml+='<span style="color:#70f3ff;margin-left:20px;">'+item.productName+'</span><span style="color:#70f3ff;margin-left:20px;">'+item.ordertime+'</span></br>';
+				
+			});
+	}
+	LAY_layuipro = layer
+			.open({
+				type : 1,
+				skin : 'layui-openFillet',
+				offset : [ getMouseY(id), getMouseX(id) ],
+				title : false, // 不显示标题栏
+				closeBtn : false,
+				area : [ '20%', '40%' ],
+				shade : 0,
+				id : 'LAY_layuipro', // 设定一个id，防止重复弹出
+				moveType : 1, // 拖拽模式，0或者1
+				content : '<div style="background:#00000099;border-radius:15px;height:99.9%;">'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">姓名:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ customer.name
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">昵称:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ customer.nickName
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">性别:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ tdSex
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">出生日期:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ customer.birthday
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">联系电话:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ customer.telephone
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">添加时间:</span><span style="color:#70f3ff;margin-left:20px;">'
+						+ customer.addTime
+						+ '</span></br>'
+						+ '<span style="color:#FFFFFF;margin-left:20px;">TA的订单:</span></br>'
+						+orderHtml
+						+'</div>'
+			});
 }
 
-//鼠标移出事件
-function mouseOut(){
-	var layuiPro = layer.getFrameIndex("LAY_layuipro");
-	layer.close(layuiPro);
+// 鼠标移出事件
+function mouseOut() {
+	layer.close(LAY_layuipro);
+}
+
+function getMouseX(id) {
+	var varpositionX = $("#seeA" + id).offset().left; // 获取当前鼠标相对img的X坐标
+	return varpositionX - 150 + 'px';
+}
+
+function getMouseY(id) {
+	var varpositionY = $("#seeA" + id).offset().top; // 获取当前鼠标相对img的Y坐标
+	// 如果超过第5个,就显示到上面
+	if (varpositionY > 350) {
+		return varpositionY - 330 + 'px';
+	}
+	return varpositionY + 35 + 'px';
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
 	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
-	$.ajax({
+	$
+			.ajax({
 				type : "post",
 				async : true,
 				url : "/cust/qryCustomerByPageNum",
@@ -195,7 +244,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											var tdName = '<td class="sorting_1">'
 													+ item.name + '</td>';
 											// 性别判断
-											var tdSex;
+											var tdSex ="";
 											if (item.sex == 0) {// 男
 												tdSex = '<td class="center">'
 														+ '男' + '</td>';
@@ -220,7 +269,9 @@ function getAllCustomerInfo(startPage, endPage) {
 											// <a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
-											var btn = '<td class="center "><a class="btn btn-success" href="#" onmouseover="seeCustomerInfo('
+											var btn = '<td class="center "><a class="btn btn-success" href="#" id="seeA'
+													+ item.id
+													+ '" onmouseover="seeCustomerInfo('
 													+ item.id
 													+ ')" onmouseout="mouseOut()"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
 													+ item.id
@@ -251,7 +302,8 @@ function getAllCustomerInfo(startPage, endPage) {
 layui.use('laypage', function() {
 	var laypage = layui.laypage;
 	// 执行一个laypage实例
-	laypage.render({
+	laypage
+			.render({
 				elem : 'paging', // 注意，这里的 test1 是 ID，不用加 # 号
 				count : custTotal,// 数据总数，从服务端得到
 				// curr:1,//获取起始页
@@ -266,10 +318,12 @@ layui.use('laypage', function() {
 						// obj包含了当前分页的所有参数
 						var custCurr = obj.curr;// 当前页
 						var custLimit = obj.limit;// 每页显示的条数
-						getAllCustomerInfo((custCurr - 1) * custLimit,custLimit);
+						getAllCustomerInfo((custCurr - 1) * custLimit,
+								custLimit);
 					}
 				},
-				layout : [ 'prev', 'page', 'next', 'skip', 'count', 'limit','refresh' ]
+				layout : [ 'prev', 'page', 'next', 'skip', 'count', 'limit',
+						'refresh' ]
 
 			});
 });
