@@ -96,6 +96,23 @@ public class ProductController extends BaseController {
 	}
 
 	/**
+	 * 商品购物车删除
+	 * @author yangsheng
+	 */
+	@RequestMapping(value = "/deleteProdCart")
+	@ResponseBody
+	public Result<CodeMsg> deleteProdCart(HttpServletRequest request) {
+		
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
+		if (productSV.deleteProductCartByProdId(id)) {
+			return Result.success(CodeMsg.PRODUCT_CART_DELETE_SUCCESS);
+		} else {
+			return Result.error(CodeMsg.PRODUCT_CART_DELETE_FAIL);
+		}
+	}
+	
+	/**
 	 * 商品更新
 	 * @author yangsheng
 	 */
