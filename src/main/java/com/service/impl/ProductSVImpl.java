@@ -201,4 +201,22 @@ public class ProductSVImpl implements IProductSV{
 			return null;
 		}
 	}
+
+	@Override
+	public List<ProductCart> qryAllProductCart() {
+		productCartSV.qryAll();
+		return null;
+	}
+
+	@Override
+	public Boolean deleteProductCartByProdId(int id) {
+		try{
+			if(productCartSV.deleteProductCart(id)) {
+				return true;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 }

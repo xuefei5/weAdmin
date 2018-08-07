@@ -25,4 +25,8 @@ public interface IProductCartDAO{
 	/*分页查询购物车商品*/
 	@Select("select * from productcart where state='1' limit #{start} , #{end} ")
 	public List<ProductCart> qryProductCartByPageNum(@Param("start")int start,@Param("end")int end);
+	
+	/*查询所有购物车商品*/
+	@Select("select * from productcart where state='1'")
+	public List<ProductCart> qryAll();
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
+import com.bean.ProductCart;
 
 
 public interface IProductSV {
@@ -37,4 +38,11 @@ public interface IProductSV {
 	
 	//id查询商品对象
 	public Product qryProductById(int id);
+	
+	//查询所有购物车商品
+	public List<ProductCart> qryAllProductCart();
+	
+	//通过id删除购物车商品
+	public Boolean deleteProductCartByProdId(int id);
+	
 }

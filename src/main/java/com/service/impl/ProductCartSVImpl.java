@@ -65,4 +65,13 @@ public class ProductCartSVImpl implements IProductCartSV{
 			return null;
 		}
 	}
+
+	@Override
+	public List<ProductCart> qryAll() {
+		try {
+			return productCartDAO.qryAll();
+		}catch(Exception e) {
+			return null;
+		}
+	}
 }
