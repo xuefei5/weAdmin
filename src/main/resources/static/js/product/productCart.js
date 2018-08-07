@@ -65,6 +65,11 @@ $("#toProdCart").click(function() {
 	window.location.href="../staticPages/productCart.html"; 
 });
 
+//返回到商品列表
+$("#backBtn").click(function() {
+	window.history.back(-1); 
+});
+
 // 修改商品信息
 function updateProduct(id) {
 	layer.open({
@@ -230,6 +235,8 @@ function getAllCustomerInfo(startPage, endPage) {
 											}
 											var trHead = '<tr class="'
 													+ className + '">';
+											var tdCheckBox = '<td class="sorting_1">'
+												+ '<label class="checkbox inline"><input type="checkbox" id="" value=""></label>' + '</td>';
 											var tdImg = '<td class="sorting_1">'
 												+ item.imgRef + '</td>';
 											var tdName = '<td class="sorting_1">'
@@ -248,7 +255,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.id
 													+ ')"><i class="halflings-icon white trash"></i></a></td>';
 											var trTail = '</tr>';
-											html += trHead + tdImg + tdName
+											html += trHead + tdCheckBox + tdImg + tdName
 													+ tdTip + tdPrice
 													+ tdAddTime + btn + trTail;
 
