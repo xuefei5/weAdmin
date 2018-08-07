@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.bean.Product;
+import com.bean.ProductCart;
 import com.bean.User;
 import com.result.CodeMsg;
 import com.result.Result;
@@ -218,5 +219,20 @@ public class ProductController extends BaseController {
 		int id = Integer.parseInt(jsonObj.getString("id"));
 
 		return Result.success(productSV.qryProductById(id));
+	}
+	
+	/**
+	 * 查询所有购物车商品
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryAllProdCart")
+	@ResponseBody
+	public Result<Map<String,Object>> qryAllProdCart() {
+		
+		Map<String,Object> mapToClient = new HashMap<String,Object>();
+		List<ProductCart> productCartList = productSV.qryAllProductCart();
+		logger.info(productCartList);
+		mapToClient.put("productCartList", productCartList);
+		return Result.success(mapToClient);
 	}
 }

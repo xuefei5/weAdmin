@@ -3,7 +3,6 @@
  * 
  * @author xuefei
  */
-// 定义商品信息的总条数
 getAllProdCartInfo();
 
 layui.use('upload', function() {
@@ -61,52 +60,43 @@ function getAllProdCartInfo() {
 	$.ajax({
 			type : "post",
 			async : true,
-			url : "/prod/qryProductByPageNum",
+			url : "/prod/qryAllProdCart",
 			contentType : "application/json; charset=utf-8",
-			data : data,
+			data : "",
 			dataType : "json",
 			success : function(message) {
 				if (message.code == 0) {
 					var rtnData = message.data;
 					// 获取商品信息
-					var custData = rtnData.productList;
+					var custData = rtnData.productCartList;
 					var html = '';
-					$
-							.each(
-									custData,
-									function(i, item) {
-
-										var r = Number(i);
-										var className = "";
-										// 如果是偶数
-										if (r % 2 == 0) {
-											className = "even"
-										} else {
-											className = "odd"
-										}
-										var trHead = '<tr class="'
-												+ className + '">';
-										var tdCheckBox = '<td class="sorting_1">'
-											+ '<label class="checkbox inline"><input type="checkbox" id="" value=""></label>' + '</td>';
-										var tdImg = '<td class="sorting_1">'
-											+ item.imgRef + '</td>';
-										var tdName = '<td class="sorting_1">'
-												+ item.name + '</td>';
-										var tdTip = '<td class="center">'
-												+ item.tip + '</td>';
-										var tdPrice = '<td class="center">'
-												+ item.price + '</td>';
-										var tdAddTime = '<td class="center">'
-												+ item.addTime + '</td>';
-										var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
-												+ item.id
-												+ ')"><i class="halflings-icon white trash"></i></a></td>';
-										var trTail = '</tr>';
-										html += trHead + tdCheckBox + tdImg + tdName
-												+ tdTip + tdPrice
-												+ tdAddTime + btn + trTail;
-
-									});
+					
+					for (var order in custData)
+	            	{
+						
+						var trHead = '<tr class="">';
+						
+					var tdCheckBox = '<td class="sorting_1">'
+						+ '<label class="checkbox inline"><input type="checkbox" id="" value=""></label>' + '</td>';
+					var tdImg = '<td class="sorting_1">'
+						+ custData[order].imgRef + '</td>';
+					var tdName = '<td class="sorting_1">'
+							+ custData[order].productName + '</td>';
+					var tdTip = '<td class="center">'
+							+ custData[order].productTip + '</td>';
+					var tdPrice = '<td class="center">'
+							+ custData[order].productPrice + '</td>';
+					var tdAddTime = '<td class="center">'
+							+ '1' + '</td>';
+					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
+							+ custData[order].id
+							+ ')"><i class="halflings-icon white trash"></i></a></td>';
+					var trTail = '</tr>';
+					html += trHead + tdCheckBox + tdImg + tdName
+							+ tdTip + tdPrice
+							+ tdAddTime + btn + trTail;
+					
+	            	}
 					$("#tbody").html(html);
 				} else {
 					layuiAlert(message.msg);

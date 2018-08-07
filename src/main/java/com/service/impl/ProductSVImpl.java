@@ -204,8 +204,11 @@ public class ProductSVImpl implements IProductSV{
 
 	@Override
 	public List<ProductCart> qryAllProductCart() {
-		productCartSV.qryAll();
-		return null;
+		try {
+			return productCartSV.qryAll();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 	@Override
