@@ -74,10 +74,12 @@ function getAllProdCartInfo() {
 					for (var order in custData)
 	            	{
 						
-						var trHead = '<tr class="">';
+						var trHead = '<tr class="productCartInfo">';
 						
 					var tdCheckBox = '<td class="sorting_1">'
-						+ '<label class="checkbox inline"><input type="checkbox" class="productBox" value=""></label>' + '</td>';
+						+ '<input type="checkbox" class="productBox" value="">' + '</td>';
+					var tdId = '<td class="sorting_1 productId" style="display: none;">'
+						+ custData[order].productId + '</td>';
 					var tdImg = '<td class="sorting_1">'
 						+ custData[order].imgRef + '</td>';
 					var tdName = '<td class="sorting_1">'
@@ -86,13 +88,13 @@ function getAllProdCartInfo() {
 							+ custData[order].productTip + '</td>';
 					var tdPrice = '<td class="center">'
 							+ custData[order].productPrice + '</td>';
-					var tdAddTime = '<td class="center">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
+					var tdAddTime = '<td class="center count">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
 							+ '</td>';
 					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
 							+ custData[order].id
 							+ ')"><i class="halflings-icon white trash"></i></a></td>';
 					var trTail = '</tr>';
-					html += trHead + tdCheckBox + tdImg + tdName
+					html += trHead + tdCheckBox + tdId + tdImg + tdName
 							+ tdTip + tdPrice
 							+ tdAddTime + btn + trTail;
 	            	}
@@ -120,38 +122,18 @@ function initCustomer() {
 			dataType : "json",
 			success : function(message) {
 				if (message.code == 0) {
+					debugger;
 					var rtnData = message.data;
 					
 					// 获取客户信息
-					var custData = rtnData.productCartList;
+					var custData = rtnData;
 					var html = '';
 					
 					for (var order in custData)
 	            	{
-						
-					var trHead = '<tr class="">';
-					
-					var tdCheckBox = '<td class="sorting_1">'
-						+ '<label class="checkbox inline"><input type="checkbox" class="productBox" value=""></label>' + '</td>';
-					var tdImg = '<td class="sorting_1">'
-						+ custData[order].imgRef + '</td>';
-					var tdName = '<td class="sorting_1">'
-							+ custData[order].productName + '</td>';
-					var tdTip = '<td class="center">'
-							+ custData[order].productTip + '</td>';
-					var tdPrice = '<td class="center">'
-							+ custData[order].productPrice + '</td>';
-					var tdAddTime = '<td class="center">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
-							+ '</td>';
-					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
-							+ custData[order].id
-							+ ')"><i class="halflings-icon white trash"></i></a></td>';
-					var trTail = '</tr>';
-					html += trHead + tdCheckBox + tdImg + tdName
-							+ tdTip + tdPrice
-							+ tdAddTime + btn + trTail;
+						html = html + '<option value="' + custData[order].id + '">' + custData[order].name + '</option>';
 	            	}
-					$("#test").html(html);
+					$("#customerSelect").html(html);
 				} else {
 					layuiAlert(message.msg);
 				}
@@ -164,7 +146,42 @@ function initCustomer() {
 		});
 }
 
+//商品模拟购买
+$("#payBtn").click(function() {
+	var $productBox = $('.productBox');
+	
+	var customerSelected=$("#customerSelect option:selected");
+	alert(customerSelected.val());
+	
+	var data = '{"params":{"produceList":[';
+	$productBox.each(function () {
+        if ($(this).is(':checked')) {
+			var iniStr = '{ "productId":';
+//            var goods = parseInt($(this).parents('.order_lists').find('.sum_price').html().substring(1));
+			var goods = parseInt($(this).parents('.productCartInfo').find('.productId').html().substring(0));
+            //var num =  parseInt($(this).parents('.order_lists').find('.sum').html().substring(0));
+			
+			//var productId =  parseInt($(this).parents('.order_lists').find('.productId').val());--
+			
+			//var price = goods/num;--
+			
+			//alert(price);
+			//封装请求,'{ "productId":"' + $("input[name='productId']").val() + '","number":"' + $("#number").val() + '"}'
+			
+			//iniStr+=goods;--
+			
+			/*iniStr+=',"number":';
+			iniStr+=num;
+			iniStr+='}'; 
+			data+=iniStr;*/
+			alert(goods);
+        }
+    });
 
+	
+	
+	/*alert("hello");*/
+});
 
 
 
