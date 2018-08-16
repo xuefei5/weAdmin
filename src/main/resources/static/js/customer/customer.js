@@ -78,6 +78,30 @@ function updateCustomer(id) {
 	});
 }
 
+//修改客户信息
+function seeCustomer(id) {
+	layer.open({
+		type : 2,
+		title : '查看客户信息',
+		shadeClose : false,
+		shade : 0.7,
+		maxmin : true, // 开启最大化最小化按钮
+		scrollbar : true,// 是否允许出现滚动条
+		anim : 5,
+		moveOut : true,// 是否允许拖动到外面
+		area : [ '85%', '82%' ],
+		content : '../staticPages/seeCustomer.html?id=' + id,
+		success: function(layero,index){
+			  //在回调方法中的第2个参数“index”表示的是当前弹窗的索引。
+			  //通过layer.full方法将窗口放大。
+			  layer.full(index);
+			 },
+		end : function(index, layero) {
+
+		}
+	});
+}
+
 // 删除客户信息
 function deleteCustomer(id) {
 	var data = '{ "id":"' + id + '"}';
@@ -149,11 +173,14 @@ function openSeeCustInfo(data, id) {
 	if(orderList==null){
 		orderHtml = '<span style="color:#70f3ff;margin-left:20px;">暂无!</span>';
 	}else{
-		
-	$.each(orderList,function(i, item) {
-				orderHtml+='<span style="color:#70f3ff;margin-left:20px;">'+item.productName+'</span><span style="color:#70f3ff;margin-left:20px;">'+item.ordertime+'</span></br>';
-				
-			});
+			$.each(orderList,function(i, item) {
+							if (i <= 2) {
+								orderHtml += '<span style="color:#70f3ff;margin-left:20px;">'
+										+ item.productName
+										+ '</span><span style="color:#70f3ff;margin-left:20px;">'
+										+ item.ordertime + '</span></br>';
+							}
+						});
 	}
 	LAY_layuipro = layer
 			.open({
@@ -269,7 +296,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											// <a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
-											var btn = '<td class="center "><a class="btn btn-success" href="#" id="seeA'
+											var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeCustomer('+item.id+')" id="seeA'
 													+ item.id
 													+ '" onmouseover="seeCustomerInfo('
 													+ item.id
