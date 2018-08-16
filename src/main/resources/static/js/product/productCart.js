@@ -4,7 +4,7 @@
  * @author xuefei
  */
 getAllProdCartInfo();
-
+initCustomer();
 layui.use('upload', function() {
 });
 
@@ -77,7 +77,7 @@ function getAllProdCartInfo() {
 						var trHead = '<tr class="">';
 						
 					var tdCheckBox = '<td class="sorting_1">'
-						+ '<label class="checkbox inline"><input type="checkbox" id="" value=""></label>' + '</td>';
+						+ '<label class="checkbox inline"><input type="checkbox" class="productBox" value=""></label>' + '</td>';
 					var tdImg = '<td class="sorting_1">'
 						+ custData[order].imgRef + '</td>';
 					var tdName = '<td class="sorting_1">'
@@ -86,8 +86,8 @@ function getAllProdCartInfo() {
 							+ custData[order].productTip + '</td>';
 					var tdPrice = '<td class="center">'
 							+ custData[order].productPrice + '</td>';
-					var tdAddTime = '<td class="center">'
-							+ '1' + '</td>';
+					var tdAddTime = '<td class="center">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
+							+ '</td>';
 					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
 							+ custData[order].id
 							+ ')"><i class="halflings-icon white trash"></i></a></td>';
@@ -95,7 +95,6 @@ function getAllProdCartInfo() {
 					html += trHead + tdCheckBox + tdImg + tdName
 							+ tdTip + tdPrice
 							+ tdAddTime + btn + trTail;
-					
 	            	}
 					$("#tbody").html(html);
 				} else {
@@ -109,3 +108,72 @@ function getAllProdCartInfo() {
 			}
 		});
 }
+
+//初始化所有用户
+function initCustomer() {
+	$.ajax({
+			type : "post",
+			async : true,
+			url : "/cust/qryAllCustomer",
+			contentType : "application/json; charset=utf-8",
+			data : "",
+			dataType : "json",
+			success : function(message) {
+				if (message.code == 0) {
+					var rtnData = message.data;
+					
+					// 获取客户信息
+					var custData = rtnData.productCartList;
+					var html = '';
+					
+					for (var order in custData)
+	            	{
+						
+					var trHead = '<tr class="">';
+					
+					var tdCheckBox = '<td class="sorting_1">'
+						+ '<label class="checkbox inline"><input type="checkbox" class="productBox" value=""></label>' + '</td>';
+					var tdImg = '<td class="sorting_1">'
+						+ custData[order].imgRef + '</td>';
+					var tdName = '<td class="sorting_1">'
+							+ custData[order].productName + '</td>';
+					var tdTip = '<td class="center">'
+							+ custData[order].productTip + '</td>';
+					var tdPrice = '<td class="center">'
+							+ custData[order].productPrice + '</td>';
+					var tdAddTime = '<td class="center">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
+							+ '</td>';
+					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
+							+ custData[order].id
+							+ ')"><i class="halflings-icon white trash"></i></a></td>';
+					var trTail = '</tr>';
+					html += trHead + tdCheckBox + tdImg + tdName
+							+ tdTip + tdPrice
+							+ tdAddTime + btn + trTail;
+	            	}
+					$("#test").html(html);
+				} else {
+					layuiAlert(message.msg);
+				}
+				return true;
+			},
+			error : function(message) {
+				layuiAlert("系统环境异常");
+				return false;
+			}
+		});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
