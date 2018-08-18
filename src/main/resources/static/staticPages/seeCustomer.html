@@ -35,7 +35,7 @@
 				</h2>
 			</div>
 			<div class="box-content">
-				<form class="form-horizontal" id="CustomerForm" enctype="multipart/form-data">
+				<form class="form-horizontal">
 					<fieldset>
 					     <!-- 客户名  -->
 						<div class="control-group">
@@ -50,18 +50,104 @@
 							<label class="control-label" for="typeahead" style="text-align: left;">联系电话:</label>
 							<label class="control-label" for="typeahead" id="telephone" style="text-align: left;color:#578ebe"></label>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="date01" style="text-align: left;">预约时间: </label>
-							<div class="controls">
-								<input type="text" class="input-xlarge datepicker" name="birthday"
-									value="08/16/2018" />
-								<button id="custSubmitBtn" type="button" class="btn btn-primary" style="margin-left: 20px">预约</button>
-							</div>
-						</div>
 					</fieldset>
 				</form>
 			</div>
 			<!-- 客户信息结束-->
+			<!-- 联系记录开始 -->
+			<div class="box-header" data-original-title="">
+				<h2>
+					<i class="halflings-icon white edit"></i><span class="break"></span>联系记录
+				</h2>
+			</div>
+			
+			<div class="box-content">
+					<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper"
+						role="grid">
+						<table
+							class="table table-striped table-bordered bootstrap-datatable datatable dataTable"
+							id="DataTables_Table_0"
+							aria-describedby="DataTables_Table_0_info">
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-sort="ascending"
+										aria-label="Customername: activate to sort column descending"
+										style="width: 247px;">联系时间</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Date registered: activate to sort column ascending"
+										style="width: 365px;">联系内容</th>
+									<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">是否有机会</th>
+										<th class="sorting" role="columnheader" tabindex="0"
+										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+										aria-label="Role: activate to sort column ascending"
+										style="width: 205px;">预约时间</th>
+								</tr>
+							</thead>
+
+							<tbody role="alert" aria-live="polite" aria-relevant="all"
+								id="tbodyContact">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- 联系记录结束-->
+				<!-- 预约信息填写开始 -->
+			<div class="box-header" data-original-title="">
+				<h2>
+					<i class="halflings-icon white edit"></i><span class="break"></span>预约信息填写
+				</h2>
+			</div>
+			
+						<div class="box-content">
+				<form class="form-horizontal" id="CustomerForm" enctype="multipart/form-data">
+					<fieldset>
+					
+					<div class="control-group">
+							<label class="control-label" for="date01">联系时间 :</label>
+							<div class="controls">
+								<input type="text" class="input-xlarge datepicker" name="contactTime"
+									value="08/16/2018" />
+							</div>
+						</div>
+					     <!-- 联系内容  -->
+						<div class="control-group">
+							<label class="control-label" for="typeahead">联系内容:</label>
+							<div class="controls">
+								<input type="text" class="span6 typeahead" name="content"/>
+								<p class="help-block" id="name_p">不可为空且必须是中文</p> 
+							</div>
+						</div>
+						
+						<div class="control-group">
+								<label class="control-label" for="selectError3">是否有机会:</label>
+								<div class="controls">
+								  <select name="sex">
+								    <option value="1">有</option>
+									<option value="0">无</option>
+								  </select>
+								</div>
+							  </div>
+							  <div class="control-group">
+							<label class="control-label" for="date01">预约时间: </label>
+							<div class="controls">
+								<input type="text" class="input-xlarge datepicker" name="subscribeTime"
+									value="08/16/2018" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button id="contactSubmitBtn" type="button" class="btn btn-primary">预约</button>
+							<button type="reset" class="btn">清空</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+				<!-- 预约信息填写结束-->
 			<!-- 订单信息开始 -->
 			<div class="box-header" data-original-title="">
 				<h2>
@@ -172,6 +258,11 @@
 
 	<script src="../../js/main/jquery.sparkline.min.js"></script>
 
+	<script src="../../js/main/counter.js"></script>
+
+	<script src="../../js/main/retina.js"></script>
+
+	<script src="../../js/main/custom.js"></script>
 	<!-- end: JavaScript-->
 </body>
 </html>
