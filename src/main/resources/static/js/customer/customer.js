@@ -191,7 +191,6 @@ function openSeeCustInfo(data, id) {
 				closeBtn : false,
 				area : [ '20%', '40%' ],
 				shade : 0,
-				id : 'LAY_layuipro', // 设定一个id，防止重复弹出
 				moveType : 1, // 拖拽模式，0或者1
 				content : '<div style="background:#00000099;border-radius:15px;height:99.9%;">'
 						+ '<span style="color:#FFFFFF;margin-left:20px;">姓名:</span><span style="color:#70f3ff;margin-left:20px;">'
@@ -253,8 +252,7 @@ function getAllCustomerInfo(startPage, endPage) {
 						// 获取客户信息
 						var custData = rtnData.customerList;
 						var html = '';
-						$
-								.each(
+						$.each(
 										custData,
 										function(i, item) {
 
