@@ -72,6 +72,19 @@ public class CodeMsg {
 	//姓名查询客户 1013xx
 	public static CodeMsg CUSTOMER_USER_BY_NAME_SUCCESS = new CodeMsg(101301, "查询客户信息不为空");
 	public static CodeMsg CUSTOMER_USER_BY_NAME_FAIL = new CodeMsg(101302, "查询客户信息为空");
+	
+	//联系记录添加 1014xx
+	public static CodeMsg CANTACT_ADD_SUCCESS = new CodeMsg(101401, "联系记录添加成功");
+	public static CodeMsg CANTACT_ADD_FAIL = new CodeMsg(101402, "联系记录失败");
+	public static CodeMsg CANTACT_ADD_FAIL_EXCEPTION = new CodeMsg(101403, "系统内部异常");
+		
+	//联系记录删除  1015xx
+	public static CodeMsg CANTACT_DELETE_SUCCESS = new CodeMsg(101501, "联系记录删除成功");
+	public static CodeMsg CANTACT_DELETE_FAIL = new CodeMsg(101502, "联系记录删除失败");
+		
+	//姓名客户ID查询联系记录 1017xx
+	public static CodeMsg CANTACT_USER_BY_CUSTOMID_SUCCESS = new CodeMsg(101701, "联系记录信息不为空");
+	public static CodeMsg CANTACT_USER_BY_CUSTOMID_FAIL = new CodeMsg(101702, "联系记录信息为空");
 		
 	public CodeMsg(int code, String msg) {
 		this.code = code;
