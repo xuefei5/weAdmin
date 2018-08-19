@@ -34,6 +34,8 @@ public class OrderSVImpl implements IOrderSV{
 
 	@Override
 	public Boolean addOrder(Order order) {
+		
+		int retNum = orderDAO.insert(order);
 	   try{
 			session=request.getSession();
 			User user = (User) session.getAttribute("user");
@@ -44,7 +46,7 @@ public class OrderSVImpl implements IOrderSV{
 			order.setIsCancel("0");
 			order.setState("1");
 			
-			int retNum = orderDAO.insert(order);
+//			int retNum = orderDAO.insert(order);
 			if(retNum == 1) {
 				return true;
 			}

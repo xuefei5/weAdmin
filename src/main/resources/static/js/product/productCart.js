@@ -150,7 +150,7 @@ function initCustomer() {
 $("#payBtn").click(function() {
 	var $productBox = $('.productBox');
 	var customerSelected=$("#customerSelect option:selected");
-	var data = '{"params":{"produceList":[';
+	var data = '{"params":{"productList":[';
 	$productBox.each(function () {
         if ($(this).is(':checked')) {
         	debugger;
@@ -160,8 +160,8 @@ $("#payBtn").click(function() {
 			var productCount = $(this).parents('.productCartInfo').find('.tdCount').find('.productCount').val();
 			var productImgRef = $(this).parents('.productCartInfo').find('.productImgRef').html().substring(0);
 			
-			var productMsgStr = '{"product": { "productId":' + productId + ',"productName":' + productCartName;
-			productMsgStr += ',"productPrice":' + productPrice;
+			var productMsgStr = '{"product": { "productId":' + productId + ',"productName":"' + productCartName;
+			productMsgStr += '","productPrice":' + productPrice;
 			productMsgStr += ',"productCount":' + productCount;
 			productMsgStr += ',"productImgRef":' + productImgRef + '}},';
 			data+=productMsgStr;

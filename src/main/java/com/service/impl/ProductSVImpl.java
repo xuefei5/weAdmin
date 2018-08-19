@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bean.Order;
 import com.bean.Product;
 import com.bean.ProductCart;
 import com.bean.ProductOrder;
 import com.bean.User;
+import com.dao.interfaces.IOrderDAO;
 import com.dao.interfaces.IProductDAO;
 import com.dao.interfaces.IUserDAO;
+import com.service.interfaces.IOrderSV;
 import com.service.interfaces.IProductCartSV;
 import com.service.interfaces.IProductSV;
 import com.service.interfaces.IUserSV;
@@ -36,6 +39,9 @@ public class ProductSVImpl implements IProductSV{
 	@Autowired
 	IProductDAO productDAO;
 	
+	@Autowired
+	IOrderDAO id;
+	
 	@Autowired  
 	private HttpServletRequest request; 
 	
@@ -44,6 +50,9 @@ public class ProductSVImpl implements IProductSV{
 	
 	@Autowired
 	private IProductCartSV productCartSV;
+	
+	@Autowired
+	private IOrderSV orderSV;
 
 	@Override
 	public List<Product> qryProductByPageNum(int startPage, int count) {
@@ -151,6 +160,7 @@ public class ProductSVImpl implements IProductSV{
 	@Transactional
 	public Boolean purchaseProduct(JSONObject jsonObject) {
 		Boolean falg = false;
+		jsonObject = jsonObject.getJSONObject("params");
 		if(null == jsonObject.get("customerId")) {
 			return falg;
 		}
@@ -164,12 +174,12 @@ public class ProductSVImpl implements IProductSV{
 		int orderId;
 		
 		//生成订单，并返回订单编号
-		String orderProductName;
-		String orderProductTip;
-		String orderProductImgRef;
+		String orderProductName = "";
+		String orderProductTip = "";
+		String orderProductImgRef = "";
 		int orderTotal = 0;
 		for(int i=0;i<productList.size();i++) {
-			JSONObject object=productList.get(i);
+			JSONObject object=productList.get(i).getJSONObject("product");
 			if(i == 0) {
 				orderProductName=(String) object.get("productName");
 				orderProductTip=(String) object.get("productTip");
@@ -179,14 +189,50 @@ public class ProductSVImpl implements IProductSV{
 							*Integer.parseInt(String.valueOf(object.get("productCount")));
 		}
 		
+		//生成订单
+		Order order = new Order();
+		session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		if(null != user) {
+			order.setUserId(Integer.parseInt(String.valueOf(user.getId())));
+		}
+		order.setCustomerId(customerId);
+		order.setOrdertime(RooCommonUtils.getCurrentDate());
+		order.setTotal(orderTotal);
+		order.setIsCancel("0");
+		order.setProductName(orderProductName);
+		order.setProductTip(orderProductTip);
+		order.setProductImgRef(orderProductImgRef);
+		/*Boolean addOrder = orderSV.addOrder(order);
+		if(!addOrder) {
+			return falg;
+		}*/
+		
+		
+		System.out.println(id.backOrder(order));
+		
+		
+		//订单商品
+		ProductOrder productOrder = new ProductOrder();
+		
 		
 		//已经获取订单号，添加订单商品
-		for(JSONObject object:productList) {
-			HashMap<String,Object> product = (HashMap<String, Object>) object.get("product");
+		/*for(int i=0;i<productList.size();i++) {
+			JSONObject object=productList.get(i).getJSONObject("product");
 			
 			//进行订单商品添加
-			ProductOrder productOrder = new ProductOrder();
-		}
+			//ProductOrder productOrder = new ProductOrder();
+			
+			int customerId = 
+			
+		}*/
+		
+		/*for(JSONObject object:productList) {
+			HashMap<String,Object> product = (HashMap<String, Object>) object.get("product");
+			
+			
+			
+		}*/
 		
 		
 		
