@@ -58,20 +58,19 @@
 					<ul class="nav pull-right">
 						<li class="dropdown hidden-phone"><a
 							class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-bell"></i> <span class="badge red"> 1 </span>
+								<i class="icon-bell"></i>
+								<span class="badge red" id="tipCount"> 0 </span>
 						</a>
-							<ul class="dropdown-menu notifications">
-								<li class="dropdown-menu-title"><span>你有1条新消息</span> <a
-									href="#refresh"><i class="icon-repeat"></i></a></li>
-								<!-- <li><a href="#"> <span class="icon blue"><i
-											class="icon-user"></i></span> <span class="message">待发货订单</span> <span
-										class="time">物流：未发货</span>
-								</a></li> -->
-								<li><a href="#"> <span class="icon green"><i
-											class="icon-comment-alt"></i></span> <!-- <span class="message">联系提醒</span> -->
-										<!-- <span class="time">今天您预约了王林海于15:30</span> -->
-										<span class="message">今天您预约了王林海于15:30</span>
-								</a></li>
+							<ul class="dropdown-menu notifications tipMsgList">
+								<li class="dropdown-menu-title">
+									<span id="tipMessageCount"></span> 
+									<a href="#refresh">
+										<i class="icon-repeat"></i>
+									</a>
+								</li>
+								
+								<div id='msgContent'>
+								</div>
 								<!-- <li><a href="#"> <span class="icon yellow"><i
 											class="icon-shopping-cart"></i></span> <span class="message">购物车</span>
 										<span class="time">1条信息</span>
@@ -171,6 +170,51 @@
 	<script type="text/javascript">
 		//初始化a标签链接到tab
 		$(".sideMenu a").tab();
+		
+		$(function(){
+			getInitTip();
+		 	setInterval(getInitTip,30000);
+		});
+		
+		function getInitTip(){
+			$.ajax({
+				type : "get",
+				async : true,
+				url : "/user/qryAllTips",
+				contentType : "application/json; charset=utf-8",
+				data : "",
+				dataType : "json",
+				success : function(message) {
+					if (message.code == 0) {
+						debugger;
+						var rtnData = message.data;
+						
+						// 获取客户信息
+						var custData = rtnData.contactList;
+						var html = '';
+						
+						for (var order in custData)
+		            	{
+							html += '<li><a href="#"><span class="icon green"><i class="icon-comment-alt"></i></span><span class="message">';
+							html += custData[order].content;
+							html += '</span></a></li>';
+		            	}
+						
+						$("#tipCount").html(rtnData.customerAllCount);
+						$("#tipMessageCount").html('您有'+rtnData.customerAllCount+'新消息未读');
+						$("#msgContent").html(html);
+					} else {
+						layuiAlert(message.msg);
+					}
+					return true;
+				},
+				error : function(message) {
+					layuiAlert("系统环境异常");
+					return false;
+				}
+			});
+			
+		}
 	</script>
 	<!-- start: JavaScript-->
 	<!-- end: JavaScript-->

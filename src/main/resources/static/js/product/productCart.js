@@ -80,17 +80,17 @@ function getAllProdCartInfo() {
 						+ '<input type="checkbox" class="productBox" value="">' + '</td>';
 					var tdId = '<td class="sorting_1 productId" style="display: none;">'
 						+ custData[order].productId + '</td>';
-					var tdImg = '<td class="sorting_1">'
+					var tdImg = '<td class="sorting_1 productImgRef">'
 						+ custData[order].imgRef + '</td>';
-					var tdName = '<td class="sorting_1">'
+					var tdName = '<td class="productCartName">'
 							+ custData[order].productName + '</td>';
-					var tdTip = '<td class="center">'
+					var tdTip = '<td class="center productTip">'
 							+ custData[order].productTip + '</td>';
-					var tdPrice = '<td class="center">'
+					var tdPrice = '<td class="center productPrice">'
 							+ custData[order].productPrice + '</td>';
-					var tdAddTime = '<td class="center count">'+'<input type="text" class="span6 typeahead" data-provide="typeahead" data-items="4" name="count" value="1"/>'
+					var tdAddTime = '<td class="center tdCount">'+'<input type="text" class="productCount" data-provide="typeahead" data-items="4" name="count" value="1"/>'
 							+ '</td>';
-					var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteProdCart('
+					var btn = '<td class="center"><a class="btn btn-danger" href="#" onClick="deleteProdCart('
 							+ custData[order].id
 							+ ')"><i class="halflings-icon white trash"></i></a></td>';
 					var trTail = '</tr>';
@@ -149,38 +149,57 @@ function initCustomer() {
 //商品模拟购买
 $("#payBtn").click(function() {
 	var $productBox = $('.productBox');
-	
 	var customerSelected=$("#customerSelect option:selected");
-	alert(customerSelected.val());
-	
 	var data = '{"params":{"produceList":[';
 	$productBox.each(function () {
         if ($(this).is(':checked')) {
-			var iniStr = '{ "productId":';
-//            var goods = parseInt($(this).parents('.order_lists').find('.sum_price').html().substring(1));
-			var goods = parseInt($(this).parents('.productCartInfo').find('.productId').html().substring(0));
-            //var num =  parseInt($(this).parents('.order_lists').find('.sum').html().substring(0));
+        	debugger;
+			var productId = parseInt($(this).parents('.productCartInfo').find('.productId').html().substring(0));
+			var productCartName = $(this).parents('.productCartInfo').find('.productCartName').html().substring(0);
+			var productPrice = $(this).parents('.productCartInfo').find('.productPrice').html().substring(0);
+			var productCount = $(this).parents('.productCartInfo').find('.tdCount').find('.productCount').val();
+			var productImgRef = $(this).parents('.productCartInfo').find('.productImgRef').html().substring(0);
 			
-			//var productId =  parseInt($(this).parents('.order_lists').find('.productId').val());--
-			
-			//var price = goods/num;--
-			
-			//alert(price);
-			//封装请求,'{ "productId":"' + $("input[name='productId']").val() + '","number":"' + $("#number").val() + '"}'
-			
-			//iniStr+=goods;--
-			
-			/*iniStr+=',"number":';
-			iniStr+=num;
-			iniStr+='}'; 
-			data+=iniStr;*/
-			alert(goods);
+			var productMsgStr = '{"product": { "productId":' + productId + ',"productName":' + productCartName;
+			productMsgStr += ',"productPrice":' + productPrice;
+			productMsgStr += ',"productCount":' + productCount;
+			productMsgStr += ',"productImgRef":' + productImgRef + '}},';
+			data+=productMsgStr;
         }
     });
-
+	data = data.substr(0, data.length - 1);
+	data+='],';
+	data += '"customerId":' + customerSelected.val() + '}}';
+	alert(data);
 	
+	$.ajax({
+		async: false,
+        url: "/prod/purchaseProduct",
+		type : "post",
+		contentType : "application/json; charset=utf-8",
+		data : data,
+		dataType : "json",
+		success : function(message) {
+			if (message.code == 0) {
+				layer.msg('删除成功', {
+					icon : 1,
+					time : 500
+				// 1秒关闭（如果不配置，默认是3秒）
+				}, function() {
+					// 刷新页面
+					location.reload();
+				});
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function() {
+			layuiAlert("系统环境异常");
+			return false;
+		}
+	});
 	
-	/*alert("hello");*/
 });
 
 

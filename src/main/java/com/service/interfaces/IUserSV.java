@@ -2,7 +2,7 @@ package com.service.interfaces;
 
 import java.util.List;
 
-
+import com.bean.Contact;
 import com.bean.User;
 
 
@@ -43,5 +43,11 @@ public interface IUserSV {
 	
 	//查询用户对象条数
 	public int qryUserCount();
+	
+	//查询信息提醒条数
+	public int qryAllTipsCount();
+	
+	//查询信息提醒
+	public List<Contact> qryAllTips();
 	
 }

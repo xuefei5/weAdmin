@@ -220,6 +220,17 @@ public class CommonUtil {
 	}
 	
 	public static void main(String[] args) throws ParseException {
-		System.out.println(CommonUtil.getCityCode("0471"));
+		//System.out.println(CommonUtil.getCityCode("0471"));
+		
+		//System.out.println(CommonUtil.countDays("2018-02-01 12:20:00","2018-02-03 12:20:00","YYYY-MM-DD hh:mm:ss"));
+		
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date beginDate;
+		Date endDate;
+		beginDate = format.parse("2018-02-28 12:22:00");
+		endDate= format.parse("2018-03-1 12:10:00");    
+		long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);  
+		System.out.println(day);
 	}
 }

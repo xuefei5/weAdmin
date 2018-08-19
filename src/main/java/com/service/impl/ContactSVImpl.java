@@ -71,6 +71,24 @@ public class ContactSVImpl implements IContactSV{
 		}
 	}
 
+	@Override
+	public int qryAllTipsCount() {
+		try {
+			return ContactDAO.qryContactTipsCount();
+		}catch(Exception e){
+			return 0;
+		}
+	}
+
+	@Override
+	public List<Contact> qryAllTips() {
+		try {
+			return (List<Contact>) ContactDAO.qryContactTips();
+		}catch(Exception e) {
+			return null;
+		}
+	}
+
 	
 
 }

@@ -235,4 +235,5 @@ public class ProductController extends BaseController {
 		mapToClient.put("productCartList", productCartList);
 		return Result.success(mapToClient);
 	}
+
 }
