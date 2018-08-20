@@ -170,7 +170,7 @@ $("#payBtn").click(function() {
 	data = data.substr(0, data.length - 1);
 	data+='],';
 	data += '"customerId":' + customerSelected.val() + '}}';
-	alert(data);
+	//alert(data);
 	
 	$.ajax({
 		async: false,
@@ -181,7 +181,7 @@ $("#payBtn").click(function() {
 		dataType : "json",
 		success : function(message) {
 			if (message.code == 0) {
-				layer.msg('删除成功', {
+				layer.msg('购买成功', {
 					icon : 1,
 					time : 500
 				// 1秒关闭（如果不配置，默认是3秒）

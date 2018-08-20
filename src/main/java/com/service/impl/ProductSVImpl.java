@@ -1,7 +1,5 @@
 package com.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +18,9 @@ import com.bean.ProductOrder;
 import com.bean.User;
 import com.dao.interfaces.IOrderDAO;
 import com.dao.interfaces.IProductDAO;
-import com.dao.interfaces.IUserDAO;
 import com.service.interfaces.IOrderSV;
 import com.service.interfaces.IProductCartSV;
 import com.service.interfaces.IProductSV;
-import com.service.interfaces.IUserSV;
-import com.utils.LocalConstants;
 import com.utils.RooCommonUtils;
 
 @Service

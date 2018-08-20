@@ -86,7 +86,16 @@ private static final transient Logger logger = Logger.getLogger(BaseController.c
 			}
 		}
         
-        return (JSONObject) JSON.parse(reqStr);
+		JSONObject inObject = new JSONObject();
+		try {
+			inObject = (JSONObject) JSON.parse(reqStr);
+		}catch(Exception e) {
+			logger.info("非法报文请求！");
+			inObject.put("code", "-9999");
+			inObject.put("msg", "非法请求");
+		}
+		
+        return inObject;
 	}
 
 }
