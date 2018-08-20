@@ -3,6 +3,7 @@ package com.service.interfaces;
 import java.util.List;
 
 import com.bean.Order;
+import com.bean.ProductOrder;
 
 
 public interface IOrderSV {
@@ -15,5 +16,8 @@ public interface IOrderSV {
 	
 	//分页查询客户订单列表
 	public List<Order> qryOrderByPageNum(int customerId,int startPage,int count);
+	
+	//订单商品添加
+	public Boolean addProductOrder(ProductOrder productOrder);
 
 }

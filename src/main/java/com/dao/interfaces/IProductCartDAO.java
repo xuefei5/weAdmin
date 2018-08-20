@@ -29,4 +29,8 @@ public interface IProductCartDAO{
 	/*查询所有购物车商品*/
 	@Select("select * from productcart where state='1'")
 	public List<ProductCart> qryAll();
+	
+	/*商品id删除购物车商品对象*/
+	@Update("UPDATE productcart SET state='0' where productId = #{id}")
+	public int deleteByProductId(@Param("id")int id);
 }

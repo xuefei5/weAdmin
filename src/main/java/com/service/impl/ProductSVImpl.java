@@ -89,6 +89,7 @@ public class ProductSVImpl implements IProductSV{
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteProduct(int id) {
 		try{
 			int retNum = productDAO.delete(id);
@@ -159,6 +160,7 @@ public class ProductSVImpl implements IProductSV{
 	@Override
 	@Transactional
 	public Boolean purchaseProduct(JSONObject jsonObject) {
+		try {
 		Boolean falg = false;
 		jsonObject = jsonObject.getJSONObject("params");
 		if(null == jsonObject.get("customerId")) {
@@ -203,40 +205,43 @@ public class ProductSVImpl implements IProductSV{
 		order.setProductName(orderProductName);
 		order.setProductTip(orderProductTip);
 		order.setProductImgRef(orderProductImgRef);
-		/*Boolean addOrder = orderSV.addOrder(order);
+		Boolean addOrder = orderSV.addOrder(order);
 		if(!addOrder) {
 			return falg;
-		}*/
-		
-		
-		System.out.println(id.backOrder(order));
-		
+		}
 		
 		//订单商品
-		ProductOrder productOrder = new ProductOrder();
-		
-		
-		//已经获取订单号，添加订单商品
-		/*for(int i=0;i<productList.size();i++) {
+		orderId = order.getId();
+		for(int i=0;i<productList.size();i++) {
+			ProductOrder productOrder = new ProductOrder();
 			JSONObject object=productList.get(i).getJSONObject("product");
+			int productId;
+			int price;
+			int amount;
+			String productImgRef;
+			String productName;
+			String productTip = "";
 			
-			//进行订单商品添加
-			//ProductOrder productOrder = new ProductOrder();
+			productId = Integer.parseInt(String.valueOf(object.get("productId")));
+			price = Integer.parseInt(String.valueOf(object.get("productPrice")));
+			amount = Integer.parseInt(String.valueOf(object.get("productCount")));
+			productImgRef = String.valueOf(object.get("productImgRef"));
+			productName = String.valueOf(object.get("productName"));
 			
-			int customerId = 
+			productOrder.setAmount(amount);
+			productOrder.setOrderId(orderId);
+			productOrder.setProductId(productId);
+			productOrder.setPrice(price);
+			productOrder.setProductImgRef(productImgRef);
+			productOrder.setProductName(productName);
+			productOrder.setProductTip(productTip);
 			
-		}*/
-		
-		/*for(JSONObject object:productList) {
-			HashMap<String,Object> product = (HashMap<String, Object>) object.get("product");
-			
-			
-			
-		}*/
-		
-		
-		
-		return null;
+			orderSV.addProductOrder(productOrder);
+		}
+		return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 
 	@Override
