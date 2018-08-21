@@ -18,4 +18,7 @@ public interface IProductCartSV {
 	
 	//查询所有商品购物车信息
 	public List<ProductCart> qryAll();
+	
+	//商品id查询购物车信息
+	public List<ProductCart> qryProductCartByProductId(int productId);
 }

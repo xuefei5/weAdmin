@@ -25,7 +25,7 @@ public class CodeMsg {
 	public static CodeMsg PRODUCT_PURCHASE_SUCCESS = new CodeMsg(100308, "商品购买成功");
 	public static CodeMsg PRODUCT_PURCHASE_FAIL = new CodeMsg(100309, "商品购买失败");
 	public static CodeMsg PRODUCT_ADDTOCART_SUCCESS = new CodeMsg(100310, "成功添加到购物车");
-	public static CodeMsg PRODUCT_ADDTOCART_FAIL = new CodeMsg(100311, "添加到购物车失败");
+	public static CodeMsg PRODUCT_ADDTOCART_FAIL = new CodeMsg(100311, "添加到购物车失败或商品已存在");
 	
 	public static CodeMsg PRODUCT_CART_DELETE_SUCCESS = new CodeMsg(100312, "购物车商品删除成功");
 	public static CodeMsg PRODUCT_CART_DELETE_FAIL = new CodeMsg(100313, "购物车商品删除失败");
