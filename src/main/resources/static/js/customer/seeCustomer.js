@@ -167,10 +167,21 @@ function disPlayOrderInfo(orderList) {
 }
 
 function seeOrderInfo(id) {
-	layuiAlert("查看订单具体信息!");
-}
-function deleteContactInfo(id) {
-	layuiAlert("删除联系记录!");
+	layer.open({
+		type : 2,
+		title : '查看订单信息',
+		shadeClose : false,
+		shade : 0.7,
+		maxmin : true, // 开启最大化最小化按钮
+		scrollbar : true,// 是否允许出现滚动条
+		anim : 5,
+		moveOut : true,// 是否允许拖动到外面
+		area : [ '85%', '82%' ],
+		content : '../staticPages/seeCustToseeOrderInfo.html?id=' + id,
+		end : function(index, layero) {
+
+		}
+	});
 }
 
 //预约按钮点击事件
