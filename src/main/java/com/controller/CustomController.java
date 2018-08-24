@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +29,7 @@ import com.result.Result;
 import com.service.interfaces.ICustomerSV;
 import com.utils.CommonUtil;
 import com.utils.LocalConstants;
+import com.utils.RooFtpUtils;
 
 
 @Controller
@@ -137,14 +139,13 @@ public class CustomController extends BaseController{
 			String fileName = files.get(0).getOriginalFilename();
 			//文件名:时间+客户名+后缀名
 			fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
-			
-	        File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
-	        // 检测是否存在目录
-	        if (!dest.getParentFile().exists()) {
-	            dest.getParentFile().mkdirs();
+
+	        try {
+	            InputStream inputStream = files.get(0).getInputStream();
+	            RooFtpUtils.pushToFtp(inputStream, fileNameToUpload);
+	        } catch (Exception e) {
+	        	
 	        }
-	        //上传
-	        files.get(0).transferTo(dest);
 		}
 		
 		customer.setImgRef(fileNameToUpload);

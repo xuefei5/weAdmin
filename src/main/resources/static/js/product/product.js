@@ -231,7 +231,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											var trHead = '<tr class="'
 													+ className + '">';
 											var tdImg = '<td class="sorting_1">'
-												+ item.imgRef + '</td>';
+												+ item.imgRef + '<img src="http://192.168.19.129/nihao.png"></img></td>';
 											var tdName = '<td class="sorting_1">'
 													+ item.name + '</td>';
 											var tdTip = '<td class="center">'
