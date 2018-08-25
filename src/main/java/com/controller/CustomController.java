@@ -140,12 +140,13 @@ public class CustomController extends BaseController{
 			//文件名:时间+客户名+后缀名
 			fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
 
-	        try {
-	            InputStream inputStream = files.get(0).getInputStream();
-	            RooFtpUtils.pushToFtp(inputStream, fileNameToUpload);
-	        } catch (Exception e) {
-	        	
+			File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
+	        // 检测是否存在目录
+	        if (!dest.getParentFile().exists()) {
+	            dest.getParentFile().mkdirs();
 	        }
+	        //上传
+	        files.get(0).transferTo(dest);
 		}
 		
 		customer.setImgRef(fileNameToUpload);
