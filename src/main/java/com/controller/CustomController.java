@@ -24,9 +24,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Customer;
 import com.bean.Order;
+import com.bean.ProductOrder;
 import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.ICustomerSV;
+import com.service.interfaces.IProductOrderSV;
 import com.utils.CommonUtil;
 import com.utils.LocalConstants;
 
@@ -43,6 +45,8 @@ public class CustomController extends BaseController{
 	ICustomerSV iCustSV;
 	@Autowired
 	OrderController orderController;
+	@Autowired
+	IProductOrderSV iProductOrderSV;
 
 	/**
 	 * 分页查询客户
@@ -204,8 +208,39 @@ public class CustomController extends BaseController{
 	 */
 	@RequestMapping(value = "/updateCustomer")
 	@ResponseBody
-	public Result<CodeMsg> updateCustomer(Customer customer) throws ParseException {
-		
+	public Result<CodeMsg> updateCustomer(Customer customer,HttpServletRequest req) throws ParseException {
+		try{
+			// 上传到服务器的文件名
+			String fileNameToUpload = "";
+			// 对上传的文件进行处理
+			List<MultipartFile> files = ((MultipartHttpServletRequest) req)
+					.getFiles("headFile");
+			// 进入文件处理代码段
+			if (null != files && files.size() > 0) {
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+				String fileTime = df.format(new Date());
+				// 文件大小
+				int fileSize = (int) files.get(0).getSize();
+				if (fileSize > LocalConstants.CONST_SET.FILE_MAX_SIZE) {
+					throw new Exception("文件最大允许上传4M,请重新选择!");
+				}
+				// 文件名
+				String fileName = files.get(0).getOriginalFilename();
+				// 文件名:时间+客户名+后缀名
+				fileNameToUpload = fileTime + customer.getName()
+						+ fileName.substring(fileName.lastIndexOf("."));
+
+				File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH
+						+ fileNameToUpload);
+				// 检测是否存在目录
+				if (!dest.getParentFile().exists()) {
+					dest.getParentFile().mkdirs();
+				}
+				// 上传
+				files.get(0).transferTo(dest);
+			}
+
+			customer.setImgRef(fileNameToUpload);
 		//出身日期--格式转换
 		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 		customer.setBirthday(birthday);
@@ -216,6 +251,13 @@ public class CustomController extends BaseController{
 		} else {
 			logger.info("客户更新失败");
 			return Result.error(CodeMsg.CUSTOMER_UPDATE_FAIL);
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+			if(null==e.getMessage()){
+				return Result.error(CodeMsg.CUSTOMER_ADD_FAIL_EXCEPTION);
+			}
+			return Result.error(new CodeMsg(101004, e.getMessage()));
 		}
 	}
 
@@ -261,12 +303,35 @@ public class CustomController extends BaseController{
 		int id = Integer.parseInt(jsonObj.getString("id"));
 		Customer customer = iCustSV.qryById(id);
 		//根据客户信息ID查询订单信息
-		List<Order> orders = orderController.qryOrderByPageNumForIndoor(id,"0","10");
+		List<Order> orders = orderController.qryOrderByPageNumForIndoor(id);
 		
 		//封装出参
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("customer", customer);
 		result.put("orderList", orders);
+		
+		return Result.success(result);
+	}
+	
+	/**
+	 * 根据订单编号查询订单信息与该订单下的商品信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/qryProductOrderInfoByOrderId")
+	@ResponseBody
+	public Result<Map<String,Object>> qryProductOrderInfoByOrderId(HttpServletRequest request){
+		JSONObject jsonObj = super.getInputObject(request);
+		int id = Integer.parseInt(jsonObj.getString("id"));
+		//根据订单ID查询订单信息
+		Order order = orderController.qryOrderInfoByOrderIdForIndoor(id);
+		//根据订单Id查询商品信息
+		List<ProductOrder> productOrderList = iProductOrderSV.qryProductOrderByOrderId(id);
+		
+		//封装出参
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("order", order);
+		result.put("productOrderList", productOrderList);
 		
 		return Result.success(result);
 	}
