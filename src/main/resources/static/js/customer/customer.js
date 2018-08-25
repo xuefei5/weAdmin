@@ -189,6 +189,7 @@ function openSeeCustInfo(data, id) {
 				offset : [ getMouseY(id), getMouseX(id) ],
 				title : false, // 不显示标题栏
 				closeBtn : false,
+				id:"LAY_layuipro",
 				area : [ '20%', '40%' ],
 				shade : 0,
 				moveType : 1, // 拖拽模式，0或者1
@@ -219,7 +220,7 @@ function openSeeCustInfo(data, id) {
 
 // 鼠标移出事件
 function mouseOut() {
-	layer.closeAll();
+	layer.close(LAY_layuipro);
 }
 
 function getMouseX(id) {

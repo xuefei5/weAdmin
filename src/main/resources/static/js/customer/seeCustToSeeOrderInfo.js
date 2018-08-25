@@ -61,7 +61,7 @@ function disPlayProductInfo(productOrderList) {
 							className = "odd"
 						}
 						var trHead = '<tr class="' + className + '">';
-						var tdProductImgRef = '<td class="sorting_1">' + item.productImgRef + '</td>';
+						var tdProductImgRef = '<td class="sorting_1"><img src="images/login/web_login.bg.jpg"></img>' + item.productImgRef + '</td>';
 						var tdProductName = '<td class="center">' + item.productName + '</td>';
 						var tdPrice = '<td class="center">' + item.price + '</td>';
 						var tdAmount = '<td class="center">'+ item.amount + '</td>';
