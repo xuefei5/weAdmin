@@ -15,7 +15,8 @@ function checkForm() {
 	var name = $("input[name='name']");
 	var name_p = $("#name_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (name.val() == "" || !reg.test(name.val())) {
+	//if (name.val() == "" || !reg.test(name.val())) {
+	if (name.val() == "") {
 		name_p.css("color","red");
 		return false;
 	}else{
@@ -25,7 +26,8 @@ function checkForm() {
 	var nickName = $("input[name='nickName']");
 	var nickName_p = $("#nickName_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (nickName.val() == "" || !reg.test(nickName.val())) {
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (nickName.val() == "") {
 		nickName_p.css("color","red");
 		return false;
 	}else{
@@ -40,6 +42,17 @@ function checkForm() {
 		return false;
 	}else{
 		telephone_p.css("color","#578ebe");
+	}
+	//验证用户密码不可为空
+	var password = $("input[name='password']");
+	var password_p = $("#password_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (password.val() == "") {
+		password_p.css("color","red");
+		return false;
+	}else{
+		password_p.css("color","#578ebe");
 	}
 	return true;
 }
