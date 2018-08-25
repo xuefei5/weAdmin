@@ -135,6 +135,7 @@ function deleteCustomer(id) {
 }
 // 显示客户信息
 function seeCustomerInfo(id) {
+	layer.closeAll();
 	var data = '{ "id":"' + id + '"}';
 	$.ajax({
 		type : "post",
