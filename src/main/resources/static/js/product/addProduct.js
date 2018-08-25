@@ -36,7 +36,59 @@ function layuiAlert(content) {
 
 //验证表单
 function checkForm() {
-
+	//商品名验证-只能是汉字
+	var name = $("input[name='name']");
+	var name_p = $("#name_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (name.val() == "" || !reg.test(name.val())) {
+	if (name.val() == "") {
+		name_p.css("color","red");
+		return false;
+	}else{
+		name_p.css("color","#578ebe");
+	}
+	//商品备注验证-只能是汉字
+	var tip = $("input[name='tip']");
+	var tip_p = $("#tip_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (tip.val() == "") {
+		tip_p.css("color","red");
+		return false;
+	}else{
+		tip_p.css("color","#578ebe");
+	}
+	//商品单价不可为空
+	var price = $("input[name='price']");
+	var price_p = $("#price_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (price.val() == "") {
+		price_p.css("color","red");
+		return false;
+	}else{
+		price_p.css("color","#578ebe");
+	}
+	//对文件大小以及文件类型做判断
+	var headFile = $("input[name='headFile']");
+	var path = headFile.val();
+	var headFile_p = $("#headFile_p");
+	if (path != "") {
+		var fileSize = headFile[0].files[0].size;
+		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
+				path.length).toUpperCase();
+		if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG'
+				&& ext !== '.GIF' && fileSize > FILE_MAX_SIZE) {
+			headFile_p.css("color", "red");
+			headFile.val("");
+			return false;
+		} else {
+			headFile_p.css("color", "#578ebe");
+		}
+	}else{
+		headFile_p.css("color","red");
+		return false;
+	}
 	return true;
 }
 
