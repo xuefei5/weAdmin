@@ -156,7 +156,9 @@ function disPlayOrderInfo(orderList) {
 								+ item.productName + '</td>';
 						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
 								+ item.id
-								+ ')"><i class="halflings-icon white zoom-in"></i></a></td>';
+								+ ')"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-danger" href="#" onClick="deleteOrderInfo('
+								+ item.id
+								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
 						html += trHead + tdid + tdOderTime + tdTotal
 								+ tdIsCancel + tdProductName + btn + trTail;
@@ -231,6 +233,38 @@ function deleteContactInfo(id) {
 		type : "post",
 		async : true,
 		url : "/contact/deleteContact",
+		contentType : "application/json; charset=utf-8",
+		data : data,
+		dataType : "json",
+		success : function(message) {
+			if (message.code == 0) {
+				layer.msg('删除成功', {
+					icon : 1,
+					time : 500
+				// 1秒关闭（如果不配置，默认是3秒）
+				}, function() {
+					// 刷新页面
+					location.reload();
+				});
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function() {
+			layuiAlert("系统环境异常");
+			return false;
+		}
+	});
+}
+
+//删除订单信息
+function deleteOrderInfo(id) {
+	var data = '{ "id":"' + id + '"}';
+	$.ajax({
+		type : "post",
+		async : true,
+		url : "/order/deleteOrder",
 		contentType : "application/json; charset=utf-8",
 		data : data,
 		dataType : "json",

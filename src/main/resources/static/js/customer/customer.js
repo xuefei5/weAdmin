@@ -219,7 +219,7 @@ function openSeeCustInfo(data, id) {
 
 // 鼠标移出事件
 function mouseOut() {
-	layer.close(LAY_layuipro);
+	layer.closeAll();
 }
 
 function getMouseX(id) {

@@ -66,12 +66,9 @@ function disPlayProductInfo(productOrderList) {
 						var tdPrice = '<td class="center">' + item.price + '</td>';
 						var tdAmount = '<td class="center">'+ item.amount + '</td>';
 						var tdProductTip = '<td class="center">'+ item.productTip + '</td>';
-						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
-								+ item.id
-								+ ')"><i class="halflings-icon white zoom-in"></i></a></td>';
 						var trTail = '</tr>';
 						html += trHead + tdProductImgRef + tdProductName + tdPrice
-								+ tdAmount + tdProductTip + btn + trTail;
+								+ tdAmount + tdProductTip + trTail;
 
 					});
 
