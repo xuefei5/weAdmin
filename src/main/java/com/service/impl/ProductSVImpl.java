@@ -133,7 +133,7 @@ public class ProductSVImpl implements IProductSV{
 	public Boolean addProdToCart(int productId) {
 		Boolean flag = false;
 		
-		if(null == productCartSV.qryProductCartByProductId(productId) || productCartSV.qryProductCartByProductId(productId).size() <= 0) {
+		if(null != productCartSV.qryProductCartByProductId(productId) && productCartSV.qryProductCartByProductId(productId).size() > 0) {
 			return flag;
 		}
 		
