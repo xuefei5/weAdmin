@@ -13,35 +13,27 @@ function getUrlParam(name) {
 		return unescape(r[2]);
 	return null; //返回参数值
 }
-//根据客户ID获取到客户信息
+//根据订单ID获取到订单信息与商品信息
 var id = getUrlParam("id");
 
 var data = '{ "id":"' + id + '"}';
 $.ajax({
 	type : "post",
 	async : false,
-	url : "/cust/qryCustAndOrderByCustId",
+	url : "/cust/qryProductOrderInfoByOrderId",
 	contentType : "application/json; charset=utf-8",
 	data : data,
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
 			var data = message.data;
-			var customer = data.customer;
-			var tdSex = "";
-			if (customer.sex == 0) {// 男
-				tdSex = '男';
-			} else {
-				tdSex = '女';
-			}
-			$("#id").html(customer.id);
-			$("#name").html(customer.name);
-			$("#sex").html(tdSex);
-			$("#telephone").html(customer.telephone);
-			//请求联系记录
-			getContactInfo();
-			//显示订单信息
-			disPlayOrderInfo(data.orderList);
+			var order = data.order;
+			$("#id").html(order.id);
+			$("#customerId").html(order.customerId);
+			$("#ordertime").html(order.ordertime);
+			$("#total").html(order.total);
+			//显示商品信息
+			disPlayProductInfo(data.productOrderList);
 		} else {
 			layuiAlert(message.msg);
 		}
@@ -52,38 +44,12 @@ $.ajax({
 		return false;
 	}
 });
-//请求并且显示联系记录
-function getContactInfo() {
-
-	var data = '{ "id":"' + id + '"}';
-	$.ajax({
-		type : "post",
-		async : false,
-		url : "/contact/qryContactInfoByCustId",
-		contentType : "application/json; charset=utf-8",
-		data : data,
-		dataType : "json",
-		success : function(message) {
-			if (message.code == 0) {
-				var data = message.data;
-				disPlayContactInfo(data);
-			} else {
-				layuiAlert(message.msg);
-			}
-			return true;
-		},
-		error : function() {
-			layuiAlert("系统环境异常");
-			return false;
-		}
-	});
-}
 //显示订单信息
-function disPlayOrderInfo(orderList) {
+function disPlayProductInfo(productOrderList) {
 	var html = '';
 	$
 			.each(
-					orderList,
+					productOrderList,
 					function(i, item) {
 
 						var r = Number(i);
@@ -95,26 +61,17 @@ function disPlayOrderInfo(orderList) {
 							className = "odd"
 						}
 						var trHead = '<tr class="' + className + '">';
-						var tdid = '<td class="sorting_1">' + item.id + '</td>';
-						var tdOderTime = '<td class="center">' + item.ordertime
-								+ '</td>';
-						var tdTotal = '<td class="center">' + item.total
-								+ '</td>';
-						// 是否取消
-						var tdIsCancel = "";
-						if (item.isCancel == 0) {
-							tdIsCancel = '<td class="center">' + '是' + '</td>';
-						} else {
-							tdIsCancel = '<td class="center">' + '否' + '</td>';
-						}
-						var tdProductName = '<td class="center">'
-								+ item.productName + '</td>';
+						var tdProductImgRef = '<td class="sorting_1">' + item.productImgRef + '</td>';
+						var tdProductName = '<td class="center">' + item.productName + '</td>';
+						var tdPrice = '<td class="center">' + item.price + '</td>';
+						var tdAmount = '<td class="center">'+ item.amount + '</td>';
+						var tdProductTip = '<td class="center">'+ item.productTip + '</td>';
 						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
 								+ item.id
 								+ ')"><i class="halflings-icon white zoom-in"></i></a></td>';
 						var trTail = '</tr>';
-						html += trHead + tdid + tdOderTime + tdTotal
-								+ tdIsCancel + tdProductName + btn + trTail;
+						html += trHead + tdProductImgRef + tdProductName + tdPrice
+								+ tdAmount + tdProductTip + btn + trTail;
 
 					});
 

@@ -14,6 +14,10 @@ import com.bean.Order;
 @Mapper
 public interface IOrderDAO{	
 	
+	/*根据订单编号查询订单信息*/
+	@Select("select * from orderC where id = #{orderId} and state='1'")
+	public Order qryOrderInfoByOrderId(@Param("orderId")int orderId);
+	
 	/*添加订单对象*/
 	@Insert("insert into orderC(userId,customerId,ordertime,total,isCancel,productName,productTip,productImgRef,state)values(#{userId},#{customerId},#{ordertime},#{total},#{isCancel},#{productName},#{productTip},#{productImgRef},'1')")
 	public int insert(Order user);
@@ -21,6 +25,10 @@ public interface IOrderDAO{
 	/*根据客户id分页查询订单对象*/
 	@Select("select * from orderC where customerId = #{customerId} and state='1' order by ordertime desc limit #{start} , #{end}")
 	public List<Order> qryOrderByPageNum(@Param("customerId")int customerId,@Param("start")int start,@Param("end")int end);
+	
+	/*根据客户id查询订单对象*/
+	@Select("select * from orderC where customerId = #{customerId} and state='1' order by ordertime desc")
+	public List<Order> qryOrderByCustId(@Param("customerId")int customerId);
 	
 	/*删除订单对象*/
 	@Update("UPDATE orderC SET state='0' where  id = #{id}")

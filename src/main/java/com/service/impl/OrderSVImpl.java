@@ -94,5 +94,25 @@ public class OrderSVImpl implements IOrderSV{
 			return false;
 		}
 	}
+
+	@Override
+	public List<Order> qryOrderByCustId(int customerId) {
+		try {
+			return (List<Order>) orderDAO.qryOrderByCustId(customerId);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Order qryOrderInfoByOrderId(int orderId) {
+		try {
+			return (Order) orderDAO.qryOrderInfoByOrderId(orderId);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 }
