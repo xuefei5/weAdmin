@@ -298,9 +298,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											// white zoom-in"></i></a>
 											var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeCustomer('+item.id+')" id="seeA'
 													+ item.id
-													+ '" onmouseover="seeCustomerInfo('
-													+ item.id
-													+ ')" onmouseout="mouseOut()"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
+													+ '"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
 													+ item.id
 													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteCustomer('
 													+ item.id
