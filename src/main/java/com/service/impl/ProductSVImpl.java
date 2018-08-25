@@ -227,6 +227,7 @@ public class ProductSVImpl implements IProductSV{
 			amount = Integer.parseInt(String.valueOf(object.get("productCount")));
 			productImgRef = String.valueOf(object.get("productImgRef"));
 			productName = String.valueOf(object.get("productName"));
+			productTip = String.valueOf(object.get("productTip"));
 			
 			productOrder.setAmount(amount);
 			productOrder.setOrderId(orderId);
