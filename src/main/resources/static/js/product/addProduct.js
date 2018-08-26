@@ -99,16 +99,14 @@ $("#prodSubmitBtn").click(function() {
 	}
 	var data = '{ "name":"' + $("input[name='name']").val() + '","tip":"' + $("input[name='tip']").val()
 				+ '","price":"' + $("input[name='price']").val()  + '"}'; 
-	$.ajax({
-		type: "post",
+	
+	$("#CustomerForm").ajaxSubmit({
+		type : "post",
 		forceSync : false,
-        url: "/prod/addProduct",
-        contentType: "application/json; charset=utf-8",
-        data: data,
-        dataType: "json",
-        success: function (message) {
-        	if(message.code != '100310'){
-        		//点击确认关闭该层
+		url : "/prod/addProduct",
+		success : function(message) {
+			if (message.code == 0) {
+				//点击确认关闭该层
 				var index = parent.layer.getFrameIndex(window.name);
 				layer.msg('保存成功', {
 					icon : 1,
@@ -119,17 +117,14 @@ $("#prodSubmitBtn").click(function() {
 					parent.layer.close(index);
 					parent.location.reload();
 				});
-        	}else{
-        		layer.open({
-        			title : '提示',
-        			content : message.msg
-        		});
-        	}
-        	return true;
-        },
-        error: function (message) {
-            alert("系统环境异常");
-            return false;
-        }
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function(message) {
+			layuiAlert("系统环境异常");
+			return false;
+		}
 	});
 })

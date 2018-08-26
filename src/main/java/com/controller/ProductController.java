@@ -73,10 +73,9 @@ public class ProductController extends BaseController {
 	 */
 	@RequestMapping(value = "/addProduct")
 	@ResponseBody
-	public Result<CodeMsg> addProduct(HttpServletRequest request) {
-		String inputStr = super.getInputString(request);
-		Product Product = JSON.parseObject(inputStr, new TypeReference<Product>() {});
-		
+	public Result<CodeMsg> addProduct(Product product,HttpServletRequest request) {
+		//String inputStr = super.getInputString(request);
+		//Product Product = JSON.parseObject(inputStr, new TypeReference<Product>() {});
 		try{
 			//上传到服务器的文件名
 			String fileNameToUpload = "";
@@ -94,7 +93,7 @@ public class ProductController extends BaseController {
 				//文件名
 				String fileName = files.get(0).getOriginalFilename();
 				//文件名:时间+商品名+后缀名
-				fileNameToUpload = fileTime+Product.getName()+fileName.substring(fileName.lastIndexOf("."));
+				fileNameToUpload = fileTime+product.getName()+fileName.substring(fileName.lastIndexOf("."));
 
 				File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
 		        // 检测是否存在目录
@@ -105,11 +104,11 @@ public class ProductController extends BaseController {
 		        files.get(0).transferTo(dest);
 			}
 			
-			Product.setImgRef(fileNameToUpload);
+			product.setImgRef(fileNameToUpload);
 		}catch(Exception e) {
-			Product.setImgRef("");
+			product.setImgRef("");
 		}
-		if (productSV.addProduct(Product)) {
+		if (productSV.addProduct(product)) {
 			return Result.success(CodeMsg.PRODUCT_ADD_SUCCESS);
 		} else {
 			return Result.error(CodeMsg.PRODUCT_ADD_FAIL);
