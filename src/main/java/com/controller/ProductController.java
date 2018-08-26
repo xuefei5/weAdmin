@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -22,6 +27,7 @@ import com.bean.User;
 import com.result.CodeMsg;
 import com.result.Result;
 import com.service.interfaces.IProductSV;
+import com.utils.LocalConstants;
 
 @Controller
 @RequestMapping("/prod")
@@ -68,10 +74,41 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/addProduct")
 	@ResponseBody
 	public Result<CodeMsg> addProduct(HttpServletRequest request) {
-		
 		String inputStr = super.getInputString(request);
 		Product Product = JSON.parseObject(inputStr, new TypeReference<Product>() {});
 		
+		try{
+			//上传到服务器的文件名
+			String fileNameToUpload = "";
+			//对上传的文件进行处理
+			List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("headFile");
+			//进入文件处理代码段
+			if(null!=files&&files.size()>0){
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+				String fileTime = df.format(new Date());
+				//文件大小
+				int fileSize = (int) files.get(0).getSize();
+				if(fileSize>LocalConstants.CONST_SET.FILE_MAX_SIZE){
+					throw new Exception("文件最大允许上传4M,请重新选择!");
+				}
+				//文件名
+				String fileName = files.get(0).getOriginalFilename();
+				//文件名:时间+商品名+后缀名
+				fileNameToUpload = fileTime+Product.getName()+fileName.substring(fileName.lastIndexOf("."));
+
+				File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
+		        // 检测是否存在目录
+		        if (!dest.getParentFile().exists()) {
+		            dest.getParentFile().mkdirs();
+		        }
+		        //上传
+		        files.get(0).transferTo(dest);
+			}
+			
+			Product.setImgRef(fileNameToUpload);
+		}catch(Exception e) {
+			Product.setImgRef("");
+		}
 		if (productSV.addProduct(Product)) {
 			return Result.success(CodeMsg.PRODUCT_ADD_SUCCESS);
 		} else {
