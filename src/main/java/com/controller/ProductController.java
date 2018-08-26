@@ -79,6 +79,8 @@ public class ProductController extends BaseController {
 		try{
 			//上传到服务器的文件名
 			String fileNameToUpload = "";
+			//上传服务器文件地址
+			String ftpFilePath = "";
 			//对上传的文件进行处理
 			List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("headFile");
 			//进入文件处理代码段
@@ -95,7 +97,8 @@ public class ProductController extends BaseController {
 				//文件名:时间+商品名+后缀名
 				fileNameToUpload = fileTime+product.getName()+fileName.substring(fileName.lastIndexOf("."));
 
-				File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
+				ftpFilePath = LocalConstants.CONST_SET.SERV_IP + LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload;
+				File dest = new File(ftpFilePath);
 		        // 检测是否存在目录
 		        if (!dest.getParentFile().exists()) {
 		            dest.getParentFile().mkdirs();
@@ -104,7 +107,7 @@ public class ProductController extends BaseController {
 		        files.get(0).transferTo(dest);
 			}
 			
-			product.setImgRef(fileNameToUpload);
+			product.setImgRef(ftpFilePath);
 		}catch(Exception e) {
 			product.setImgRef("");
 		}
