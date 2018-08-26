@@ -21,4 +21,7 @@ public interface IProductCartSV {
 	
 	//商品id查询购物车信息
 	public List<ProductCart> qryProductCartByProductId(int productId);
+	
+	//商品id删除购物车商品
+	public Boolean deleteByProductId(int id);
 }

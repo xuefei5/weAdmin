@@ -31,8 +31,8 @@ public interface IProductCartDAO{
 	public List<ProductCart> qryAll();
 	
 	/*商品id删除购物车商品对象*/
-	@Update("UPDATE productcart SET state='0' where productId = #{id}")
-	public int deleteByProductId(@Param("id")int id);
+	@Update("update productcart set state = '0' where productId = #{productId}")
+	public int deleteByProductId(@Param("productId")int productId);
 	
 	/*商品id查询商品购物车是否存在*/
 	@Select("select * from productcart where state='1' and productId = #{productId} ")
