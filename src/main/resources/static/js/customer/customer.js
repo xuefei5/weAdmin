@@ -288,11 +288,11 @@ function getAllCustomerInfo(startPage, endPage) {
 											var tdRemarks = '<td class="center">'
 													+ item.remarks + '</td>';
 											// 状态判断
-											var tdState;
-											if (item.state == 0) {// 正常
-												tdState = '<td class="center">'
-														+ '正常' + '</td>';
-											}
+											//var tdState;
+											//if (item.state == 0) {// 正常
+											//	tdState = '<td class="center">'
+											//			+ '正常' + '</td>';
+											//}
 											// <a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
@@ -307,7 +307,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											html += trHead + tdName + tdSex
 													+ tdBirthday + tdPhone
 													+ tdAddTime + tdRemarks
-													+ tdState + btn + trTail;
+												    + btn + trTail;
 
 										});
 
