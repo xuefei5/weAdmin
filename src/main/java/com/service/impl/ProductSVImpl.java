@@ -88,9 +88,17 @@ public class ProductSVImpl implements IProductSV{
 	public Boolean deleteProduct(int id) {
 		try{
 			int retNum = productDAO.delete(id);
-			Boolean pcRetNum = productCartSV.deleteByProductId(id);
-			if(retNum == 1 && pcRetNum) {
-				return true;
+			
+			List<ProductCart> productCartList = productCartSV.qryProductCartByProductId(id);
+			if(productCartList == null || productCartList.size() <= 0) {
+				if(retNum == 1) {
+					return true;
+				}
+			}else {
+				if(retNum == 1) {
+					productCartSV.deleteByProductId(id);
+					return true;
+				}
 			}
 		}catch (Exception e) {
 			return false;
