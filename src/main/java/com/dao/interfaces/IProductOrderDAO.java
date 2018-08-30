@@ -14,7 +14,7 @@ import com.bean.ProductOrder;
 public interface IProductOrderDAO{
 
 	/*添加商品订单对象*/
-	@Insert("insert into Productorder(orderId,productId,price,amount,productImgRef,productName,productTip,state)values(#{orderId},#{productId},#{price},#{amount},#{productImgRef},#{productName},#{productTip},'1')")
+	@Insert("insert into productorder(orderId,productId,price,amount,productImgRef,productName,productTip,state)values(#{orderId},#{productId},#{price},#{amount},#{productImgRef},#{productName},#{productTip},'1')")
 	public int insert(ProductOrder productorder);
 	
 	/*删除商品订单对象*/
