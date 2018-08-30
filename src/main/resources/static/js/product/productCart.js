@@ -80,8 +80,8 @@ function getAllProdCartInfo() {
 						+ '<input type="checkbox" class="productBox" value="">' + '</td>';
 					var tdId = '<td class="sorting_1 productId" style="display: none;">'
 						+ custData[order].productId + '</td>';
-					var tdImg = '<td class="sorting_1 productImgRef">'
-						+ custData[order].imgRef + '</td>';
+					var tdImg = '<td class="img">'
+						+ '<img class="productImgRef" src="' + custData[order].productImgRef + '" height="50" width="150"></img></td>';
 					var tdName = '<td class="productCartName">'
 							+ custData[order].productName + '</td>';
 					var tdTip = '<td class="productCartTip">'
@@ -159,13 +159,13 @@ $("#payBtn").click(function() {
 			var productCartTip = $(this).parents('.productCartInfo').find('.productCartTip').html().substring(0);
 			var productPrice = $(this).parents('.productCartInfo').find('.productPrice').html().substring(0);
 			var productCount = $(this).parents('.productCartInfo').find('.tdCount').find('.productCount').val();
-			var productImgRef = $(this).parents('.productCartInfo').find('.productImgRef').html().substring(0);
+			var productImgRef = $(this).parents('.productCartInfo').find('.img').find('.productImgRef')[0].src;
 			
 			var productMsgStr = '{"product": { "productId":' + productId + ',"productName":"' + productCartName;
 			productMsgStr += '","productTip":"' + productCartTip;
 			productMsgStr += '","productPrice":' + productPrice;
 			productMsgStr += ',"productCount":' + productCount;
-			productMsgStr += ',"productImgRef":' + productImgRef + '}},';
+			productMsgStr += ',"productImgRef":"' + productImgRef + '"}},';
 			data+=productMsgStr;
         }
     });
