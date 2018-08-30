@@ -77,7 +77,8 @@ function checkForm() {
 	var name = $("input[name='name']");
 	var name_p = $("#name_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (name.val() == "" || !reg.test(name.val())) {
+	//if (name.val() == "" || !reg.test(name.val())) {
+	if (name.val() == "" ) {
 		name_p.css("color","red");
 		return false;
 	}else{
@@ -87,7 +88,8 @@ function checkForm() {
 	var nickName = $("input[name='nickName']");
 	var nickName_p = $("#nickName_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (nickName.val() == "" || !reg.test(nickName.val())) {
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (nickName.val() == "" ) {
 		nickName_p.css("color","red");
 		return false;
 	}else{
@@ -119,6 +121,9 @@ function checkForm() {
 		} else {
 			headFile_p.css("color", "#578ebe");
 		}
+	}else{
+		headFile_p.css("color","red");
+		return false;
 	}
 	return true;
 }
