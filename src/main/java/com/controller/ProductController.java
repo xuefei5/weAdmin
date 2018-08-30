@@ -157,15 +157,57 @@ public class ProductController extends BaseController {
 	 */
 	@RequestMapping(value = "/updateProduct",method = RequestMethod.POST)
 	@ResponseBody
-	public Result<CodeMsg> updateProduct(HttpServletRequest request) {
+	public Result<CodeMsg> updateProduct(Product product,HttpServletRequest request) {
 
-		String inputStr = super.getInputString(request);
+		/*String inputStr = super.getInputString(request);
 		Product Product = JSON.parseObject(inputStr, new TypeReference<Product>() {});
 		
 		if (productSV.updateProduct(Product)) {
 			return Result.success(CodeMsg.PRODUCT_UPDATE_SUCCESS);
 		} else {
 			return Result.error(CodeMsg.PRODUCT_UPDATE_FAIL);
+		}*/
+		try{
+			//上传到服务器的文件名
+			String fileNameToUpload = "";
+			//上传服务器文件地址
+			String ftpFilePath = "";
+			//对上传的文件进行处理
+			List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("headFile");
+			//进入文件处理代码段
+			if(null!=files&&files.size()>0){
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+				String fileTime = df.format(new Date());
+				//文件大小
+				int fileSize = (int) files.get(0).getSize();
+				if(fileSize>LocalConstants.CONST_SET.FILE_MAX_SIZE){
+					throw new Exception("文件最大允许上传4M,请重新选择!");
+				}
+				//文件名
+				String fileName = files.get(0).getOriginalFilename();
+				//文件名:时间+商品名+后缀名
+				fileNameToUpload = fileTime+product.getName()+fileName.substring(fileName.lastIndexOf("."));
+
+				ftpFilePath = LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload;
+				File dest = new File(ftpFilePath);
+		        // 检测是否存在目录
+		        if (!dest.getParentFile().exists()) {
+		            dest.getParentFile().mkdirs();
+		        }
+		        //上传
+		        files.get(0).transferTo(dest);
+		        
+		        product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
+			}else {
+				product.setImgRef(productSV.qryProductById(product.getId()).getImgRef());
+			}
+			if (productSV.updateProduct(product)) {
+				return Result.success(CodeMsg.PRODUCT_UPDATE_SUCCESS);
+			} else {
+				return Result.error(CodeMsg.PRODUCT_UPDATE_FAIL);
+			}
+		}catch(Exception e) {
+			return Result.error(CodeMsg.PRODUCT_ADD_FAIL);
 		}
 	}
 	
