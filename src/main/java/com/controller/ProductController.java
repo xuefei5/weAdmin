@@ -97,7 +97,7 @@ public class ProductController extends BaseController {
 				//文件名:时间+商品名+后缀名
 				fileNameToUpload = fileTime+product.getName()+fileName.substring(fileName.lastIndexOf("."));
 
-				ftpFilePath = LocalConstants.CONST_SET.SERV_IP + LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload;
+				ftpFilePath = LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload;
 				File dest = new File(ftpFilePath);
 		        // 检测是否存在目录
 		        if (!dest.getParentFile().exists()) {
@@ -106,14 +106,13 @@ public class ProductController extends BaseController {
 		        //上传
 		        files.get(0).transferTo(dest);
 			}
-			
-			product.setImgRef(ftpFilePath);
+			product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
+			if (productSV.addProduct(product)) {
+				return Result.success(CodeMsg.PRODUCT_ADD_SUCCESS);
+			} else {
+				return Result.error(CodeMsg.PRODUCT_ADD_FAIL);
+			}
 		}catch(Exception e) {
-			product.setImgRef("");
-		}
-		if (productSV.addProduct(product)) {
-			return Result.success(CodeMsg.PRODUCT_ADD_SUCCESS);
-		} else {
 			return Result.error(CodeMsg.PRODUCT_ADD_FAIL);
 		}
 	}
