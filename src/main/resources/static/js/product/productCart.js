@@ -81,7 +81,7 @@ function getAllProdCartInfo() {
 					var tdId = '<td class="sorting_1 productId" style="display: none;">'
 						+ custData[order].productId + '</td>';
 					var tdImg = '<td class="img">'
-						+ '<img class="productImgRef" src="' + custData[order].productImgRef + '" height="50" width="150"></img></td>';
+						+ '<img class="productImgRef" src="' + custData[order].productImgRef + '" height="50" width="50"></img></td>';
 					var tdName = '<td class="productCartName">'
 							+ custData[order].productName + '</td>';
 					var tdTip = '<td class="productCartTip">'
