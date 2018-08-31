@@ -232,7 +232,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ className + '">';
 											//+ item.imgRef 
 											var tdImg = '<td class="sorting_1">'
-												+ '<img src="'+item.imgRef +'" height="50" width="150"></img></td>';
+												+ '<img src="'+item.imgRef +'" height="50" width="50"></img></td>';
 											var tdName = '<td class="sorting_1">'
 													+ item.name + '</td>';
 											var tdTip = '<td class="center">'

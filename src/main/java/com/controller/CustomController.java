@@ -150,27 +150,29 @@ public class CustomController extends BaseController{
 	        }
 	        //上传
 	        files.get(0).transferTo(dest);
-		}
-		
-		customer.setImgRef(fileNameToUpload);
+	        
+	        customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
 			
-		//添加时间--获取当前时间
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		String addTime = df.format(new Date());
-		customer.setAddTime(addTime);
-		
-		//出身日期--格式转换
-		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-		customer.setBirthday(birthday);
+			//添加时间--获取当前时间
+			SimpleDateFormat ndf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			String addTime = ndf.format(new Date());
+			customer.setAddTime(addTime);
+			
+			//出身日期--格式转换
+			String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+			customer.setBirthday(birthday);
 
-		if (iCustSV.addCustomer(customer)) {
-			logger.info("客户添加成功");
-			return Result.success(CodeMsg.CUSTOMER_ADD_SUCCESS);
-		} else {
+			if (iCustSV.addCustomer(customer)) {
+				logger.info("客户添加成功");
+				return Result.success(CodeMsg.CUSTOMER_ADD_SUCCESS);
+			} else {
+				logger.info("客户添加失败");
+				return Result.error(CodeMsg.CUSTOMER_ADD_FAIL);
+			}
+		}else {
 			logger.info("客户添加失败");
 			return Result.error(CodeMsg.CUSTOMER_ADD_FAIL);
 		}
-		
 		}catch(Exception e){
 			e.printStackTrace();
 			if(null==e.getMessage()){
@@ -238,9 +240,12 @@ public class CustomController extends BaseController{
 				}
 				// 上传
 				files.get(0).transferTo(dest);
+				
+				customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
+			}else {
+				customer.setImgRef(iCustSV.qryById(customer.getId()).getImgRef());
 			}
 
-			customer.setImgRef(fileNameToUpload);
 		//出身日期--格式转换
 		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 		customer.setBirthday(birthday);

@@ -41,6 +41,7 @@ $.ajax({
 			$("#name").html(customer.name);
 			$("#sex").html(tdSex);
 			$("#telephone").html(customer.telephone);
+			$("#custImg").attr("src",customer.imgRef);
 			//请求联系记录
 			getContactInfo();
 			//显示订单信息
