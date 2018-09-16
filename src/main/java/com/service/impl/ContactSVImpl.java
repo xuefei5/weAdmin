@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.Contact;
+import com.bean.Customer;
 import com.dao.interfaces.IContactDAO;
 import com.service.interfaces.IContactSV;
-import com.utils.LocalConstants;
+import com.service.interfaces.ICustomerSV;
 
 @Service
 public class ContactSVImpl implements IContactSV{
@@ -24,6 +25,9 @@ public class ContactSVImpl implements IContactSV{
 	
 	@Autowired
 	IContactDAO ContactDAO;
+	
+	@Autowired
+	ICustomerSV customerSV;
 	
 	@Autowired  
 	private HttpServletRequest request; 
@@ -37,9 +41,48 @@ public class ContactSVImpl implements IContactSV{
 	@Override
 	public Boolean addContact(Contact Contact) {
 		try{
-			int retNum = ContactDAO.insert(Contact);
-			if(retNum == 1) {
-				return true;
+			int retNum = 0;
+			
+			List<Contact> contactList = ContactDAO.qryByCustId(Contact.getCustomerId());
+			if(contactList != null && contactList.size() > 0){
+				int isChance = 0;
+				for(int i = 0;i<contactList.size();i++) {
+					Contact contact = contactList.get(i);
+					if(contact.getState().equals("1")) {
+						isChance = isChance + 1;
+					}
+				}
+				if(isChance > 0) {
+					//Customer customer = customerSV.qryById(Contact.getCustomerId());
+					//customer.setState("2");
+					
+					retNum = ContactDAO.insert(Contact);
+					if(retNum == 1) {
+						return true;
+					}
+				}else {
+					if("1".equals(Contact.getIsChance())) {
+						Customer customer = customerSV.qryById(Contact.getCustomerId());
+						customer.setState("2");
+						customerSV.updateCustomer(customer);
+					}
+					
+					retNum = ContactDAO.insert(Contact);
+					if(retNum == 1) {
+						return true;
+					}
+				}
+			}else {
+				if("1".equals(Contact.getIsChance())) {
+					Customer customer = customerSV.qryById(Contact.getCustomerId());
+					customer.setState("2");
+					customerSV.updateCustomer(customer);
+				}
+				
+				retNum = ContactDAO.insert(Contact);
+				if(retNum == 1) {
+					return true;
+				}
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

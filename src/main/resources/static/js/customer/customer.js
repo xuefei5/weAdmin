@@ -297,13 +297,17 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.addTime + '</td>';
 											var tdRemarks = '<td class="center">'
 													+ item.remarks + '</td>';
-											// 状态判断
-											//var tdState;
-											//if (item.state == 0) {// 正常
-											//	tdState = '<td class="center">'
-											//			+ '正常' + '</td>';
-											//}
-											// <a class="btn btn-success"
+											
+											//客户销售机会
+											var tdState;
+											if (item.state == '2') {
+												tdState = '<td class="center" text="red"><font color="red">'
+														+ '有销售机会' + '</font></td>';
+											}else{
+												tdState = '<td class="center">'
+													+ '无' + '</td>';
+											}
+											//<a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
 											var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeCustomer('+item.id+')" id="seeA'
@@ -316,7 +320,7 @@ function getAllCustomerInfo(startPage, endPage) {
 											var trTail = '</tr>';
 											html += trHead + tdName + tdSex
 													+ tdBirthday + tdPhone
-													+ tdAddTime + tdRemarks
+													+ tdAddTime + tdRemarks + tdState
 												    + btn + trTail;
 
 										});
