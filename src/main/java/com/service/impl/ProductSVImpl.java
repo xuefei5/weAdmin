@@ -50,9 +50,16 @@ public class ProductSVImpl implements IProductSV{
 	private IOrderSV orderSV;
 
 	@Override
-	public List<Product> qryProductByPageNum(int startPage, int count) {
+	/*public List<Product> qryProductByPageNum(int startPage, int count) {
 		try {
 			return (List<Product>) productDAO.qryProductByPageNum(startPage, count);
+		}catch(Exception e) {
+			return null;
+		}
+	}*/
+	public List<Product> qryProductByPageNum(String name,int startPage, int count) {
+		try {
+			return (List<Product>) productDAO.qryProductByPageNum(name,startPage, count);
 		}catch(Exception e) {
 			return null;
 		}
@@ -120,9 +127,16 @@ public class ProductSVImpl implements IProductSV{
 	}
 	
 	@Override
-	public int qryProductCount() {
+	/*public int qryProductCount() {
 		try {
 			return productDAO.qryProductCount();
+		}catch(Exception e){
+			return 0;
+		}
+	}*/
+	public int qryProductCount(String name) {
+		try {
+			return productDAO.qryProductCount(name);
 		}catch(Exception e){
 			return 0;
 		}

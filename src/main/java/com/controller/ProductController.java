@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.bean.Customer;
 import com.bean.Product;
 import com.bean.ProductCart;
 import com.bean.User;
@@ -217,7 +218,7 @@ public class ProductController extends BaseController {
 	 */
 	@RequestMapping("/qryProductByPageNum")
 	@ResponseBody
-	public Result<Map<String,Object>> qryProductByPageNum(HttpServletRequest request) {
+	/*public Result<Map<String,Object>> qryProductByPageNum(HttpServletRequest request) {
 
 		JSONObject jsonObj = super.getInputObject(request);
 		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
@@ -227,8 +228,20 @@ public class ProductController extends BaseController {
 		List<Product> productList = productSV.qryProductByPageNum(startPage,endPage);
 		mapToClient.put("productList", productList);
 		return Result.success(mapToClient);
+	}*/
+	public Result<Map<String,Object>> qryProductByPageNum(HttpServletRequest request) {
+
+		JSONObject jsonObj = super.getInputObject(request);
+		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
+		int endPage = Integer.parseInt(jsonObj.getString("endPage"));
+		String name = jsonObj.getString("searchText");
+		
+		Map<String,Object> mapToClient = new HashMap<String,Object>();
+		List<Product> productList = productSV.qryProductByPageNum(name,startPage,endPage);
+		mapToClient.put("productList", productList);
+		return Result.success(mapToClient);
 	}
-	
+
 	/**
 	 * 根据商品关键词分页查询商品
 	 * @author yangsheng
@@ -254,8 +267,14 @@ public class ProductController extends BaseController {
 	 */
 	@RequestMapping("/qryAllProductCount")
 	@ResponseBody
-	public Result<Integer> qryAllProductCount() {
+	/*public Result<Integer> qryAllProductCount() {
 		int productCount = productSV.qryProductCount();
+		return Result.success(productCount);
+	}*/
+	public Result<Integer> qryAllProductCount(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		String name = null == jsonObj.getString("searchText")?"":jsonObj.getString("searchText");
+		int productCount = productSV.qryProductCount(name);
 		return Result.success(productCount);
 	}
 	

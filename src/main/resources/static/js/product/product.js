@@ -5,15 +5,18 @@
  */
 // 定义商品信息的总条数
 var custTotal = 0;
+//获取搜索框里的值
+var searchText = $("#searchText").val();
 //商品查看-弹出层ID
 var LAY_layuipro;
 // 获取总条数
+var numData = '{ "searchText":"' + searchText + '"}';
 $.ajax({
 	type : "post",
 	async : false,
 	url : "/prod/qryAllProductCount",
 	contentType : "application/json; charset=utf-8",
-	data : "",
+	data : numData,
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
@@ -209,7 +212,7 @@ function getMouseXY(){
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
 	debugger;
-	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
+	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+'"}';
 	$.ajax({
 				type : "post",
 				async : true,
