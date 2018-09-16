@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bean.Contact;
 import com.bean.Customer;
@@ -39,6 +40,7 @@ public class ContactSVImpl implements IContactSV{
 	
 
 	@Override
+	@Transactional
 	public Boolean addContact(Contact Contact) {
 		try{
 			int retNum = 0;
@@ -84,6 +86,7 @@ public class ContactSVImpl implements IContactSV{
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteContact(int id) {
 		try{
 			int customerId = ContactDAO.qryById(id).getCustomerId();
