@@ -113,7 +113,7 @@ function checkForm() {
 		var fileSize = headFile[0].files[0].size;
 		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
 				path.length).toUpperCase();
-		alert(ext);
+		//alert(ext);
 		if ((ext != '.PNG' && ext != '.JPG' && ext != '.JPEG'
 				&& ext != '.GIF') || fileSize > FILE_MAX_SIZE) {
 			headFile_p.css("color", "red");
