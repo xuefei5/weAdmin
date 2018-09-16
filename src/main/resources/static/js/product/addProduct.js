@@ -47,17 +47,21 @@ function checkForm() {
 	}else{
 		name_p.css("color","#578ebe");
 	}
+	
+	//应需求置为可空
 	//商品备注验证-只能是汉字
-	var tip = $("input[name='tip']");
-	var tip_p = $("#tip_p");
-	var reg = /^[\u4e00-\u9fa5]+$/;
+	//var tip = $("input[name='tip']");
+	//var tip_p = $("#tip_p");
+	//var reg = /^[\u4e00-\u9fa5]+$/;
 	//if (nickName.val() == "" || !reg.test(nickName.val())) {
-	if (tip.val() == "") {
-		tip_p.css("color","red");
-		return false;
-	}else{
-		tip_p.css("color","#578ebe");
-	}
+	//if (tip.val() == "") {
+	//	tip_p.css("color","red");
+	//	return false;
+	//}else{
+	//	tip_p.css("color","#578ebe");
+	//}
+	
+	
 	//商品单价不可为空
 	var price = $("input[name='price']");
 	var price_p = $("#price_p");
