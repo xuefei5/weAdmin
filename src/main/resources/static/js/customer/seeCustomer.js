@@ -102,7 +102,7 @@ function disPlayContactInfo(contactList) {
 						}
 						var trHead = '<tr class="' + className + '">';
 						var tdContactTime = '<td class="sorting_1">'
-								+ item.contactTime + '</td>';
+								+ item.contactTime.substring(0, 10) + '</td>';
 						var tdContent = '<td class="center">' + item.content
 								+ '</td>';
 						// 是否有机会
@@ -113,7 +113,7 @@ function disPlayContactInfo(contactList) {
 							tdIsCancel = '<td class="center">' + '否' + '</td>';
 						}
 						var tdSubTime = '<td class="center">'
-								+ item.subscribeTime + '</td>';
+								+ item.subscribeTime.substring(0, 10) + '</td>';
 						var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
@@ -207,6 +207,7 @@ $('#contactSubmitBtn').click(
 				dataType : "json",
 				success : function(message) {
 					if (message.code == 0) {
+						document.getElementById("CustomerForm").reset();
 						layer.msg('预约成功', {
 							icon : 1,
 							time : 500
