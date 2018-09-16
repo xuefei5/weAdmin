@@ -114,7 +114,7 @@ function disPlayContactInfo(contactList) {
 						}
 						var tdSubTime = '<td class="center">'
 								+ item.subscribeTime + '</td>';
-						var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteContactInfo('
+						var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
@@ -158,7 +158,7 @@ function disPlayOrderInfo(orderList) {
 								+ item.productName + '</td>';
 						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
 								+ item.id
-								+ ')"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-danger" href="#" onClick="deleteOrderInfo('
+								+ ')"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-danger" href="#" onClick="deleteOrderInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
@@ -228,6 +228,15 @@ $('#contactSubmitBtn').click(
 
 		});
 
+//删除联系信息增加确认框
+function deleteContactInfoConfirm(id){
+	layer.confirm('确定删除此条信息？', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		deleteContactInfo(id);
+	});
+}
 //删除联系信息
 function deleteContactInfo(id) {
 	var data = '{ "id":"' + id + '"}';
@@ -259,7 +268,15 @@ function deleteContactInfo(id) {
 		}
 	});
 }
-
+///删除订单信息增加确认框
+function deleteOrderInfoConfirm(id){
+	layer.confirm('确定删除此条信息？', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		deleteOrderInfo(id);
+	});
+}
 //删除订单信息
 function deleteOrderInfo(id) {
 	var data = '{ "id":"' + id + '"}';
