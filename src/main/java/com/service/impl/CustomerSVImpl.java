@@ -8,9 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.bean.Contact;
 import com.bean.Customer;
 import com.dao.interfaces.ICustomerDAO;
+import com.service.interfaces.IContactSV;
 import com.service.interfaces.ICustomerSV;
 import com.utils.LocalConstants;
 
@@ -24,6 +27,9 @@ public class CustomerSVImpl implements ICustomerSV{
 	
 	@Autowired
 	ICustomerDAO CustomerDAO;
+	
+	@Autowired
+	IContactSV contactSV;
 	
 	@Autowired  
 	private HttpServletRequest request; 
@@ -57,10 +63,20 @@ public class CustomerSVImpl implements ICustomerSV{
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteCustomer(int id) {
 		try{
 			int retNum = CustomerDAO.delete(id);
 			if(retNum == 1) {
+				List<Contact> contactList = contactSV.qryByCustId(id);
+				if(contactList != null && contactList.size() > 0) {
+					for(int i=0;i<contactList.size();i++) {
+						Contact contact = contactList.get(i);
+						if("1".equals(contact.getState())) {
+							contactSV.deleteContact(contact.getId());
+						}
+					}
+				}
 				return true;
 			}
 		}catch (Exception e) {
