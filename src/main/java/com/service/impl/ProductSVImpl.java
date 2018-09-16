@@ -247,6 +247,7 @@ public class ProductSVImpl implements IProductSV{
 			productOrder.setProductTip(productTip);
 			
 			orderSV.addProductOrder(productOrder);
+			productCartSV.deleteByProductId(productId);
 		}
 		return true;
 		}catch(Exception e) {
