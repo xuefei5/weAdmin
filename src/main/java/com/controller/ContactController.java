@@ -101,7 +101,7 @@ public class ContactController extends BaseController{
 			return Result.success(CodeMsg.CANTACT_DELETE_SUCCESS);
 		} else {
 			logger.info("联系信息删除失败");
-			return Result.error(CodeMsg.CANTACT_DELETE_SUCCESS);
+			return Result.error(CodeMsg.CANTACT_DELETE_FAIL);
 		}
 	}
 	

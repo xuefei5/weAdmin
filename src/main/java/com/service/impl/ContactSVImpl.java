@@ -110,7 +110,7 @@ public class ContactSVImpl implements IContactSV{
 				return true;
 			}
 			
-			return false;
+			return true;
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;

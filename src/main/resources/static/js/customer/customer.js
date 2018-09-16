@@ -76,7 +76,7 @@ function updateCustomer(id) {
 		area : [ '85%', '82%' ],
 		content : '../staticPages/addCustomer.html?updateFlag=1&id=' + id,
 		end : function(index, layero) {
-
+			
 		}
 	});
 }
@@ -100,7 +100,7 @@ function seeCustomer(id) {
 			  layer.full(index);
 			 },
 		end : function(index, layero) {
-
+			$.getScript('../js/customer/customer.js');
 		}
 	});
 }
