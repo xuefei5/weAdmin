@@ -44,44 +44,36 @@ public class ContactSVImpl implements IContactSV{
 			int retNum = 0;
 			
 			List<Contact> contactList = ContactDAO.qryByCustId(Contact.getCustomerId());
+			int isChance = 0; 
 			if(contactList != null && contactList.size() > 0){
-				int isChance = 0;
 				for(int i = 0;i<contactList.size();i++) {
 					Contact contact = contactList.get(i);
 					if(contact.getState().equals("1")) {
 						isChance = isChance + 1;
 					}
 				}
-				if(isChance > 0) {
-					//Customer customer = customerSV.qryById(Contact.getCustomerId());
-					//customer.setState("2");
-					
-					retNum = ContactDAO.insert(Contact);
-					if(retNum == 1) {
-						return true;
-					}
-				}else {
-					if("1".equals(Contact.getIsChance())) {
-						Customer customer = customerSV.qryById(Contact.getCustomerId());
-						customer.setState("2");
-						customerSV.updateCustomer(customer);
-					}
-					
-					retNum = ContactDAO.insert(Contact);
-					if(retNum == 1) {
-						return true;
-					}
+			}
+			
+			if(isChance > 0) {
+				retNum = ContactDAO.insert(Contact);
+				if(retNum == 1) {
+					return true;
 				}
 			}else {
 				if("1".equals(Contact.getIsChance())) {
 					Customer customer = customerSV.qryById(Contact.getCustomerId());
 					customer.setState("2");
 					customerSV.updateCustomer(customer);
-				}
-				
-				retNum = ContactDAO.insert(Contact);
-				if(retNum == 1) {
-					return true;
+					
+					retNum = ContactDAO.insert(Contact);
+					if(retNum == 1) {
+						return true;
+					}
+				}else {
+					retNum = ContactDAO.insert(Contact);
+					if(retNum == 1) {
+						return true;
+					}
 				}
 			}
 		}catch (Exception e) {
@@ -95,33 +87,26 @@ public class ContactSVImpl implements IContactSV{
 	public Boolean deleteContact(int id) {
 		try{
 			int customerId = ContactDAO.qryById(id).getCustomerId();
-			int retNum = ContactDAO.delete(id);
-			if(retNum == 1) {
-				
-				List<Contact> contactList = ContactDAO.qryByCustId(customerId);
-				if(contactList != null && contactList.size() > 0){
-					int isChance = 0;
-					for(int i = 0;i<contactList.size();i++) {
-						Contact contact = contactList.get(i);
-						if(contact.getState().equals("1")) {
-							isChance = isChance + 1;
-						}
+			ContactDAO.delete(id);
+			
+			int isChance = 0;
+			List<Contact> contactList = ContactDAO.qryByCustId(customerId);
+			if(contactList != null && contactList.size() > 0){
+				for(int i = 0;i<contactList.size();i++) {
+					Contact contact = contactList.get(i);
+					if(contact.getState().equals("1")) {
+						isChance = isChance + 1;
 					}
-					if(isChance > 0) {
-						return true;
-					}else {
-						Customer customer = customerSV.qryById(customerId);
-						customer.setState("0");
-						customerSV.updateCustomer(customer);
-						return true;
-					}
-				}else {
-					Customer customer = customerSV.qryById(customerId);
-					customer.setState("0");
-					customerSV.updateCustomer(customer);
-					return true;
 				}
-		    }
+			}
+			
+			if(isChance <= 0) {
+				Customer customer = customerSV.qryById(customerId);
+				customer.setState("0");
+				customerSV.updateCustomer(customer);
+				return true;
+			}
+			
 			return false;
 		}catch (Exception e) {
 			e.printStackTrace();
