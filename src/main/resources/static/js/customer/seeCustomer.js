@@ -41,6 +41,7 @@ $.ajax({
 			$("#name").html(customer.name);
 			$("#sex").html(tdSex);
 			$("#telephone").html(customer.telephone);
+			$("#remarks").html(customer.remarks);
 			$("#custImg").attr("src",customer.imgRef);
 			//请求联系记录
 			getContactInfo();
