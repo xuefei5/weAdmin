@@ -50,7 +50,7 @@ public class ContactSVImpl implements IContactSV{
 			if(contactList != null && contactList.size() > 0){
 				for(int i = 0;i<contactList.size();i++) {
 					Contact contact = contactList.get(i);
-					if(contact.getState().equals("1")) {
+					if(contact.getIsChance().equals("1")) {
 						isChance = isChance + 1;
 					}
 				}
@@ -97,7 +97,7 @@ public class ContactSVImpl implements IContactSV{
 			if(contactList != null && contactList.size() > 0){
 				for(int i = 0;i<contactList.size();i++) {
 					Contact contact = contactList.get(i);
-					if(contact.getState().equals("1")) {
+					if(contact.getIsChance().equals("1")) {
 						isChance = isChance + 1;
 					}
 				}
