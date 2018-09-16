@@ -249,6 +249,8 @@ public class CustomController extends BaseController{
 		//出身日期--格式转换
 		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 		customer.setBirthday(birthday);
+		
+		customer.setState("0");
 
 		if (iCustSV.updateCustomer(customer)) {
 			logger.info("客户更新成功");
