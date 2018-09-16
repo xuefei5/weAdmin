@@ -35,7 +35,7 @@ public interface ICustomerDAO{
 	public int getCustomerAllCount();
 	
 	/*更新客户对象*/
-	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},birthday = #{birthday},remarks = #{remarks},state = '0' where id = #{id}")
+	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},birthday = #{birthday},remarks = #{remarks},state = #{state} where id = #{id}")
 	public int update(Customer customer);
 	
 	/*删除客户对象*/
