@@ -33,4 +33,7 @@ public interface IContactDAO{
 	@Select("select count(*) from contact where to_days(contactTime) -  to_days(now()) >= 0 and to_days(contactTime) -  to_days(now()) < 3  and state='1'")
 	public int qryContactTipsCount();
 	
+	/*根据id查询联系信息对象*/
+	@Select("select * from contact where id = #{id} and state='1'")
+	public Contact qryById(@Param("id")int id);
 }
