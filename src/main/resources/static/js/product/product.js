@@ -83,7 +83,15 @@ function updateProduct(id) {
 		}
 	});
 }
-
+//删除商品信息增加确认框
+function deleteProductConfirm(id){
+	layer.confirm('确定删除此条信息？', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		deleteProduct(id);
+	});
+}
 // 删除商品信息
 function deleteProduct(id) {
 	var data = '{ "id":"' + id + '"}';
@@ -245,7 +253,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.id
 													+ ')" onmouseout="mouseOut()"><i class=" halflings-icon shopping-cart white"></i></a><a class="btn btn-info" href="#" onClick="updateProduct('
 													+ item.id
-													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProduct('
+													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProductConfirm('
 													+ item.id
 													+ ')"><i class="halflings-icon white trash"></i></a></td>';
 											var trTail = '</tr>';
