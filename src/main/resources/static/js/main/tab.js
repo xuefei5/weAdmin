@@ -62,7 +62,12 @@
                     }
                 }
             }
-            this.remove();
+            if(isIE()||isIE11()){
+            	this.removeNode(true);
+            }else{
+            	this.remove();
+            }
+            
             $("#page-content .iframe-content[data-url='" + jthis.data("url") + "'][data-value='" + jthis.data("value") + "']").remove()
         });
         event.stopPropagation()
@@ -201,3 +206,18 @@
         return this
     }
 })();
+//判断是否为IE浏览器
+function isIE(){
+	　　if(!!window.ActiveXObject || "ActiveXObject" in window){
+	　　　　return true;
+	　　}else{
+	　　　　return false;
+	　　}
+	} 
+function isIE11(){
+	　　if((/Trident\/7\./).test(navigator.userAgent)){
+	　　　　return true;
+	　　}else{
+	　　　　return false;
+	　　}
+	}
