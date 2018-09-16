@@ -85,9 +85,9 @@ public class CustomerSVImpl implements ICustomerSV{
 	}
 
 	@Override
-	public List<Customer> qryByName(String name) {
+	public List<Customer> qryByName(String name,int startPage,int endPage) {
 		try{
-			List<Customer> CustomerList = CustomerDAO.qryByName(name);
+			List<Customer> CustomerList = CustomerDAO.qryByName(name,startPage,endPage);
 			return CustomerList;
 		}catch (Exception e) {
 			return null;
@@ -111,6 +111,11 @@ public class CustomerSVImpl implements ICustomerSV{
 		}catch(Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public int getCustomerCountByName(String name) {
+		return CustomerDAO.getCustomerCountByName(name);
 	}
 
 	

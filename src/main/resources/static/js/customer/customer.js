@@ -7,13 +7,15 @@
 var custTotal = 0;
 // 客户查看-弹出层ID
 var LAY_layuipro;
+//获取搜索框里的值
+var searchText = $("#searchText").val();
 // 获取总条数
 $.ajax({
 	type : "post",
 	async : false,
-	url : "/cust/qryAllCustomerCount",
+	url : "/cust/qryCustomerCountByName",
 	contentType : "application/json; charset=utf-8",
-	data : "",
+	data : '{"searchText":"' + searchText + '"}',
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
@@ -249,7 +251,7 @@ function getMouseY(id) {
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
-	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
+	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+'"}';
 	$
 			.ajax({
 				type : "post",

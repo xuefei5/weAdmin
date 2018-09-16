@@ -59,12 +59,14 @@ public class CustomController extends BaseController{
 		JSONObject jsonObj = super.getInputObject(request);
 		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
 		int endPage = Integer.parseInt(jsonObj.getString("endPage"));
+		String name = jsonObj.getString("searchText");
 		//定义返回前端的map
 		Map<String,Object> mapToClient = new HashMap<String,Object>();
 
-		List<Customer> CustomerList = iCustSV.qryCustomerByPageNum(startPage,endPage);
+		List<Customer> CustomerList = iCustSV.qryByName(name,startPage,endPage);
 		//封装客户信息
 		mapToClient.put("customerList", CustomerList);
+		mapToClient.put("searchText", name);
 		return Result.success(mapToClient);
 	}
 	
@@ -73,12 +75,14 @@ public class CustomController extends BaseController{
 	 * 
 	 * @author xuefei
 	 */
-	@RequestMapping("/qryAllCustomerCount")
+	@RequestMapping("/qryCustomerCountByName")
 	@ResponseBody
-	public Result<Integer> qryAllCustomerCount() {
-		int customerAllCount = iCustSV.getCustomerAllCount();
-		logger.info("客户信息总条数为："+customerAllCount);
-		return Result.success(customerAllCount);
+	public Result<Integer> qryCustomerCountByName(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		String name = jsonObj.getString("searchText");
+		int customerCount = iCustSV.getCustomerCountByName(name);
+		logger.info("客户信息总条数为："+customerCount);
+		return Result.success(customerCount);
 	}
 	
 	/**
@@ -278,7 +282,7 @@ public class CustomController extends BaseController{
 	public Result<List<Customer>> qryByName(HttpServletRequest request) {
 
 		String name = request.getParameter("name");
-		List<Customer> CustomerList = iCustSV.qryByName(name);
+		List<Customer> CustomerList = iCustSV.qryByName(name,0,10);
 
 		return Result.success(CustomerList);
 	}

@@ -23,8 +23,8 @@ public interface ICustomerDAO{
 	public Customer qryById(@Param("id")int id);
 	
 	/*根据姓名模糊查询客户对象*/
-	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state!='1'")
-	public List<Customer> qryByName(@Param("name")String name );
+	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state!='1' limit #{start} , #{end}")
+	public List<Customer> qryByName(@Param("name")String name,@Param("start")int id,@Param("end")int end );
 	
 	/*查询所有客户对象*/
 	@Select("select * from customer where state!='1'")
@@ -33,6 +33,10 @@ public interface ICustomerDAO{
 	/*获取客户总条数*/
 	@Select("select count(*) from customer where state!='1'")
 	public int getCustomerAllCount();
+	
+	/*根据客户名获取客户条数*/
+	@Select("select count(*) from customer where name like CONCAT('%',#{name},'%') and state!='1'")
+	public int getCustomerCountByName(@Param("name")String name );
 	
 	/*更新客户对象*/
 	@Update("UPDATE customer SET name = #{name},nickName = #{nickName},sex = #{sex},telephone = #{telephone},imgRef = #{imgRef},birthday = #{birthday},remarks = #{remarks},state = #{state} where id = #{id}")
