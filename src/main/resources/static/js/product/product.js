@@ -46,6 +46,7 @@ function layuiAlert(content) {
 // 添加商品信息
 $("#addProd").click(function() {
 	layer.open({
+		id:"addProductPage",
 		type : 2,
 		title : '添加商品信息',
 		shadeClose : false,
