@@ -94,15 +94,39 @@ public class ContactSVImpl implements IContactSV{
 	@Override
 	public Boolean deleteContact(int id) {
 		try{
+			int customerId = ContactDAO.qryById(id).getCustomerId();
 			int retNum = ContactDAO.delete(id);
 			if(retNum == 1) {
-				return true;
-			}
+				
+				List<Contact> contactList = ContactDAO.qryByCustId(customerId);
+				if(contactList != null && contactList.size() > 0){
+					int isChance = 0;
+					for(int i = 0;i<contactList.size();i++) {
+						Contact contact = contactList.get(i);
+						if(contact.getState().equals("1")) {
+							isChance = isChance + 1;
+						}
+					}
+					if(isChance > 0) {
+						return true;
+					}else {
+						Customer customer = customerSV.qryById(customerId);
+						customer.setState("0");
+						customerSV.updateCustomer(customer);
+						return true;
+					}
+				}else {
+					Customer customer = customerSV.qryById(customerId);
+					customer.setState("0");
+					customerSV.updateCustomer(customer);
+					return true;
+				}
+		    }
+			return false;
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		return false;
 	}
 
 	@Override
