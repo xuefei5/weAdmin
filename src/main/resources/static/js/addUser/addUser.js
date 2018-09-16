@@ -22,27 +22,30 @@ function checkForm() {
 	}else{
 		name_p.css("color","#578ebe");
 	}
+	
 	//昵称验证-只能是汉字
-	var nickName = $("input[name='nickName']");
-	var nickName_p = $("#nickName_p");
-	var reg = /^[\u4e00-\u9fa5]+$/;
+	//var nickName = $("input[name='nickName']");
+	//var nickName_p = $("#nickName_p");
+	//var reg = /^[\u4e00-\u9fa5]+$/;
 	//if (nickName.val() == "" || !reg.test(nickName.val())) {
-	if (nickName.val() == "") {
-		nickName_p.css("color","red");
-		return false;
-	}else{
-		nickName_p.css("color","#578ebe");
-	}
+	//if (nickName.val() == "") {
+	//	nickName_p.css("color","red");
+	//	return false;
+	//}else{
+	//	nickName_p.css("color","#578ebe");
+	//}
+	
 	//联系方式验证-符合手机号规范
-	var telephone = $("input[name='telephone']");
-	var telephone_p = $("#telephone_p");
-	var reg = /^1[3,5,8]\d{9}$/;
-	if (telephone.val() == "" || !reg.test(telephone.val())) {
-		telephone_p.css("color","red");
-		return false;
-	}else{
-		telephone_p.css("color","#578ebe");
-	}
+	//var telephone = $("input[name='telephone']");
+	//var telephone_p = $("#telephone_p");
+	//var reg = /^1[3,5,8]\d{9}$/;
+	//if (telephone.val() == "" || !reg.test(telephone.val())) {
+	//	telephone_p.css("color","red");
+	//	return false;
+	//}else{
+	//	telephone_p.css("color","#578ebe");
+	//}
+	
 	//验证用户密码不可为空
 	var password = $("input[name='password']");
 	var password_p = $("#password_p");
