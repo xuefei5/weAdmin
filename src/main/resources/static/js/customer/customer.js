@@ -44,6 +44,7 @@ function layuiAlert(content) {
 // 添加客户信息
 $("#addCustomer").click(function() {
 	layer.open({
+		id:"addCustomerPage",
 		type : 2,
 		title : '添加客户信息',
 		shadeClose : false,
