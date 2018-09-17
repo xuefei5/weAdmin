@@ -65,4 +65,35 @@ public class ProductCartSVImpl implements IProductCartSV{
 			return null;
 		}
 	}
+
+	@Override
+	public List<ProductCart> qryAll() {
+		try {
+			return productCartDAO.qryAll();
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<ProductCart> qryProductCartByProductId(int productId) {
+		try {
+			return productCartDAO.qryProductCartByProductId(productId);
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public Boolean deleteByProductId(int id) {
+		try{
+			int retNum = productCartDAO.deleteByProductId(id);
+			if(retNum == 1) {
+				return true;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		return false;
+	}
 }

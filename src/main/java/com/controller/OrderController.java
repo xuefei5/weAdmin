@@ -54,14 +54,24 @@ public class OrderController extends BaseController {
 	 */
 	@RequestMapping("/qryOrderByPageNumForIndoor")
 	@ResponseBody
-	public List<Order> qryOrderByPageNumForIndoor(int custId,String startPageForIndoor,String endPageForIndoor) {
+	public List<Order> qryOrderByPageNumForIndoor(int custId) {
 
 		int customerId = custId;
-		int startPage = Integer.parseInt(startPageForIndoor);
-		int endPage = Integer.parseInt(endPageForIndoor);
 		
-		List<Order> orderList = orderSV.qryOrderByPageNum(customerId,startPage,endPage);
+		List<Order> orderList = orderSV.qryOrderByCustId(customerId);
 		return orderList;
+	}
+	
+	/**
+	 * 根据订单Id查询订单
+	 * @author xuefei
+	 */
+	@RequestMapping("/qryOrderInfoByOrderIdForIndoor")
+	@ResponseBody
+	public Order qryOrderInfoByOrderIdForIndoor(int orderId){
+		Order order = orderSV.qryOrderInfoByOrderId(orderId);
+		return order;
+		
 	}
 
 	/**

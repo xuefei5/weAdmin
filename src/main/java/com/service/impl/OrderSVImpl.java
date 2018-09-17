@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.Order;
+import com.bean.ProductOrder;
 import com.bean.User;
 import com.dao.interfaces.IOrderDAO;
 import com.service.interfaces.IOrderSV;
+import com.service.interfaces.IProductOrderSV;
 import com.utils.RooCommonUtils;
 
 @Service
@@ -26,6 +28,9 @@ public class OrderSVImpl implements IOrderSV{
 	@Autowired
 	IOrderDAO orderDAO;
 	
+	@Autowired
+	IProductOrderSV productOrderSV;
+	
 	@Autowired  
 	private HttpServletRequest request; 
 	
@@ -34,6 +39,7 @@ public class OrderSVImpl implements IOrderSV{
 
 	@Override
 	public Boolean addOrder(Order order) {
+		
 	   try{
 			session=request.getSession();
 			User user = (User) session.getAttribute("user");
@@ -44,7 +50,7 @@ public class OrderSVImpl implements IOrderSV{
 			order.setIsCancel("0");
 			order.setState("1");
 			
-			int retNum = orderDAO.insert(order);
+			int retNum = orderDAO.backOrder(order);
 			if(retNum == 1) {
 				return true;
 			}
@@ -72,6 +78,37 @@ public class OrderSVImpl implements IOrderSV{
 	public List<Order> qryOrderByPageNum(int customerId, int startPage, int count) {
 		try {
 			return (List<Order>) orderDAO.qryOrderByPageNum(customerId, startPage, count);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Boolean addProductOrder(ProductOrder productOrder) {
+		
+		try{
+			Boolean retNum = productOrderSV.addProductOrder(productOrder);
+			return retNum;
+		}catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public List<Order> qryOrderByCustId(int customerId) {
+		try {
+			return (List<Order>) orderDAO.qryOrderByCustId(customerId);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public Order qryOrderInfoByOrderId(int orderId) {
+		try {
+			return (Order) orderDAO.qryOrderInfoByOrderId(orderId);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

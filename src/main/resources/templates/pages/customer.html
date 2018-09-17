@@ -55,16 +55,17 @@ body .layui-openFillet {
 								<div id="DataTables_Table_0_length" class="dataTables_length">
 									<label>请选择条件查询：<select size="1"
 										name="DataTables_Table_0_length"
-										aria-controls="DataTables_Table_0"><option
-												value="name" selected="selected">客户姓名</option>
+										aria-controls="DataTables_Table_0">
+										<option id="01" selected="selected">客户名称</option>
 									</select>
 									</label>
 								</div>
 							</div>
 							<div class="span6">
 								<div class="dataTables_filter" id="DataTables_Table_0_filter">
-									<label>查询值: <input type="text"
+									<label  style="float: left;">查询值: <input id="searchText" type="text"
 										aria-controls="DataTables_Table_0" /></label>
+										<button id="searchByText" type="button" class="btn btn-primary" style="float: right; " onclick="$.getScript('../js/customer/customer.js')">查询</button>
 								</div>
 							</div>
 						</div>
@@ -102,7 +103,7 @@ body .layui-openFillet {
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Status: activate to sort column ascending"
-										style="width: 221px;">状态</th>
+										style="width: 221px;">销售机会</th>
 									<th class="sorting" role="columnheader" tabindex="0"
 										aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 										aria-label="Actions: activate to sort column ascending"
@@ -135,10 +136,10 @@ body .layui-openFillet {
 
 	</div>
 
-	<!-- start: JavaScript-->
+	<!-- start: JavaScript 修改引用地址-->
 
-	<script src="../../js/main/jquery-1.9.1.min.js"></script>
-	<script src="../../js/main/bootstrap.min.js"></script>
+	<script src="../js/main/jquery-1.9.1.min.js"></script>
+	<script src="../js/main/bootstrap.min.js"></script>
 	<!-- layui使用的js -->
 	<script src="../layui/layui.js"></script>
 	<script src="../js/customer/customer.js"></script>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.bean.Contact;
 import com.bean.Customer;
 import com.bean.Test;
 import com.bean.User;
@@ -266,5 +267,33 @@ public class UserController extends BaseController {
 	public Result<Integer> qryAllUserCount() {
 		int customerAllCount = userSV.qryUserCount();
 		return Result.success(customerAllCount);
+	}
+	
+	/**
+	 * 查询消息提醒总条数
+	 * 
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryAllTipsCount")
+	@ResponseBody
+	public Result<Integer> qryAllTipsCount() {
+		int customerAllCount = userSV.qryAllTipsCount();
+		return Result.success(customerAllCount);
+	}
+	
+	/**
+	 * 查询消息提醒信息
+	 * 
+	 * @author yangsheng
+	 */
+	@RequestMapping("/qryAllTips")
+	@ResponseBody
+	public Result<Map<String,Object>> qryAllTips() {
+		Map<String,Object> rtnMap = new HashMap(); 
+		List<Contact> contactList = userSV.qryAllTips();
+		int customerAllCount = userSV.qryAllTipsCount();
+		rtnMap.put("contactList", contactList);
+		rtnMap.put("customerAllCount", customerAllCount);
+		return Result.success(rtnMap);
 	}
 }

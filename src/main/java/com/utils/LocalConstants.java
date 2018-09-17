@@ -8,9 +8,11 @@ public class LocalConstants {
 	
 	/*系统静态字段*/
 	public static abstract interface CONST_SET {
+		//服务地址
+		String SERV_IP = "http://192.168.19.129";
 		String RESP_OUTOBJECT = "rtnObject";
 		//文件上传路径
-		String FILE_UPLOAD_PATH = "G:\\FtpFile\\custHead\\";
+		String FILE_UPLOAD_PATH = "/usr/local/nginx/html/";
 		//文件最大允许上传
 		int FILE_MAX_SIZE = 4*1024*1024;
 	}

@@ -51,39 +51,39 @@
 					data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-				</a> <a class="brand" href="#"><span>weAdmin</span></a>
+				</a> <a class="brand" href="#"><span>客户管理系统</span></a>
 
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
 					<ul class="nav pull-right">
 						<li class="dropdown hidden-phone"><a
 							class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-bell"></i> <span class="badge red"> 5 </span>
+								<i class="icon-bell"></i>
+								<span class="badge red" id="tipCount"> 0 </span>
 						</a>
-							<ul class="dropdown-menu notifications">
-								<li class="dropdown-menu-title"><span>你有一条新消息</span> <a
-									href="#refresh"><i class="icon-repeat"></i></a></li>
-								<li><a href="#"> <span class="icon blue"><i
-											class="icon-user"></i></span> <span class="message">待发货订单</span> <span
-										class="time">物流：未发货</span>
-								</a></li>
-								<li><a href="#"> <span class="icon green"><i
-											class="icon-comment-alt"></i></span> <span class="message">待支付订单</span>
-										<span class="time">支付时间剩余：1:38:25</span>
-								</a></li>
-								<li><a href="#"> <span class="icon yellow"><i
+							<ul class="dropdown-menu notifications tipMsgList">
+								<li class="dropdown-menu-title">
+									<span id="tipMessageCount"></span> 
+									<a href="#refresh">
+										<i class="icon-repeat"></i>
+									</a>
+								</li>
+								
+								<div id='msgContent'>
+								</div>
+								<!-- <li><a href="#"> <span class="icon yellow"><i
 											class="icon-shopping-cart"></i></span> <span class="message">购物车</span>
 										<span class="time">1条信息</span>
-								</a></li>
-								<li class="warning"><a href="#"> <span class="icon red"><i
+								</a></li> -->
+								<!-- <li class="warning"><a href="#"> <span class="icon red"><i
 											class="icon-user"></i></span> <span class="message">用户失效</span> <span
-										class="time">薛飞，杨胜</span>
-								</a></li>
-								<li class="warning"><a href="#"> <span class="icon red"><i
+										class="time"></span>
+								</a></li> -->
+								<!-- <li class="warning"><a href="#"> <span class="icon red"><i
 											class="icon-shopping-cart"></i></span> <span class="message">New
 											comment</span> <span class="time">6 hour</span>
-								</a></li>
-								<li class="dropdown-menu-sub-footer"><a>显示全部</a></li>
+								</a></li> -->
+								<!-- <li class="dropdown-menu-sub-footer"><a>显示全部</a></li> -->
 							</ul></li>
 
 						<!-- start: User Dropdown -->
@@ -121,8 +121,8 @@
 								class="hidden-tablet"> 客户管理</span></a></li>
 						<li><a href="../prod/product#3"><i class="icon-tasks"></i><span
 								class="hidden-tablet"> 商品管理</span></a></li>
-						<li><a href="#"><i class="icon-eye-open"></i><span
-								class="hidden-tablet"> 订单管理</span></a></li>
+						<!-- <li><a href="#"><i class="icon-eye-open"></i><span
+								class="hidden-tablet"> 订单管理</span></a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -161,7 +161,7 @@
 
 		<p>
 			<span style="text-align:left;float:left">&copy; 2018 <a
-				href="#" alt="Bootstrap_Metro_Dashboard">weAdmin</a></span>
+				href="#" alt="Bootstrap_Metro_Dashboard">客户管理系统</a></span>
 
 		</p>
 
@@ -170,6 +170,50 @@
 	<script type="text/javascript">
 		//初始化a标签链接到tab
 		$(".sideMenu a").tab();
+		
+		$(function(){
+			getInitTip();
+		 	setInterval(getInitTip,60000);
+		});
+		
+		function getInitTip(){
+			$.ajax({
+				type : "get",
+				async : true,
+				url : "/user/qryAllTips",
+				contentType : "application/json; charset=utf-8",
+				data : "",
+				dataType : "json",
+				success : function(message) {
+					if (message.code == 0) {
+						var rtnData = message.data;
+						
+						// 获取客户信息
+						var custData = rtnData.contactList;
+						var html = '';
+						
+						for (var order in custData)
+		            	{
+							html += '<li><a href="#"><span class="icon green"><i class="icon-comment-alt"></i></span><span class="message">';
+							html += custData[order].content;
+							html += '</span></a></li>';
+		            	}
+						
+						$("#tipCount").html(rtnData.customerAllCount);
+						$("#tipMessageCount").html('您有'+rtnData.customerAllCount+'新消息未读');
+						$("#msgContent").html(html);
+					} else {
+						layuiAlert(message.msg);
+					}
+					return true;
+				},
+				error : function(message) {
+					layuiAlert("系统环境异常");
+					return false;
+				}
+			});
+			
+		}
 	</script>
 	<!-- start: JavaScript-->
 	<!-- end: JavaScript-->

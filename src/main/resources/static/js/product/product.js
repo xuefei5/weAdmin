@@ -5,15 +5,18 @@
  */
 // 定义商品信息的总条数
 var custTotal = 0;
+//获取搜索框里的值
+var searchText = $("#searchText").val();
 //商品查看-弹出层ID
 var LAY_layuipro;
 // 获取总条数
+var numData = '{ "searchText":"' + searchText + '"}';
 $.ajax({
 	type : "post",
 	async : false,
 	url : "/prod/qryAllProductCount",
 	contentType : "application/json; charset=utf-8",
-	data : "",
+	data : numData,
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
@@ -43,6 +46,7 @@ function layuiAlert(content) {
 // 添加商品信息
 $("#addProd").click(function() {
 	layer.open({
+		id:"addProductPage",
 		type : 2,
 		title : '添加商品信息',
 		shadeClose : false,
@@ -58,6 +62,11 @@ $("#addProd").click(function() {
 		}
 	});
 
+});
+
+//购物车商品信息
+$("#toProdCart").click(function() {
+	window.location.href="../staticPages/productCart.html"; 
 });
 
 // 修改商品信息
@@ -78,7 +87,15 @@ function updateProduct(id) {
 		}
 	});
 }
-
+//删除商品信息增加确认框
+function deleteProductConfirm(id){
+	layer.confirm('确定删除此条信息？', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		deleteProduct(id);
+	});
+}
 // 删除商品信息
 function deleteProduct(id) {
 	var data = '{ "id":"' + id + '"}';
@@ -113,7 +130,6 @@ function deleteProduct(id) {
 
 //添加商品购物车信息
 function addProdToCart(id) {
-	alert(4);
 	var data = '{ "id":"' + id + '"}';
 	$.ajax({
 		type : "post",
@@ -197,7 +213,7 @@ function getMouseXY(){
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
 	debugger;
-	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
+	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+'"}';
 	$.ajax({
 				type : "post",
 				async : true,
@@ -226,8 +242,9 @@ function getAllCustomerInfo(startPage, endPage) {
 											}
 											var trHead = '<tr class="'
 													+ className + '">';
+											//+ item.imgRef 
 											var tdImg = '<td class="sorting_1">'
-												+ item.imgRef + '</td>';
+												+ '<img src="'+item.imgRef +'" height="50" width="50"></img></td>';
 											var tdName = '<td class="sorting_1">'
 													+ item.name + '</td>';
 											var tdTip = '<td class="center">'
@@ -240,7 +257,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.id
 													+ ')" onmouseout="mouseOut()"><i class=" halflings-icon shopping-cart white"></i></a><a class="btn btn-info" href="#" onClick="updateProduct('
 													+ item.id
-													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProduct('
+													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteProductConfirm('
 													+ item.id
 													+ ')"><i class="halflings-icon white trash"></i></a></td>';
 											var trTail = '</tr>';

@@ -72,22 +72,95 @@ function layuiAlert(content) {
 }
 
 //验证表单
-function checkForm() {
+function checkForm(){
+	//如果是修改页面
+	if(null!=updateFlag&&updateFlag==1){
+		upCheckForm();
+	}else{
+		onCheckForm();
+	}
+}
+function onCheckForm() {
 	//客户名验证-只能是汉字
 	var name = $("input[name='name']");
 	var name_p = $("#name_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (name.val() == "" || !reg.test(name.val())) {
+	//if (name.val() == "" || !reg.test(name.val())) {
+	if (name.val() == "" ) {
 		name_p.css("color","red");
 		return false;
 	}else{
 		name_p.css("color","#578ebe");
 	}
+	
+	//根据要求-昵称置空
 	//昵称验证-只能是汉字
+	//var nickName = $("input[name='nickName']");
+	//var nickName_p = $("#nickName_p");
+	//var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	//if (nickName.val() == "" ) {
+	//	nickName_p.css("color","red");
+	//	return false;
+	//}else{
+	//	nickName_p.css("color","#578ebe");
+	//}
+	
+	
+	//联系方式验证-符合手机号规范
+	//var telephone = $("input[name='telephone']");
+	//var telephone_p = $("#telephone_p");
+	//var reg = /^1[3,5,8]\d{9}$/;
+	//if (telephone.val() == "" || !reg.test(telephone.val())) {
+	//	telephone_p.css("color","red");
+	//	return false;
+	//}else{
+	//	telephone_p.css("color","#578ebe");
+	//}
+	
+	//对文件大小以及文件类型做判断
+	var headFile = $("input[name='headFile']");
+	var path = headFile.val();
+	var headFile_p = $("#headFile_p");
+	if (path != "") {
+		var fileSize = headFile[0].files[0].size;
+		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
+				path.length).toUpperCase();
+		//alert(ext);
+		if ((ext != '.PNG' && ext != '.JPG' && ext != '.JPEG'
+				&& ext != '.GIF') || fileSize > FILE_MAX_SIZE) {
+			headFile_p.css("color", "red");
+			headFile.val("");
+			return false;
+		} else {
+			headFile_p.css("color", "#578ebe");
+		}
+	}else{
+		headFile_p.css("color","red");
+		return false;
+	}
+	return true;
+}
+
+//更新验证表单
+function upCheckForm() {
+	//客户名验证-只能是汉字
+	var name = $("input[name='name']");
+	var name_p = $("#name_p");
+	var reg = /^[\u4e00-\u9fa5]+$/;
+	//if (name.val() == "" || !reg.test(name.val())) {
+	if (name.val() == "" ) {
+		name_p.css("color","red");
+		return false;
+	}else{
+		name_p.css("color","#578ebe");
+	}
+/*	//昵称验证-只能是汉字
 	var nickName = $("input[name='nickName']");
 	var nickName_p = $("#nickName_p");
 	var reg = /^[\u4e00-\u9fa5]+$/;
-	if (nickName.val() == "" || !reg.test(nickName.val())) {
+	//if (nickName.val() == "" || !reg.test(nickName.val())) {
+	if (nickName.val() == "" ) {
 		nickName_p.css("color","red");
 		return false;
 	}else{
@@ -102,22 +175,23 @@ function checkForm() {
 		return false;
 	}else{
 		telephone_p.css("color","#578ebe");
-	}
+	}*/
 	//对文件大小以及文件类型做判断
 	var headFile = $("input[name='headFile']");
 	var path = headFile.val();
 	var headFile_p = $("#headFile_p");
+	if (path == "") {
+		return true;
+	}
 	if (path != "") {
 		var fileSize = headFile[0].files[0].size;
 		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
 				path.length).toUpperCase();
-		if (ext !== '.PNG' && ext !== '.JPG' && ext !== '.JPEG'
-				&& ext !== '.GIF' && fileSize > FILE_MAX_SIZE) {
+		if ((ext != '.PNG' && ext != '.JPG' && ext != '.JPEG'
+			&& ext != '.GIF') || fileSize > FILE_MAX_SIZE) {
 			headFile_p.css("color", "red");
 			headFile.val("");
 			return false;
-		} else {
-			headFile_p.css("color", "#578ebe");
 		}
 	}
 	return true;
@@ -125,13 +199,22 @@ function checkForm() {
 
 //保存
 $("#custSubmitBtn").click(function() {
-	if(!checkForm()){
-		return false;
-	}
+	
 	var sendUrl = "/cust/addCustomer";
 	//如果是修改操作
 	if(null!=updateFlag&&updateFlag==1){
 		sendUrl = "/cust/updateCustomer";
+	}
+	
+	
+	if(sendUrl == "/cust/addCustomer"){
+		if(!onCheckForm()){
+			return false;
+		}
+	}else{
+		if(!upCheckForm()){
+			return false;
+		}
 	}
 	$("#CustomerForm").ajaxSubmit({
 		type : "post",
@@ -148,7 +231,7 @@ $("#custSubmitBtn").click(function() {
 				}, function() {
 					//关闭弹出层并且刷新父页面
 					parent.layer.close(index);
-					parent.location.reload();
+					parent.$.getScript('../js/customer/customer.js');
 				});
 			} else {
 				layuiAlert(message.msg);

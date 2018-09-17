@@ -15,4 +15,13 @@ public interface IProductCartSV {
 
 	//商品购物车分页查询操作
 	public List<ProductCart> qryProductCartByPageNum(int startPage,int count);
+	
+	//查询所有商品购物车信息
+	public List<ProductCart> qryAll();
+	
+	//商品id查询购物车信息
+	public List<ProductCart> qryProductCartByProductId(int productId);
+	
+	//商品id删除购物车商品
+	public Boolean deleteByProductId(int id);
 }

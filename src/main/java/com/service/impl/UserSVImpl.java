@@ -1,6 +1,8 @@
 package com.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bean.Contact;
+import com.bean.Customer;
 import com.bean.User;
 import com.dao.interfaces.IUserDAO;
+import com.service.interfaces.IContactSV;
+import com.service.interfaces.ICustomerSV;
 import com.service.interfaces.IUserSV;
 import com.utils.LocalConstants;
 import com.utils.RooCommonUtils;
@@ -26,6 +32,12 @@ public class UserSVImpl implements IUserSV{
 	
 	@Autowired
 	IUserDAO userDAO;
+	
+	@Autowired
+	IContactSV contactSV;
+	
+	@Autowired
+	ICustomerSV customerSV;
 	
 	@Autowired  
 	private HttpServletRequest request; 
@@ -172,6 +184,53 @@ public class UserSVImpl implements IUserSV{
 			return userDAO.qryUserCount();
 		}catch(Exception e){
 			return 0;
+		}
+	}
+
+	@Override
+	public int qryAllTipsCount() {
+		try {
+			return contactSV.qryAllTipsCount();
+		}catch(Exception e){
+			return 0;
+		}
+	}
+
+	@Override
+	public List<Contact> qryAllTips() {
+		try {
+			List<Contact> newContactList = new ArrayList();
+			List<Contact> contactList = new ArrayList();
+			contactList = contactSV.qryAllTips();
+			if(contactList != null && contactList.size() > 0) {
+				for(int i=0;i<contactList.size();i++) {
+					Contact contact = contactList.get(i);
+					Customer customer = customerSV.qryById(contact.getCustomerId());
+					String contactTime = contact.getContactTime();
+					String customerName = customer.getName();
+					
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					Date beginDate;
+					Date endDate;
+					
+					beginDate = format.parse(RooCommonUtils.getCurrentDate());
+					endDate= format.parse(contactTime); 
+					long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);  
+					
+					Contact newContact = new Contact();
+					if(day == 0) {
+						newContact.setContent("今天您和"+customerName+"有预约");
+					}else if(day == 1) {
+						newContact.setContent("明天您和"+customerName+"有预约");
+					}else {
+						newContact.setContent("后天您和"+customerName+"有预约");
+					}
+					newContactList.add(newContact);
+				}
+			}
+			return newContactList;
+		}catch(Exception e){
+			return null;
 		}
 	}
 

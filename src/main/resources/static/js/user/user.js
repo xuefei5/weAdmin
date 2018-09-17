@@ -48,7 +48,7 @@ $.ajax({
             			var telephone = '<td class="center ">'+rtnData[order].telephone+'</td>';
             			var remarks = '<td class="center ">'+rtnData[order].remarks+'</td>';
             			var registerTime = '<td class="center ">'+rtnData[order].registerTime+'</td>';
-            			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="editUser('+rtnData[order].id+')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"  onClick="deleteUser('+rtnData[order].id+')"><i class="halflings-icon white trash"></i></a></td>'; 
+            			var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="editUser('+rtnData[order].id+')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"  onClick="deleteUserConfirm('+rtnData[order].id+')"><i class="halflings-icon white trash"></i></a></td>'; 
             			var trTail = '</tr>';
 	      				html = html + trHead + name + nickName + telephone +remarks +registerTime+ btn+ trTail;
 	            	}
@@ -92,7 +92,15 @@ $.ajax({
 	function getUserInfoByPage(pageNum){
 		getDefaultData(pageNum);
 	}
-	
+	//删除用户信息增加确认框
+	function deleteUserConfirm(id){
+		layer.confirm('确定删除此条信息？', {
+			icon : 3,
+			title : '提示'
+		}, function() {
+			deleteUser(id);
+		});
+	}
 	//删除用户信息
 	function deleteUser(id){
 		var data ='{ "id":"' + id + '"}'

@@ -49,7 +49,7 @@
 							<label class="control-label" for="typeahead">商品名称 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="name" onchange="checkForm()"/>
-								<p class="help-block" id="name_p">不可为空且必须是中文</p> 
+								<p class="help-block" id="name_p">不可为空</p> 
 							</div>
 						</div>
 						
@@ -57,15 +57,15 @@
 							<label class="control-label" for="typeahead">商品备注 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="tip" onchange="checkForm()"/>
-								<p class="help-block" id="tip_p">不可为空且必须是中文</p> 
+								<!-- <p class="help-block" id="tip_p">不可为空</p> --> 
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="typeahead">商品单价 </label>
 							<div class="controls">
-								<input type="text" class="span6 typeahead" name="price" onchange="checkForm()"/>
-								<p class="help-block" id="price_p">不可为空且必须符合格式</p> 
+								<input type="text" class="span6 typeahead" name="price" onchange="checkForm()" value="0"/>
+								<p class="help-block" id="price_p">不可为空</p> 
 							</div>
 						</div>
 
@@ -73,7 +73,7 @@
 							<label class="control-label" for="fileInput">上传图片 </label>
 							<div class="controls">
 								<input class="input-file uniform_on" name="headFile" type="file" onchange="checkForm()"/>
-								<p class="help-block" id="headFile_p">文件最大允许上传4M并且必须为图片</p>
+								<p class="help-block" id="headFile_p">图片小于4M且不为空</p>
 							</div>
 						</div>
 	

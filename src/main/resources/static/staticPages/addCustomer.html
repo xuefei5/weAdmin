@@ -55,7 +55,7 @@
 							<label class="control-label" for="typeahead">客户名 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="name" onchange="checkForm()"/>
-								<p class="help-block" id="name_p">不可为空且必须是中文</p> 
+								<p class="help-block" id="name_p">不可为空</p> 
 							</div>
 						</div>
 						
@@ -63,7 +63,7 @@
 							<label class="control-label" for="typeahead">昵称 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="nickName" onchange="checkForm()"/>
-								<p class="help-block" id="nickName_p">不可为空且必须是中文</p> 
+								<!-- <p class="help-block" id="nickName_p">不可为空</p>  -->
 							</div>
 						</div>
 						
@@ -81,7 +81,7 @@
 							<label class="control-label" for="date01">出生日期 </label>
 							<div class="controls">
 								<input type="text" class="input-xlarge datepicker" name="birthday"
-									value="08/16/1995" />
+									value="" />
 							</div>
 						</div>
 						
@@ -89,7 +89,7 @@
 							<label class="control-label" for="typeahead">联系电话 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="telephone" onchange="checkForm()"/>
-								<p class="help-block" id="telephone_p">不可为空且必须符合格式</p> 
+								<!-- <p class="help-block" id="telephone_p">不可为空且必须符合格式</p> --> 
 							</div>
 						</div>
 
@@ -97,7 +97,7 @@
 							<label class="control-label" for="fileInput">上传头像 </label>
 							<div class="controls">
 								<input class="input-file uniform_on" name="headFile" type="file" onchange="checkForm()"/>
-								<p class="help-block" id="headFile_p">文件最大允许上传4M并且必须为图片</p>
+								<p class="help-block" id="headFile_p">图片小于4M且不为空</p>
 							</div>
 						</div>
 						<div class="control-group hidden-phone">

@@ -7,13 +7,15 @@
 var custTotal = 0;
 // 客户查看-弹出层ID
 var LAY_layuipro;
+//获取搜索框里的值
+var searchText = $("#searchText").val();
 // 获取总条数
 $.ajax({
 	type : "post",
 	async : false,
-	url : "/cust/qryAllCustomerCount",
+	url : "/cust/qryCustomerCountByName",
 	contentType : "application/json; charset=utf-8",
-	data : "",
+	data : '{"searchText":"' + searchText + '"}',
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
@@ -42,6 +44,7 @@ function layuiAlert(content) {
 // 添加客户信息
 $("#addCustomer").click(function() {
 	layer.open({
+		id:"addCustomerPage",
 		type : 2,
 		title : '添加客户信息',
 		shadeClose : false,
@@ -73,8 +76,42 @@ function updateCustomer(id) {
 		area : [ '85%', '82%' ],
 		content : '../staticPages/addCustomer.html?updateFlag=1&id=' + id,
 		end : function(index, layero) {
-
+			
 		}
+	});
+}
+
+//修改客户信息
+function seeCustomer(id) {
+	layer.open({
+		type : 2,
+		title : '查看客户信息',
+		shadeClose : false,
+		shade : 0.7,
+		maxmin : true, // 开启最大化最小化按钮
+		scrollbar : true,// 是否允许出现滚动条
+		anim : 5,
+		moveOut : true,// 是否允许拖动到外面
+		area : [ '85%', '82%' ],
+		content : '../staticPages/seeCustomer.html?id=' + id,
+		success: function(layero,index){
+			  //在回调方法中的第2个参数“index”表示的是当前弹窗的索引。
+			  //通过layer.full方法将窗口放大。
+			  layer.full(index);
+			 },
+		end : function(index, layero) {
+			$.getScript('../js/customer/customer.js');
+		}
+	});
+}
+
+//删除客户信息增加确认框
+function deleteCustomerConfirm(id){
+	layer.confirm('确定删除此条信息？', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		deleteCustomer(id);
 	});
 }
 
@@ -96,7 +133,7 @@ function deleteCustomer(id) {
 				// 1秒关闭（如果不配置，默认是3秒）
 				}, function() {
 					// 刷新页面
-					location.reload();
+					$.getScript('../js/customer/customer.js');
 				});
 			} else {
 				layuiAlert(message.msg);
@@ -111,6 +148,7 @@ function deleteCustomer(id) {
 }
 // 显示客户信息
 function seeCustomerInfo(id) {
+	layer.closeAll();
 	var data = '{ "id":"' + id + '"}';
 	$.ajax({
 		type : "post",
@@ -149,11 +187,14 @@ function openSeeCustInfo(data, id) {
 	if(orderList==null){
 		orderHtml = '<span style="color:#70f3ff;margin-left:20px;">暂无!</span>';
 	}else{
-		
-	$.each(orderList,function(i, item) {
-				orderHtml+='<span style="color:#70f3ff;margin-left:20px;">'+item.productName+'</span><span style="color:#70f3ff;margin-left:20px;">'+item.ordertime+'</span></br>';
-				
-			});
+			$.each(orderList,function(i, item) {
+							if (i <= 2) {
+								orderHtml += '<span style="color:#70f3ff;margin-left:20px;">'
+										+ item.productName
+										+ '</span><span style="color:#70f3ff;margin-left:20px;">'
+										+ item.ordertime + '</span></br>';
+							}
+						});
 	}
 	LAY_layuipro = layer
 			.open({
@@ -162,9 +203,9 @@ function openSeeCustInfo(data, id) {
 				offset : [ getMouseY(id), getMouseX(id) ],
 				title : false, // 不显示标题栏
 				closeBtn : false,
+				id:"LAY_layuipro",
 				area : [ '20%', '40%' ],
 				shade : 0,
-				id : 'LAY_layuipro', // 设定一个id，防止重复弹出
 				moveType : 1, // 拖拽模式，0或者1
 				content : '<div style="background:#00000099;border-radius:15px;height:99.9%;">'
 						+ '<span style="color:#FFFFFF;margin-left:20px;">姓名:</span><span style="color:#70f3ff;margin-left:20px;">'
@@ -211,7 +252,7 @@ function getMouseY(id) {
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
-	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '"}';
+	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+'"}';
 	$
 			.ajax({
 				type : "post",
@@ -226,8 +267,7 @@ function getAllCustomerInfo(startPage, endPage) {
 						// 获取客户信息
 						var custData = rtnData.customerList;
 						var html = '';
-						$
-								.each(
+						$.each(
 										custData,
 										function(i, item) {
 
@@ -260,29 +300,31 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.addTime + '</td>';
 											var tdRemarks = '<td class="center">'
 													+ item.remarks + '</td>';
-											// 状态判断
+											
+											//客户销售机会
 											var tdState;
-											if (item.state == 0) {// 正常
+											if (item.state == '2') {
+												tdState = '<td class="center" text="red"><font color="red">'
+														+ '有销售机会' + '</font></td>';
+											}else{
 												tdState = '<td class="center">'
-														+ '正常' + '</td>';
+													+ '无' + '</td>';
 											}
-											// <a class="btn btn-success"
+											//<a class="btn btn-success"
 											// href="#"><i class="halflings-icon
 											// white zoom-in"></i></a>
-											var btn = '<td class="center "><a class="btn btn-success" href="#" id="seeA'
+											var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeCustomer('+item.id+')" id="seeA'
 													+ item.id
-													+ '" onmouseover="seeCustomerInfo('
+													+ '"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
 													+ item.id
-													+ ')" onmouseout="mouseOut()"><i class="halflings-icon white zoom-in"></i></a><a class="btn btn-info" href="#" onClick="updateCustomer('
-													+ item.id
-													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteCustomer('
+													+ ')"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#" onClick="deleteCustomerConfirm('
 													+ item.id
 													+ ')"><i class="halflings-icon white trash"></i></a></td>';
 											var trTail = '</tr>';
 											html += trHead + tdName + tdSex
 													+ tdBirthday + tdPhone
-													+ tdAddTime + tdRemarks
-													+ tdState + btn + trTail;
+													+ tdAddTime + tdRemarks + tdState
+												    + btn + trTail;
 
 										});
 

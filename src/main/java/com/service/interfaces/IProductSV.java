@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Product;
+import com.bean.ProductCart;
 
 
 public interface IProductSV {
 	
 	//分页查询商品列表
-	public List<Product> qryProductByPageNum(int startPage,int count);
+	//public List<Product> qryProductByPageNum(int startPage,int count);
+	public List<Product> qryProductByPageNum(String name,int startPage,int count);
 	
 	//分页商品名称模糊查询商品列表
 	public List<Product> qryProductByNamePageNum(String name,int startPage,int count);
@@ -24,7 +26,8 @@ public interface IProductSV {
 	public Boolean updateProduct(Product product);
 	
 	//查询商品对象条数
-	public int qryProductCount();
+	//public int qryProductCount();
+	public int qryProductCount(String name);
 	
 	//商品名称模糊查询商品对象条数
 	public int qryProductByNameCount(String name);
@@ -37,4 +40,11 @@ public interface IProductSV {
 	
 	//id查询商品对象
 	public Product qryProductById(int id);
+	
+	//查询所有购物车商品
+	public List<ProductCart> qryAllProductCart();
+	
+	//通过id删除购物车商品
+	public Boolean deleteProductCartByProdId(int id);
+	
 }
