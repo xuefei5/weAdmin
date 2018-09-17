@@ -207,7 +207,7 @@ $('#contactSubmitBtn').click(
 				dataType : "json",
 				success : function(message) {
 					if (message.code == 0) {
-						document.getElementById("CustomerForm").reset();
+						//document.getElementById("CustomerForm").reset();
 						layer.msg('预约成功', {
 							icon : 1,
 							time : 500
@@ -228,6 +228,7 @@ $('#contactSubmitBtn').click(
 			});
 
 		});
+
 
 //删除联系信息增加确认框
 function deleteContactInfoConfirm(id){
