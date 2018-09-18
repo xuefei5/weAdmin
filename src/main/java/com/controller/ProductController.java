@@ -106,8 +106,12 @@ public class ProductController extends BaseController {
 		        }
 		        //上传
 		        files.get(0).transferTo(dest);
+		        
+		        product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
+			}else {
+				product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + "product.png");
 			}
-			product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
+			
 			if (productSV.addProduct(product)) {
 				return Result.success(CodeMsg.PRODUCT_ADD_SUCCESS);
 			} else {
