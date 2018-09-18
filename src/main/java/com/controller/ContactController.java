@@ -56,23 +56,30 @@ public class ContactController extends BaseController{
 	@ResponseBody
 	public Result<CodeMsg> addContact(HttpServletRequest req) {
 		try{
-			String inputStr = super.getInputString(req);
-			Contact contact = JSON.parseObject(inputStr, new TypeReference<Contact>() {});
+			JSONObject jsonObj = super.getInputObject(req);
+			Contact contact = new Contact();
 			//联系时间--格式转换
-			String contactTime = CommonUtil.fomatDate(contact.getContactTime(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+			String contactTime = CommonUtil.fomatDate(jsonObj.getString("contactTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 			contact.setContactTime(contactTime);
 			
 			//预约时间--格式转换
-			String subscribeTime = CommonUtil.fomatDate(contact.getSubscribeTime(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+			String subscribeTime = CommonUtil.fomatDate(jsonObj.getString("subscribeTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 			contact.setSubscribeTime(subscribeTime);
+			//联系内容
+			contact.setContent(jsonObj.getString("content"));
+			//是否有机会
+			contact.setIsChance(jsonObj.getString("isChance"));
+			//客户ID
+			contact.setCustomerId(jsonObj.getInteger("customerId"));
 			
-			logger.info("添加联系信息"+contact.getContactTime());
+			//主键Id
+			contact.setId(jsonObj.getInteger("id"));
 
 		if (iContactSV.addContact(contact)) {
-			logger.info("联系记录添加成功");
+			logger.info("联系记录保存成功");
 			return Result.success(CodeMsg.CANTACT_ADD_SUCCESS);
 		} else {
-			logger.info("联系记录添加失败");
+			logger.info("联系记录保存失败");
 			return Result.error(CodeMsg.CANTACT_ADD_FAIL);
 		}
 		
