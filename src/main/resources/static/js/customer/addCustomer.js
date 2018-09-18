@@ -122,9 +122,6 @@ function onCheckForm() {
 	var headFile = $("input[name='headFile']");
 	var path = headFile.val();
 	var headFile_p = $("#headFile_p");
-	if (path == "") {
-		return true;
-	}
 	if (path != "") {
 		var fileSize = headFile[0].files[0].size;
 		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
@@ -139,8 +136,7 @@ function onCheckForm() {
 			headFile_p.css("color", "#578ebe");
 		}
 	}else{
-		headFile_p.css("color","red");
-		return false;
+		return true;
 	}
 	return true;
 }
@@ -183,9 +179,6 @@ function upCheckForm() {
 	var headFile = $("input[name='headFile']");
 	var path = headFile.val();
 	var headFile_p = $("#headFile_p");
-	if (path == "") {
-		return true;
-	}
 	if (path != "") {
 		var fileSize = headFile[0].files[0].size;
 		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,
@@ -196,6 +189,8 @@ function upCheckForm() {
 			headFile.val("");
 			return false;
 		}
+	}else{
+		return true;
 	}
 	return true;
 }

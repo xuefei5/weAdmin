@@ -61,10 +61,16 @@ public class ContactController extends BaseController{
 			//联系时间--格式转换
 			String contactTime = CommonUtil.fomatDate(jsonObj.getString("contactTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 			contact.setContactTime(contactTime);
+			if(null==contactTime||"".equals(contactTime)){
+				contact.setContactTime(null);
+			}
 			
 			//预约时间--格式转换
 			String subscribeTime = CommonUtil.fomatDate(jsonObj.getString("subscribeTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 			contact.setSubscribeTime(subscribeTime);
+			if(null==subscribeTime||"".equals(subscribeTime)){
+				contact.setSubscribeTime(null);
+			}
 			//联系内容
 			contact.setContent(jsonObj.getString("content"));
 			//是否有机会

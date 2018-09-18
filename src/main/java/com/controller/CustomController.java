@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.bean.Customer;
 import com.bean.Order;
@@ -190,7 +192,10 @@ public class CustomController extends BaseController{
 			// 出身日期--格式转换
 			String birthday = CommonUtil.fomatDate(customer.getBirthday(),
 					"MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-			customer.setBirthday(birthday);
+			   customer.setBirthday(birthday);
+			if(null==birthday||"".equals(birthday)){
+				customer.setBirthday(null);
+			}
 
 			if (iCustSV.addCustomer(customer)) {
 				logger.info("客户添加成功");

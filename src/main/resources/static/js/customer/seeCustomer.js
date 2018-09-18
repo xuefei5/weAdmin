@@ -101,8 +101,10 @@ function disPlayContactInfo(contactList) {
 							className = "odd"
 						}
 						var trHead = '<tr class="' + className + '">';
+						
+						var contactTime = null==item.contactTime?"":item.contactTime.substring(0, 10);
 						var tdContactTime = '<td class="sorting_1">'
-								+ item.contactTime.substring(0, 10) + '</td>';
+								+ contactTime + '</td>';
 						var tdContent = '<td class="center">' + item.content
 								+ '</td>';
 						// 是否有机会
@@ -112,10 +114,12 @@ function disPlayContactInfo(contactList) {
 						} else {
 							tdIsCancel = '<td class="center">' + '否' + '</td>';
 						}
+						
+						var subscribeTime = null==item.subscribeTime?"":item.subscribeTime.substring(0, 10);
 						var tdSubTime = '<td class="center">'
-								+ item.subscribeTime.substring(0, 10) + '</td>';
+								+ subscribeTime + '</td>';
 						var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateContactInfoClick('
-							+ item.id+',\''+item.contactTime.substring(0, 10)+'\',\''+item.content+'\','+item.isChance+',\''+item.subscribeTime.substring(0, 10)
+							+ item.id+',\''+contactTime+'\',\''+item.content+'\','+item.isChance+',\''+subscribeTime
 							+ '\')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';

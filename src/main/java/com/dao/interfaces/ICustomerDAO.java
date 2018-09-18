@@ -23,11 +23,11 @@ public interface ICustomerDAO{
 	public Customer qryById(@Param("id")int id);
 	
 	/*根据姓名模糊查询客户对象*/
-	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state !='1' limit #{start} , #{end}")
+	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state !='1' order by addTime desc limit #{start} , #{end}")
 	public List<Customer> qryByName(@Param("name")String name,@Param("start")int id,@Param("end")int end );
 	
 	/*根据姓名模糊查询客户对象-有销售机会*/
-	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state ='2' limit #{start} , #{end}")
+	@Select("select * from customer where name like CONCAT('%',#{name},'%') and state ='2' order by addTime desc limit #{start} , #{end}")
 	public List<Customer> qryHaveChanceByName(@Param("name")String name,@Param("start")int id,@Param("end")int end );
 	
 	/*查询所有客户对象*/

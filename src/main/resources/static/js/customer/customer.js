@@ -292,8 +292,9 @@ function getAllCustomerInfo(startPage, endPage) {
 												tdSex = '<td class="center">'
 														+ '女' + '</td>';
 											}
+											var birthday = null==item.birthday?"":item.birthday;
 											var tdBirthday = '<td class="center">'
-													+ item.birthday + '</td>';
+													+ birthday + '</td>';
 											var tdPhone = '<td class="center">'
 													+ item.telephone + '</td>';
 											var tdAddTime = '<td class="center">'
