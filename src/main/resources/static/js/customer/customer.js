@@ -15,7 +15,7 @@ $.ajax({
 	async : false,
 	url : "/cust/qryCustomerCountByName",
 	contentType : "application/json; charset=utf-8",
-	data : '{"searchText":"' + searchText + '"}',
+	data : '{"searchText":"' + searchText + '","selectText":"' + $("#selectSearch").get(0).selectedIndex+'"}',
 	dataType : "json",
 	success : function(message) {
 		if (message.code == 0) {
@@ -252,7 +252,7 @@ function getMouseY(id) {
 }
 // 进来就加载信息
 function getAllCustomerInfo(startPage, endPage) {
-	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+'"}';
+	var data = '{ "startPage":"' + startPage + '","endPage":"' + endPage + '","searchText":"' + searchText+ '","selectText":"' + $("#selectSearch").get(0).selectedIndex+'"}';
 	$
 			.ajax({
 				type : "post",
@@ -292,8 +292,9 @@ function getAllCustomerInfo(startPage, endPage) {
 												tdSex = '<td class="center">'
 														+ '女' + '</td>';
 											}
+											var birthday = null==item.birthday?"":item.birthday;
 											var tdBirthday = '<td class="center">'
-													+ item.birthday + '</td>';
+													+ birthday + '</td>';
 											var tdPhone = '<td class="center">'
 													+ item.telephone + '</td>';
 											var tdAddTime = '<td class="center">'
@@ -339,6 +340,20 @@ function getAllCustomerInfo(startPage, endPage) {
 					return false;
 				}
 			});
+}
+
+
+
+//查询条件改变的js
+function selectOnChange(){
+	var value = $("#selectSearch").get(0).selectedIndex;
+	$.getScript('../js/customer/customer.js');
+	//如果是销售机会
+	if(value==1){
+		$("#searchText").attr("placeholder","请输入用户名称查询");
+	}else{
+		$("#searchText").attr("placeholder","");
+	}
 }
 // 分页有关的js
 layui.use('laypage', function() {

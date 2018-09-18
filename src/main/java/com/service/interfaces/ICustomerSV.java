@@ -15,6 +15,9 @@ public interface ICustomerSV {
 	//根据客户名获取总条数
 	public int getCustomerCountByName(String name);
 	
+	//根据客户名获取总条数-有销售机会
+	public int getCustomerCountHaveChanceByName(String name);
+	
 	//客户添加操作
 	public Boolean addCustomer(Customer Customer);
 	
@@ -26,6 +29,9 @@ public interface ICustomerSV {
 	
 	//根据客户名查询客户对象列表
 	public List<Customer> qryByName(String name, int startPage, int endPage);
+	
+	//根据客户名查询客户对象列表-有销售机会
+	public List<Customer> qryHaveChanceByName(String name, int startPage, int endPage);
 	
 	//根据客户ID查询客户对象
 	public Customer qryById(int id);

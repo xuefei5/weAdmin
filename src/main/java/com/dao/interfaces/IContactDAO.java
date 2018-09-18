@@ -17,6 +17,10 @@ public interface IContactDAO{
 	@Insert("insert into contact(customerId,contactTime,content,isChance,subscribeTime,state)values(#{customerId},#{contactTime},#{content},#{isChance},#{subscribeTime},'1')")
 	public int insert(Contact contact);
 	
+	/**修改联系信息**/
+	@Insert("UPDATE contact SET customerId = #{customerId},contactTime = #{contactTime},content = #{content},isChance = #{isChance},subscribeTime = #{subscribeTime},state = '1' where id = #{id}")
+	public int update(Contact contact);
+	
 	/*删除联系信息对象*/
 	@Update("UPDATE contact SET state='0' where  id = #{id}")
 	public int delete(@Param("id")int id);

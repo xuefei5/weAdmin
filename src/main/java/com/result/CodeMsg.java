@@ -74,8 +74,8 @@ public class CodeMsg {
 	public static CodeMsg CUSTOMER_USER_BY_NAME_FAIL = new CodeMsg(101302, "查询客户信息为空");
 	
 	//联系记录添加 1014xx
-	public static CodeMsg CANTACT_ADD_SUCCESS = new CodeMsg(101401, "联系记录添加成功");
-	public static CodeMsg CANTACT_ADD_FAIL = new CodeMsg(101402, "联系记录失败");
+	public static CodeMsg CANTACT_ADD_SUCCESS = new CodeMsg(101401, "联系记录保存成功");
+	public static CodeMsg CANTACT_ADD_FAIL = new CodeMsg(101402, "联系记录保存失败");
 	public static CodeMsg CANTACT_ADD_FAIL_EXCEPTION = new CodeMsg(101403, "系统内部异常");
 		
 	//联系记录删除  1015xx

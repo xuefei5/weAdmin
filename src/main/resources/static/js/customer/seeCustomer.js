@@ -101,8 +101,10 @@ function disPlayContactInfo(contactList) {
 							className = "odd"
 						}
 						var trHead = '<tr class="' + className + '">';
+						
+						var contactTime = null==item.contactTime?"":item.contactTime.substring(0, 10);
 						var tdContactTime = '<td class="sorting_1">'
-								+ item.contactTime.substring(0, 10) + '</td>';
+								+ contactTime + '</td>';
 						var tdContent = '<td class="center">' + item.content
 								+ '</td>';
 						// 是否有机会
@@ -112,9 +114,13 @@ function disPlayContactInfo(contactList) {
 						} else {
 							tdIsCancel = '<td class="center">' + '否' + '</td>';
 						}
+						
+						var subscribeTime = null==item.subscribeTime?"":item.subscribeTime.substring(0, 10);
 						var tdSubTime = '<td class="center">'
-								+ item.subscribeTime.substring(0, 10) + '</td>';
-						var btn = '<td class="center "><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
+								+ subscribeTime + '</td>';
+						var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateContactInfoClick('
+							+ item.id+',\''+contactTime+'\',\''+item.content+'\','+item.isChance+',\''+subscribeTime
+							+ '\')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
@@ -187,12 +193,23 @@ function seeOrderInfo(id) {
 		}
 	});
 }
+//自动填写联系信息
+function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
+	//时间格式转换
+	var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
+	$("input[name='contactId']").val(id);
+	$("input[name='contactTime']").val(contactTime.replace(reg,"$2/$3/$1"));
+	$("input[name='content']").val(content);
+	$("select[name='isChance']").val(isChance);
+	$("input[name='subscribeTime']").val(subscribeTime.replace(reg,"$2/$3/$1"));
+}
 
 //预约按钮点击事件
 $('#contactSubmitBtn').click(
 		function() {
 			var data = '{ "contactTime":"'
-					+ $("input[name='contactTime']").val() + '","content":"'
+					+ $("input[name='contactTime']").val() + '","id":"'
+					+ $("input[name='contactId']").val() + '","content":"'
 					+ $("input[name='content']").val() + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'

@@ -57,7 +57,13 @@ public class ContactSVImpl implements IContactSV{
 			}
 			
 			if(isChance > 0) {
-				retNum = ContactDAO.insert(Contact);
+				//如果是修改操作
+				if(!(-1==Contact.getId())){
+					retNum = ContactDAO.update(Contact);
+				}else{
+					Contact.setId(0);
+					retNum = ContactDAO.insert(Contact);
+				}
 				if(retNum == 1) {
 					return true;
 				}
@@ -67,12 +73,24 @@ public class ContactSVImpl implements IContactSV{
 					customer.setState("2");
 					customerSV.updateCustomer(customer);
 					
-					retNum = ContactDAO.insert(Contact);
+					//如果是修改操作
+					if(!(-1==Contact.getId())){
+						retNum = ContactDAO.update(Contact);
+					}else{
+						Contact.setId(0);
+						retNum = ContactDAO.insert(Contact);
+					}
 					if(retNum == 1) {
 						return true;
 					}
 				}else {
-					retNum = ContactDAO.insert(Contact);
+					//如果是修改操作
+					if(!(-1==Contact.getId())){
+						retNum = ContactDAO.update(Contact);
+					}else{
+						Contact.setId(0);
+						retNum = ContactDAO.insert(Contact);
+					}
 					if(retNum == 1) {
 						return true;
 					}
