@@ -91,10 +91,12 @@ function checkForm() {
 		} else {
 			headFile_p.css("color", "#578ebe");
 		}
-	}else{
-		headFile_p.css("color","red");
-		return false;
 	}
+	//else{
+	//	headFile_p.css("color","red");
+	//	return false;
+	//}
+	
 	return true;
 }
 
