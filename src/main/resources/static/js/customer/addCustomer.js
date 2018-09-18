@@ -36,7 +36,8 @@ if(null!=updateFlag&&updateFlag==1){
         		$("select[name='sex']").val(customer.sex);
         		//时间格式转换
         		var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
-        		$("input[name='birthday']").val((customer.birthday).replace(reg,"$2/$3/$1"));
+        		var birthday = null==customer.birthday?"":(customer.birthday).replace(reg,"$2/$3/$1");
+        		$("input[name='birthday']").val(birthday);
         		$("input[name='telephone']").val(customer.telephone);
         		//$("input[name='headFile']").val(customer.headFile);
         		$("textarea[name='remarks']").val(customer.remarks);
