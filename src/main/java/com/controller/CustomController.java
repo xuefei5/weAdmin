@@ -146,42 +146,50 @@ public class CustomController extends BaseController{
 	@RequestMapping(value = "/addCustomer",method = RequestMethod.POST)
 	@ResponseBody
 	public Result<CodeMsg> addCustomer(Customer customer,HttpServletRequest req) {
-		try{
-		//上传到服务器的文件名
-		String fileNameToUpload = "";
-		//对上传的文件进行处理
-		List<MultipartFile> files = ((MultipartHttpServletRequest) req).getFiles("headFile");
-		//进入文件处理代码段
-		if(null!=files&&files.size()>0){
-			SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-			String fileTime = df.format(new Date());
-			//文件大小
-			int fileSize = (int) files.get(0).getSize();
-			if(fileSize>LocalConstants.CONST_SET.FILE_MAX_SIZE){
-				throw new Exception("文件最大允许上传4M,请重新选择!");
-			}
-			//文件名
-			String fileName = files.get(0).getOriginalFilename();
-			//文件名:时间+客户名+后缀名
-			fileNameToUpload = fileTime+customer.getName()+fileName.substring(fileName.lastIndexOf("."));
+		try {
+			// 上传到服务器的文件名
+			String fileNameToUpload = "";
+			// 对上传的文件进行处理
+			List<MultipartFile> files = ((MultipartHttpServletRequest) req)
+					.getFiles("headFile");
+			// 预先设置一个地址,如果传了图片会将该地址覆盖
+			customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/"+LocalConstants.CONST_SET.DEFAULT_IMAGE_ADDR);
+			// 进入文件处理代码段
+			if (null != files && files.size() > 0) {
+				SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+				String fileTime = df.format(new Date());
+				// 文件大小
+				int fileSize = (int) files.get(0).getSize();
+				if (fileSize > LocalConstants.CONST_SET.FILE_MAX_SIZE) {
+					throw new Exception("文件最大允许上传4M,请重新选择!");
+				}
+				// 文件名
+				String fileName = files.get(0).getOriginalFilename();
+				// 文件名:时间+客户名+后缀名
+				fileNameToUpload = fileTime + customer.getName()
+						+ fileName.substring(fileName.lastIndexOf("."));
 
-			File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH + fileNameToUpload);
-	        // 检测是否存在目录
-	        if (!dest.getParentFile().exists()) {
-	            dest.getParentFile().mkdirs();
-	        }
-	        //上传
-	        files.get(0).transferTo(dest);
-	        
-	        customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
-			
-			//添加时间--获取当前时间
-			SimpleDateFormat ndf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+				File dest = new File(LocalConstants.CONST_SET.FILE_UPLOAD_PATH
+						+ fileNameToUpload);
+				// 检测是否存在目录
+				if (!dest.getParentFile().exists()) {
+					dest.getParentFile().mkdirs();
+				}
+				// 上传
+				files.get(0).transferTo(dest);
+
+				customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/"
+						+ fileNameToUpload);
+			}
+
+			// 添加时间--获取当前时间
+			SimpleDateFormat ndf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 			String addTime = ndf.format(new Date());
 			customer.setAddTime(addTime);
-			
-			//出身日期--格式转换
-			String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
+
+			// 出身日期--格式转换
+			String birthday = CommonUtil.fomatDate(customer.getBirthday(),
+					"MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
 			customer.setBirthday(birthday);
 
 			if (iCustSV.addCustomer(customer)) {
@@ -191,13 +199,10 @@ public class CustomController extends BaseController{
 				logger.info("客户添加失败");
 				return Result.error(CodeMsg.CUSTOMER_ADD_FAIL);
 			}
-		}else {
-			logger.info("客户添加失败");
-			return Result.error(CodeMsg.CUSTOMER_ADD_FAIL);
-		}
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			if(null==e.getMessage()){
+			if (null == e.getMessage()) {
 				return Result.error(CodeMsg.CUSTOMER_ADD_FAIL_EXCEPTION);
 			}
 			return Result.error(new CodeMsg(101004, e.getMessage()));

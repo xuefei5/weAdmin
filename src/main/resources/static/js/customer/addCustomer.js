@@ -122,6 +122,9 @@ function onCheckForm() {
 	var headFile = $("input[name='headFile']");
 	var path = headFile.val();
 	var headFile_p = $("#headFile_p");
+	if (path == "") {
+		return true;
+	}
 	if (path != "") {
 		var fileSize = headFile[0].files[0].size;
 		var extStart = path.lastIndexOf('.'), ext = path.substring(extStart,

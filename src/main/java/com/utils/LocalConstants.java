@@ -10,6 +10,9 @@ public class LocalConstants {
 	public static abstract interface CONST_SET {
 		//服务地址
 		String SERV_IP = "http://192.168.19.129";
+		//默认图片
+		String DEFAULT_IMAGE_ADDR = "default.jpg";
+		
 		String RESP_OUTOBJECT = "rtnObject";
 		//文件上传路径
 		String FILE_UPLOAD_PATH = "/usr/local/nginx/html/";
