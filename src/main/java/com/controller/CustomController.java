@@ -60,10 +60,18 @@ public class CustomController extends BaseController{
 		int startPage = Integer.parseInt(jsonObj.getString("startPage"));
 		int endPage = Integer.parseInt(jsonObj.getString("endPage"));
 		String name = jsonObj.getString("searchText");
+		String selectText = jsonObj.getString("selectText");
+		
 		//定义返回前端的map
 		Map<String,Object> mapToClient = new HashMap<String,Object>();
-
-		List<Customer> CustomerList = iCustSV.qryByName(name,startPage,endPage);
+		List<Customer> CustomerList = null;
+		//如果是查询有销售机会的,前端select的值,0-客户名,1-有销售机会
+		if("1".equals(selectText)){
+			CustomerList = iCustSV.qryHaveChanceByName(name,startPage,endPage);
+		}else{
+			CustomerList = iCustSV.qryByName(name,startPage,endPage);
+		}
+		
 		//封装客户信息
 		mapToClient.put("customerList", CustomerList);
 		mapToClient.put("searchText", name);
@@ -80,7 +88,17 @@ public class CustomController extends BaseController{
 	public Result<Integer> qryCustomerCountByName(HttpServletRequest request) {
 		JSONObject jsonObj = super.getInputObject(request);
 		String name = jsonObj.getString("searchText");
-		int customerCount = iCustSV.getCustomerCountByName(name);
+        String selectText = jsonObj.getString("selectText");
+		
+		//定义返回前端的map
+		Map<String,Object> mapToClient = new HashMap<String,Object>();
+		int customerCount = 0;
+		//如果是查询有销售机会的,前端select的值,0-客户名,1-有销售机会
+		if("1".equals(selectText)){
+			customerCount = iCustSV.getCustomerCountHaveChanceByName(name);
+		}else{
+			customerCount = iCustSV.getCustomerCountByName(name);
+		}
 		logger.info("客户信息总条数为："+customerCount);
 		return Result.success(customerCount);
 	}

@@ -53,10 +53,11 @@ body .layui-openFillet {
 						<div class="row-fluid">
 							<div class="span6">
 								<div id="DataTables_Table_0_length" class="dataTables_length">
-									<label>请选择条件查询：<select size="1"
+									<label>请选择条件查询：<select id="selectSearch" size="1"
 										name="DataTables_Table_0_length"
-										aria-controls="DataTables_Table_0">
-										<option id="01" selected="selected">客户名称</option>
+										aria-controls="DataTables_Table_0" onchange="selectOnChange()">
+										<option id="0" selected="selected">客户名称</option>
+										<option id="1">有销售机会</option>
 									</select>
 									</label>
 								</div>

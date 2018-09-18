@@ -134,6 +134,21 @@ public class CustomerSVImpl implements ICustomerSV{
 		return CustomerDAO.getCustomerCountByName(name);
 	}
 
+	@Override
+	public int getCustomerCountHaveChanceByName(String name) {
+		return CustomerDAO.getCustomerCountHaveChanceByName(name);
+	}
+
+	@Override
+	public List<Customer> qryHaveChanceByName(String name,int startPage, int endPage) {
+		try{
+			List<Customer> CustomerList = CustomerDAO.qryHaveChanceByName(name,startPage,endPage);
+			return CustomerList;
+		}catch (Exception e) {
+			return null;
+		}
+	}
+
 	
 
 }
