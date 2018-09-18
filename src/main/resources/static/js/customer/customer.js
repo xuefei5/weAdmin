@@ -346,6 +346,7 @@ function getAllCustomerInfo(startPage, endPage) {
 //查询条件改变的js
 function selectOnChange(){
 	var value = $("#selectSearch").get(0).selectedIndex;
+	$.getScript('../js/customer/customer.js');
 	//如果是销售机会
 	if(value==1){
 		$("#searchText").attr("placeholder","请输入用户名称查询");
