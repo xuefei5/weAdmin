@@ -13,7 +13,7 @@ public class Order implements Serializable{
 	private int userId;
 	private int customerId;
 	private String ordertime;
-	private int total;
+	private double total;
 	private String isCancel;
 	private String productName;
 	private String productTip;
@@ -44,10 +44,10 @@ public class Order implements Serializable{
 	public void setOrdertime(String ordertime) {
 		this.ordertime = ordertime;
 	}
-	public int getTotal() {
+	public double getTotal() {
 		return total;
 	}
-	public void setTotal(int total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 	public String getIsCancel() {

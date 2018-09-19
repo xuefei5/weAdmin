@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -202,7 +203,7 @@ public class ProductSVImpl implements IProductSV{
 		String orderProductName = "";
 		String orderProductTip = "";
 		String orderProductImgRef = "";
-		int orderTotal = 0;
+		double orderTotal = 0;
 		for(int i=0;i<productList.size();i++) {
 			JSONObject object=productList.get(i).getJSONObject("product");
 			if(i == 0) {
@@ -210,8 +211,17 @@ public class ProductSVImpl implements IProductSV{
 				orderProductTip=(String) object.get("productTip");
 				orderProductImgRef=(String) object.get("productImgRef");
 			}
-			orderTotal += Integer.parseInt(String.valueOf(object.get("productPrice")))
-							*Integer.parseInt(String.valueOf(object.get("productCount")));
+			
+			BigDecimal bproductPrice = new BigDecimal(String.valueOf(object.get("productPrice")));
+			BigDecimal bproductCount = new BigDecimal(String.valueOf(object.get("productCount")));
+			double productSum =  bproductPrice.multiply(bproductCount).doubleValue();
+			
+			BigDecimal bproductSum = new BigDecimal(String.valueOf(productSum));
+			BigDecimal borderTotal = new BigDecimal(String.valueOf(orderTotal));
+			orderTotal += bproductSum.add(borderTotal).doubleValue();
+			
+			/*orderTotal += Integer.parseInt(String.valueOf(object.get("productPrice")))
+							*Integer.parseInt(String.valueOf(object.get("productCount")));*/
 		}
 		
 		//生成订单
