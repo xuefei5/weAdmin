@@ -8,6 +8,21 @@ var FILE_MAX_SIZE = 4 * 1024 * 1024;
 
 layui.use('upload', function() {
 });
+//日期选择器
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  //执行一个laydate实例
+	  laydate.render({
+	    elem: '#contactTime', //指定元素
+	    type:'date',
+	    theme : '#578ebe'// 自定义颜色
+	  });
+	  laydate.render({
+		    elem: '#subscribeTime', //指定元素
+		    type:'date',
+		    theme : '#578ebe'// 自定义颜色
+		  });
+	});
 //获取参数方法
 function getUrlParam(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -195,13 +210,11 @@ function seeOrderInfo(id) {
 }
 //自动填写联系信息
 function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
-	//时间格式转换
-	var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
 	$("input[name='contactId']").val(id);
-	$("input[name='contactTime']").val(contactTime.replace(reg,"$2/$3/$1"));
-	$("input[name='content']").val(content);
+	$("input[name='contactTime']").val(contactTime);
+	$("textarea[name='content']").val(content);
 	$("select[name='isChance']").val(isChance);
-	$("input[name='subscribeTime']").val(subscribeTime.replace(reg,"$2/$3/$1"));
+	$("input[name='subscribeTime']").val(subscribeTime);
 }
 
 //预约按钮点击事件
@@ -210,7 +223,7 @@ $('#contactSubmitBtn').click(
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
-					+ $("input[name='content']").val() + '","isChance":"'
+					+ $("textarea[name='content']").val() + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'
 					+ $("input[name='subscribeTime']").val()
