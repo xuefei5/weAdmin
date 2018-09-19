@@ -189,11 +189,7 @@ public class CustomController extends BaseController{
 			String addTime = ndf.format(new Date());
 			customer.setAddTime(addTime);
 
-			// 出身日期--格式转换
-			String birthday = CommonUtil.fomatDate(customer.getBirthday(),
-					"MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-			   customer.setBirthday(birthday);
-			if(null==birthday||"".equals(birthday)){
+			if(null==customer.getBirthday()||"".equals(customer.getBirthday())){
 				customer.setBirthday(null);
 			}
 
@@ -280,10 +276,7 @@ public class CustomController extends BaseController{
 				customer.setImgRef(customerById.getImgRef());
 			}
 
-		//出身日期--格式转换
-		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-		customer.setBirthday(birthday);
-		if(null==birthday||"".equals(birthday)){
+		if(null==customer.getBirthday()||"".equals(customer.getBirthday())){
 			customer.setBirthday(null);
 		}
 		
