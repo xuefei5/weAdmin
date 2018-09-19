@@ -12,8 +12,8 @@ public class ProductOrder implements Serializable{
 	private int id;
 	private int orderId;
 	private int productId;
-	private int price;
-	private int amount;
+	private String price;
+	private String amount;
 	private String productImgRef;
 	private String productName;
 	private String productTip;
@@ -37,16 +37,16 @@ public class ProductOrder implements Serializable{
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
-	public int getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 	public String getProductImgRef() {

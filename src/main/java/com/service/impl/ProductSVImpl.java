@@ -213,7 +213,11 @@ public class ProductSVImpl implements IProductSV{
 			}
 			
 			BigDecimal bproductPrice = new BigDecimal(String.valueOf(object.get("productPrice")));
-			BigDecimal bproductCount = new BigDecimal(String.valueOf(object.get("productCount")));
+			
+			Double dproductCount = Double.parseDouble(String.valueOf(object.get("productCount")));
+			int iproductCount = dproductCount.intValue();
+			
+			BigDecimal bproductCount = new BigDecimal(String.valueOf(iproductCount));
 			double productSum =  bproductPrice.multiply(bproductCount).doubleValue();
 			
 			BigDecimal bproductSum = new BigDecimal(String.valueOf(productSum));
@@ -233,7 +237,7 @@ public class ProductSVImpl implements IProductSV{
 		}
 		order.setCustomerId(customerId);
 		order.setOrdertime(RooCommonUtils.getCurrentDate());
-		order.setTotal(orderTotal);
+		order.setTotal(String.valueOf(orderTotal));
 		order.setIsCancel("0");
 		order.setProductName(orderProductName);
 		order.setProductTip(orderProductTip);
@@ -249,23 +253,26 @@ public class ProductSVImpl implements IProductSV{
 			ProductOrder productOrder = new ProductOrder();
 			JSONObject object=productList.get(i).getJSONObject("product");
 			int productId;
-			int price;
+			double price;
 			int amount;
 			String productImgRef;
 			String productName;
 			String productTip = "";
 			
 			productId = Integer.parseInt(String.valueOf(object.get("productId")));
-			price = Integer.parseInt(String.valueOf(object.get("productPrice")));
-			amount = Integer.parseInt(String.valueOf(object.get("productCount")));
+			price = Double.parseDouble(String.valueOf(object.get("productPrice")));
+			
+			Double fontamount = Double.parseDouble(String.valueOf(object.get("productCount")));
+			amount = fontamount.intValue();
+			
 			productImgRef = String.valueOf(object.get("productImgRef"));
 			productName = String.valueOf(object.get("productName"));
 			productTip = String.valueOf(object.get("productTip"));
 			
-			productOrder.setAmount(amount);
+			productOrder.setAmount(String.valueOf(amount));
 			productOrder.setOrderId(orderId);
 			productOrder.setProductId(productId);
-			productOrder.setPrice(price);
+			productOrder.setPrice(String.valueOf(price));
 			productOrder.setProductImgRef(productImgRef);
 			productOrder.setProductName(productName);
 			productOrder.setProductTip(productTip);
