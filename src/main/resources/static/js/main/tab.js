@@ -67,8 +67,13 @@
             }else{
             	this.remove();
             }
+            var navwidth = parseInt($("#menu-list").width());
+            if(navwidth==0){
+            	$("#mainIframe").attr("src","welcome");
+            	location.reload();
+            }
             
-            $("#page-content .iframe-content[data-url='" + jthis.data("url") + "'][data-value='" + jthis.data("value") + "']").remove()
+            $("#page-content .iframe-content[data-url='" + jthis.data("url") + "'][data-value='" + jthis.data("value") + "']").remove();
         });
         event.stopPropagation()
     },
