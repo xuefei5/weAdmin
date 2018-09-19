@@ -59,7 +59,7 @@ public class ContactController extends BaseController{
 			String inputStr = super.getInputString(req);
 			Contact contact = JSON.parseObject(inputStr, new TypeReference<Contact>() {});
 			//联系时间
-			if(null==contact.getContactTime()||"".equals(contact)){
+			if(null==contact.getContactTime()||"".equals(contact.getContactTime())){
 				contact.setContactTime(null);
 			}
 			
