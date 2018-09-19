@@ -299,7 +299,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.telephone + '</td>';
 											var tdAddTime = '<td class="center">'
 													+ item.addTime + '</td>';
-											var tdRemarks = '<td class="center">'
+											var tdRemarks = '<td class="center" title="显示全部请点击查看按钮" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">'
 													+ item.remarks + '</td>';
 											
 											//客户销售机会
