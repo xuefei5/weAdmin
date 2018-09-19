@@ -56,30 +56,17 @@ public class ContactController extends BaseController{
 	@ResponseBody
 	public Result<CodeMsg> addContact(HttpServletRequest req) {
 		try{
-			JSONObject jsonObj = super.getInputObject(req);
-			Contact contact = new Contact();
-			//联系时间--格式转换
-			String contactTime = CommonUtil.fomatDate(jsonObj.getString("contactTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-			contact.setContactTime(contactTime);
-			if(null==contactTime||"".equals(contactTime)){
+			String inputStr = super.getInputString(req);
+			Contact contact = JSON.parseObject(inputStr, new TypeReference<Contact>() {});
+			//联系时间
+			if(null==contact.getContactTime()||"".equals(contact.getContactTime())){
 				contact.setContactTime(null);
 			}
 			
-			//预约时间--格式转换
-			String subscribeTime = CommonUtil.fomatDate(jsonObj.getString("subscribeTime"), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-			contact.setSubscribeTime(subscribeTime);
-			if(null==subscribeTime||"".equals(subscribeTime)){
+			//预约时间
+			if(null==contact.getSubscribeTime()||"".equals(contact.getSubscribeTime())){
 				contact.setSubscribeTime(null);
 			}
-			//联系内容
-			contact.setContent(jsonObj.getString("content"));
-			//是否有机会
-			contact.setIsChance(jsonObj.getString("isChance"));
-			//客户ID
-			contact.setCustomerId(jsonObj.getInteger("customerId"));
-			
-			//主键Id
-			contact.setId(jsonObj.getInteger("id"));
 
 		if (iContactSV.addContact(contact)) {
 			logger.info("联系记录保存成功");

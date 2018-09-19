@@ -189,11 +189,7 @@ public class CustomController extends BaseController{
 			String addTime = ndf.format(new Date());
 			customer.setAddTime(addTime);
 
-			// 出身日期--格式转换
-			String birthday = CommonUtil.fomatDate(customer.getBirthday(),
-					"MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-			   customer.setBirthday(birthday);
-			if(null==birthday||"".equals(birthday)){
+			if(null==customer.getBirthday()||"".equals(customer.getBirthday())){
 				customer.setBirthday(null);
 			}
 
@@ -244,6 +240,8 @@ public class CustomController extends BaseController{
 	@ResponseBody
 	public Result<CodeMsg> updateCustomer(Customer customer,HttpServletRequest req) throws ParseException {
 		try{
+			//原始Customer对象
+			Customer customerById = iCustSV.qryById(customer.getId());
 			// 上传到服务器的文件名
 			String fileNameToUpload = "";
 			// 对上传的文件进行处理
@@ -275,14 +273,14 @@ public class CustomController extends BaseController{
 				
 				customer.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
 			}else {
-				customer.setImgRef(iCustSV.qryById(customer.getId()).getImgRef());
+				customer.setImgRef(customerById.getImgRef());
 			}
 
-		//出身日期--格式转换
-		String birthday = CommonUtil.fomatDate(customer.getBirthday(), "MM/dd/yyyy", "yyyy-MM-dd HH:mm:ss");
-		customer.setBirthday(birthday);
+		if(null==customer.getBirthday()||"".equals(customer.getBirthday())){
+			customer.setBirthday(null);
+		}
 		
-		customer.setState("0");
+		customer.setState(customerById.getState());
 
 		if (iCustSV.updateCustomer(customer)) {
 			logger.info("客户更新成功");

@@ -7,6 +7,22 @@
 var FILE_MAX_SIZE = 4*1024*1024;
 
 layui.use('upload', function() {});
+//日期选择器
+layui.use('laydate', function(){
+	  var laydate = layui.laydate;
+	  //执行一个laydate实例
+	  laydate.render({
+	    elem: '#birthday', //指定元素
+	    type:'date',
+	    /**type类型**/
+	    //year	年选择器	只提供年列表选择
+	    //month	年月选择器	只提供年、月选择
+	    //date	日期选择器	可选择：年、月、日。type默认值，一般可不填
+	    //time	时间选择器	只提供时、分、秒选择
+	    //datetime	日期时间选择器	可选择：年、月、日、时、分、秒
+	    theme : '#578ebe'// 自定义颜色
+	  });
+	});
 //获取参数方法
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -34,9 +50,8 @@ if(null!=updateFlag&&updateFlag==1){
         		$("input[name='name']").val(customer.name);
         		$("input[name='nickName']").val(customer.nickName);
         		$("select[name='sex']").val(customer.sex);
-        		//时间格式转换
-        		var reg =/(\d{4})\-(\d{2})\-(\d{2})/;
-        		$("input[name='birthday']").val((customer.birthday).replace(reg,"$2/$3/$1"));
+        		var birthday = null==customer.birthday?"":customer.birthday;
+        		$("input[name='birthday']").val(birthday);
         		$("input[name='telephone']").val(customer.telephone);
         		//$("input[name='headFile']").val(customer.headFile);
         		$("textarea[name='remarks']").val(customer.remarks);

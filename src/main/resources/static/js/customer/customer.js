@@ -299,7 +299,7 @@ function getAllCustomerInfo(startPage, endPage) {
 													+ item.telephone + '</td>';
 											var tdAddTime = '<td class="center">'
 													+ item.addTime + '</td>';
-											var tdRemarks = '<td class="center">'
+											var tdRemarks = '<td class="center" title="显示全部请点击查看按钮" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">'
 													+ item.remarks + '</td>';
 											
 											//客户销售机会
@@ -363,18 +363,19 @@ layui.use('laypage', function() {
 			.render({
 				elem : 'paging', // 注意，这里的 test1 是 ID，不用加 # 号
 				count : custTotal,// 数据总数，从服务端得到
-				// curr:1,//获取起始页
+				curr:currentPage,//获取起始页
 				groups : 3,// 连续出现的页码个数
 				theme : '#578ebe',// 自定义颜色
 				limits : [ 10, 20, 30, 50 ],
 				jump : function(obj, first) {// 切换分页的回调
 					// 首次执行
 					if (first) {
-						getAllCustomerInfo(0, obj.limit);
+						getAllCustomerInfo(currentPage, obj.limit);
 					} else {
 						// obj包含了当前分页的所有参数
 						var custCurr = obj.curr;// 当前页
 						var custLimit = obj.limit;// 每页显示的条数
+						currentPage = (custCurr - 1) * custLimit;
 						getAllCustomerInfo((custCurr - 1) * custLimit,
 								custLimit);
 					}
