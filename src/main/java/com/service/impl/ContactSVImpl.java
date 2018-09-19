@@ -59,7 +59,7 @@ public class ContactSVImpl implements IContactSV{
 			if(isChance > 0) {
 				//如果是修改操作
 				if(!(-1==Contact.getId())){
-					if(Contact.getIsChance().equals("1")) {
+					if(Contact.getIsChance().equals("0")) {
 						isChance = isChance - 1;
 					}
 					if(isChance <= 0) {
