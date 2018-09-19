@@ -59,7 +59,18 @@ public class ContactSVImpl implements IContactSV{
 			if(isChance > 0) {
 				//如果是修改操作
 				if(!(-1==Contact.getId())){
-					retNum = ContactDAO.update(Contact);
+					if(Contact.getIsChance().equals("1")) {
+						isChance = isChance - 1;
+					}
+					if(isChance <= 0) {
+						retNum = ContactDAO.update(Contact);
+						
+						Customer customer = customerSV.qryById(Contact.getCustomerId());
+						customer.setState("0");
+						customerSV.updateCustomer(customer);
+					}else {
+						retNum = ContactDAO.update(Contact);
+					}
 				}else{
 					Contact.setId(0);
 					retNum = ContactDAO.insert(Contact);
@@ -69,14 +80,21 @@ public class ContactSVImpl implements IContactSV{
 				}
 			}else {
 				if("1".equals(Contact.getIsChance())) {
-					Customer customer = customerSV.qryById(Contact.getCustomerId());
-					customer.setState("2");
-					customerSV.updateCustomer(customer);
 					
 					//如果是修改操作
 					if(!(-1==Contact.getId())){
 						retNum = ContactDAO.update(Contact);
+						
+						Customer customer = customerSV.qryById(Contact.getCustomerId());
+						customer.setState("2");
+						customerSV.updateCustomer(customer);
+						
 					}else{
+						Customer customer = customerSV.qryById(Contact.getCustomerId());
+						customer.setState("2");
+						customerSV.updateCustomer(customer);
+						
+						
 						Contact.setId(0);
 						retNum = ContactDAO.insert(Contact);
 					}
