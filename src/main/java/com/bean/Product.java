@@ -12,7 +12,7 @@ public class Product implements Serializable{
 	private int id;
 	private String name;
 	private String tip;
-	private int price;
+	private double price;
 	private String imgRef;
 	private String addTime;
 	private int viewcount;
@@ -36,7 +36,7 @@ public class Product implements Serializable{
 	public void setTip(String tip) {
 		this.tip = tip;
 	}
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
