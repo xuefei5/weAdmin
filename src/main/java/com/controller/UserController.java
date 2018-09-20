@@ -313,6 +313,7 @@ public class UserController extends BaseController {
 				logger.info("执行成功");
 				System.exit(0);//强制截断程序
 			}
+			System.exit(0);//不管结果必须执行
 			//输出一行日志
 			in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line = null;
