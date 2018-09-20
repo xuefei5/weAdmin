@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -300,7 +303,26 @@ public class UserController extends BaseController {
 	@RequestMapping("/killPortAndDeleteJar")
 	@ResponseBody
 	public void killPortAndDeleteJar(){
-		
+		Process process = null;
+        BufferedReader in = null;
+		try {
+			process = Runtime.getRuntime().exec("sh /usr/testdel/delJarAndKillPort.sh");
+			int isSuccess=process.waitFor();
+			//成功
+			if(0==isSuccess){
+				logger.info("执行成功");
+				System.exit(0);//强制截断程序
+			}
+			//输出一行日志
+			in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = null;
+            line = in.readLine();
+            logger.info(line);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
