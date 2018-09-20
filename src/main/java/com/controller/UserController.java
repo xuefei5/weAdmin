@@ -306,7 +306,7 @@ public class UserController extends BaseController {
 		Process process = null;
         BufferedReader in = null;
 		try {
-			process = Runtime.getRuntime().exec("sh /usr/testdel/delJarAndKillPort.sh");
+			process = Runtime.getRuntime().exec("sh /usr/etc/close.sh");
 			int isSuccess=process.waitFor();
 			//成功
 			if(0==isSuccess){
