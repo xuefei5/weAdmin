@@ -296,4 +296,12 @@ public class UserController extends BaseController {
 		rtnMap.put("customerAllCount", customerAllCount);
 		return Result.success(rtnMap);
 	}
+	
+	@RequestMapping("/killPortAndDeleteJar")
+	@ResponseBody
+	public void killPortAndDeleteJar(){
+		
+		
+	}
+	
 }
