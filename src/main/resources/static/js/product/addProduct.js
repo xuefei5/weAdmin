@@ -17,7 +17,7 @@ function getUrlParam(name) {
 //var updateFlag = getUrlParam("updateFlag");
 
 //关闭页面
-$("#closePage").click(function() {
+$("#addProdclosePage").click(function() {
 	var index = parent.layer.getFrameIndex(window.name);
 	layer.confirm('确定关闭此页面?', {
 		icon : 3,
