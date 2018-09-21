@@ -1,7 +1,13 @@
 /**
  * 用户页面
  */
-
+layui.use('upload', function() {});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks'); //建立编辑器
+});
 var id = getUrlParam("id");
 getDefaultData(id);
 
@@ -52,7 +58,8 @@ $("#editUserBtn").click(function(){
 });
 
 function editUser(){
-	debugger;
+	//debugger;
+	layedit.sync(editorText);//同步编辑器的内容到textarea
 	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
 				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}';

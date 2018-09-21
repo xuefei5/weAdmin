@@ -1,6 +1,13 @@
 /**
  * 用户页面
  */
+layui.use('upload', function() {});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks'); //建立编辑器
+});
 
 var id = getUrlParam("id");
 getDefaultData(id);
@@ -37,7 +44,7 @@ function getDefaultData(id){
             	
         		$("input[name='id']").val(rtnData.id);
         		$("input[name='name']").val(rtnData.name);
-        		$("input[name='tip']").val(rtnData.tip);
+        		$("textarea[name='tip']").val(rtnData.tip);
         		$("input[name='price']").val(rtnData.price);
         	}else{
         		layer.open({
@@ -61,7 +68,8 @@ $("#editProductBtn").click(function(){
 });
 
 function editProduct(){
-	debugger;
+	//debugger;
+	layedit.sync(editorText);//同步编辑器的内容到textarea
 	var data = '{ "name":"' + $("input[name='name']").val() + '",id:' + $("input[name='id']").val()+ ',"tip":"' + $("input[name='tip']").val()
 				+'","price":' + $("input[name='price']").val() + '}';
 	
