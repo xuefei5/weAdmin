@@ -12,7 +12,7 @@ function getUrlParam(name) {
 }
 
 //关闭页面
-$("#editProdclosePage").click(function() {
+$("#closePage").click(function() {
 	var index = parent.layer.getFrameIndex(window.name);
 	layer.confirm('确定关闭此页面?', {
 		icon : 3,
