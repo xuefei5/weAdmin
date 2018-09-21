@@ -224,10 +224,15 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 //预约按钮点击事件
 $('#contactSubmitBtn').click(
 		function() {
+			var content = String($("textarea[name='content']").val());
+			if(content.indexOf('\\')||content.indexOf('/')){
+				layuiAlert("不允许存在非法字符[\\、/等等]!");
+				return false;
+			}
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
-					+ $("textarea[name='content']").val() + '","isChance":"'
+					+ content + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'
 					+ $("input[name='subscribeTime']").val()
