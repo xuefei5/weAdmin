@@ -225,7 +225,7 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 $('#contactSubmitBtn').click(
 		function() {
 			var content = String($("textarea[name='content']").val());
-			if(content.indexOf('\\')||content.indexOf('/')){
+			if(content.indexOf('\\')>=0||content.indexOf('/')>=0){
 				layuiAlert("不允许存在非法字符[\\、/等等]!");
 				return false;
 			}
