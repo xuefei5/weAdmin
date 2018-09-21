@@ -168,13 +168,15 @@ function disPlayOrderInfo(orderList) {
 								+ '</td>';
 						var tdTotal = '<td class="center">' + item.total
 								+ '</td>';
+						
 						// 是否取消
-						var tdIsCancel = "";
-						if (item.isCancel == 0) {
-							tdIsCancel = '<td class="center">' + '是' + '</td>';
-						} else {
-							tdIsCancel = '<td class="center">' + '否' + '</td>';
-						}
+						//var tdIsCancel = "";
+						//if (item.isCancel == 0) {
+						//	tdIsCancel = '<td class="center">' + '是' + '</td>';
+						//} else {
+						//	tdIsCancel = '<td class="center">' + '否' + '</td>';
+						//}
+						
 						var tdProductName = '<td class="center">'
 								+ item.productName + '</td>';
 						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
@@ -183,8 +185,10 @@ function disPlayOrderInfo(orderList) {
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
+						
+						//delete tdIsCancel 
 						html += trHead + tdid + tdOderTime + tdTotal
-								+ tdIsCancel + tdProductName + btn + trTail;
+								+ tdProductName + btn + trTail;
 
 					});
 
