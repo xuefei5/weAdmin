@@ -11,6 +11,17 @@ function getUrlParam(name) {
     if (r != null) return unescape(r[2]); return null; //返回参数值
 }
 
+//关闭页面
+$("#closePage").click(function() {
+	var index = parent.layer.getFrameIndex(window.name);
+	layer.confirm('确定关闭此页面?', {
+		icon : 3,
+		title : '提示'
+	}, function() {
+		parent.layer.close(index);
+	});
+});
+
 function getDefaultData(id){
 	var data ='{ "id":"' + id + '"}';
 	$.ajax({
