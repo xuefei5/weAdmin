@@ -7,6 +7,12 @@
 var FILE_MAX_SIZE = 4*1024*1024;
 
 layui.use('upload', function() {});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks'); //建立编辑器
+	});
 //日期选择器
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
@@ -229,6 +235,7 @@ $("#custSubmitBtn").click(function() {
 			return false;
 		}
 	}
+	layedit.sync(editorText);//同步编辑器的内容到textarea
 	$("#CustomerForm").ajaxSubmit({
 		type : "post",
 		forceSync : false,

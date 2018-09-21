@@ -8,6 +8,12 @@ var FILE_MAX_SIZE = 4 * 1024 * 1024;
 
 layui.use('upload', function() {
 });
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('content'); //建立编辑器
+	});
 //日期选择器
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
@@ -217,6 +223,7 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 	$("input[name='contactId']").val(id);
 	$("input[name='contactTime']").val(contactTime);
 	$("textarea[name='content']").val(content);
+	editorText=layedit.build('content'); //建立编辑器
 	$("select[name='isChance']").val(isChance);
 	$("input[name='subscribeTime']").val(subscribeTime);
 }
@@ -224,15 +231,11 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 //预约按钮点击事件
 $('#contactSubmitBtn').click(
 		function() {
-			var content = String($("textarea[name='content']").val());
-			if(content.indexOf('\\')>=0||content.indexOf('/')>=0){
-				layuiAlert("不允许存在非法字符[\\、/等等]!");
-				return false;
-			}
+			layedit.sync(editorText);//同步编辑器的内容到textarea
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
-					+ content + '","isChance":"'
+					+ $("textarea[name='content']").val() + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'
 					+ $("input[name='subscribeTime']").val()
