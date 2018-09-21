@@ -12,8 +12,10 @@ layui.use('upload', function() {
 var editorText,layedit ;
 layui.use('layedit', function(){
 	  layedit = layui.layedit;
-	  editorText=layedit.build('content'); //建立编辑器
-	});
+	  editorText=layedit.build('content',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+	  }); //建立编辑器	
+	  });
 //日期选择器
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
@@ -223,9 +225,11 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 	$("input[name='contactId']").val(id);
 	$("input[name='contactTime']").val(contactTime);
 	$("textarea[name='content']").val(content);
-	editorText=layedit.build('content'); //建立编辑器
 	$("select[name='isChance']").val(isChance);
 	$("input[name='subscribeTime']").val(subscribeTime);
+	editorText=layedit.build('content',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+	  }); //建立编辑器
 }
 
 //预约按钮点击事件
