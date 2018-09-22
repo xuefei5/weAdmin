@@ -128,7 +128,7 @@ function disPlayContactInfo(contactList) {
 						var contactTime = null==item.contactTime?"":item.contactTime;
 						var tdContactTime = '<td class="sorting_1">'
 								+ contactTime + '</td>';
-						var tdContent = '<td class="center" title="'+item.content+'" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">' + item.content
+						var tdContent = '<td class="center" title="具体显示请点击修改按钮" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">' + item.content
 								+ '</td>';
 						// 是否有机会
 						var tdIsCancel = "";
@@ -379,6 +379,13 @@ function deleteOrderInfo(id) {
 	});
 }
 
+//清空form
+$("#resetBtn").click(function() {
+	$("textarea[name='content']").val("")
+	editorText=layedit.build('content',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+	  }); //建立编辑器
+});
 //关闭页面
 $("#closePage").click(function() {
 	var index = parent.layer.getFrameIndex(window.name);
