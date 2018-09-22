@@ -103,7 +103,11 @@ function addUser(){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "系统环境异常"
+    		});
             return false;
         }
 	});
