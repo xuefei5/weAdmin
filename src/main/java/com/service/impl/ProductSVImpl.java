@@ -222,7 +222,9 @@ public class ProductSVImpl implements IProductSV{
 			
 			BigDecimal bproductSum = new BigDecimal(String.valueOf(productSum));
 			BigDecimal borderTotal = new BigDecimal(String.valueOf(orderTotal));
-			orderTotal += bproductSum.add(borderTotal).doubleValue();
+			
+			orderTotal = borderTotal.add(bproductSum).doubleValue(); 
+			//orderTotal += bproductSum.add(borderTotal).doubleValue();
 			
 			/*orderTotal += Integer.parseInt(String.valueOf(object.get("productPrice")))
 							*Integer.parseInt(String.valueOf(object.get("productCount")));*/
