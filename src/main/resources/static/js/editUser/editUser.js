@@ -60,9 +60,12 @@ $("#editUserBtn").click(function(){
 function editUser(){
 	//debugger;
 	layedit.sync(editorText);//同步编辑器的内容到textarea
-	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
+	
+	var content = $("textarea[name='remarks']").val().replace(/\"/g, "\\\"");//将"转义为\"
+	
+	var data = '{ "name":"' + $("input[name='name']").val() + '","id":"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
-				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}';
+				+'","remarks":"' + content + '"}';
 	$.ajax({
 		type: "post",
 		forceSync : false,
