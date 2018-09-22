@@ -122,5 +122,23 @@ public class ContactController extends BaseController{
 		
 		return Result.success(contacts);
 	}
+	
+	/**
+	 * 根据联系记录Id查询联系记录
+	 * 
+	 * @author xuefei
+	 */
+	@RequestMapping(value = "/qryContactInfoById")
+	@ResponseBody
+	public Result<Contact> qryContactInfoById(HttpServletRequest request) {
+		JSONObject jsonObj = super.getInputObject(request);
+		//根据联系记录Id查询联系信息
+		int id = Integer.parseInt(jsonObj.getString("id"));
+		//根据联系信息ID查询订单信息
+		Contact contact = iContactSV.qryContentInfoById(id);
+		
+		
+		return Result.success(contact);
+	}
 
 }

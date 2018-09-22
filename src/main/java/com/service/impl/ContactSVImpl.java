@@ -180,6 +180,11 @@ public class ContactSVImpl implements IContactSV{
 		}
 	}
 
+	@Override
+	public Contact qryContentInfoById(int id) {
+		return ContactDAO.qryById(id);
+	}
+
 	
 
 }

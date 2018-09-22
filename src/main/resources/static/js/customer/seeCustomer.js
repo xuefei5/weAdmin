@@ -5,8 +5,6 @@
 
 //最大上传文件的大小设定
 var FILE_MAX_SIZE = 4 * 1024 * 1024;
-//定义一个公共变量存储修改时的content
-var updateContent;
 
 layui.use('upload', function() {
 });
@@ -143,11 +141,9 @@ function disPlayContactInfo(contactList) {
 						var subscribeTime = null==item.subscribeTime?"":item.subscribeTime;
 						var tdSubTime = '<td class="center">'
 								+ subscribeTime + '</td>';
-						updateContent =(item.content);//.replace(/\'/g, "\\\'");//单引号转义
-						//updateContent =updateContent.replace(/\"/g, "\\\"");//双引号转义
 						var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateContactInfoClick('
-							+ item.id+',\''+contactTime+'\','+item.isChance+',\''+subscribeTime
-							+ '\')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
+							+ item.id
+							+ ')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
@@ -225,15 +221,36 @@ function seeOrderInfo(id) {
 	});
 }
 //自动填写联系信息
-function updateContactInfoClick(id,contactTime,isChance,subscribeTime){
-	$("input[name='contactId']").val(id);
-	$("input[name='contactTime']").val(contactTime);
-	$("textarea[name='content']").val(updateContent);
-	$("select[name='isChance']").val(isChance);
-	$("input[name='subscribeTime']").val(subscribeTime);
-	editorText=layedit.build('content',{
-		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
-	  }); //建立编辑器
+function updateContactInfoClick(id){
+	var data = '{ "id":"' + id + '"}';
+	$.ajax({
+		type : "post",
+		async : false,
+		url : "/contact/qryContactInfoById",
+		contentType : "application/json; charset=utf-8",
+		data : data,
+		dataType : "json",
+		success : function(message) {
+			if (message.code == 0) {
+				var data = message.data;
+				$("input[name='contactId']").val(data.id);
+				$("input[name='contactTime']").val(data.contactTime);
+				$("textarea[name='content']").val(data.content);
+				$("select[name='isChance']").val(data.isChance);
+				$("input[name='subscribeTime']").val(data.subscribeTime);
+				editorText=layedit.build('content',{
+					  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+				  }); //建立编辑器
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function() {
+			layuiAlert("系统环境异常");
+			return false;
+		}
+	});
 }
 
 //预约按钮点击事件
@@ -241,6 +258,7 @@ $('#contactSubmitBtn').click(
 		function() {
 			layedit.sync(editorText);//同步编辑器的内容到textarea
 			var content = $("textarea[name='content']").val().replace(/\"/g, "\\\"");//将"转义为\"
+			alert(content);
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
