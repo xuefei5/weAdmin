@@ -5,6 +5,8 @@
 
 //最大上传文件的大小设定
 var FILE_MAX_SIZE = 4 * 1024 * 1024;
+//定义一个公共变量存储修改时的content
+var updateContent;
 
 layui.use('upload', function() {
 });
@@ -141,8 +143,10 @@ function disPlayContactInfo(contactList) {
 						var subscribeTime = null==item.subscribeTime?"":item.subscribeTime;
 						var tdSubTime = '<td class="center">'
 								+ subscribeTime + '</td>';
+						updateContent =(item.content);//.replace(/\'/g, "\\\'");//单引号转义
+						//updateContent =updateContent.replace(/\"/g, "\\\"");//双引号转义
 						var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateContactInfoClick('
-							+ item.id+',\''+contactTime+'\',\''+item.content+'\','+item.isChance+',\''+subscribeTime
+							+ item.id+',\''+contactTime+'\','+item.isChance+',\''+subscribeTime
 							+ '\')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
@@ -221,10 +225,10 @@ function seeOrderInfo(id) {
 	});
 }
 //自动填写联系信息
-function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
+function updateContactInfoClick(id,contactTime,isChance,subscribeTime){
 	$("input[name='contactId']").val(id);
 	$("input[name='contactTime']").val(contactTime);
-	$("textarea[name='content']").val(content);
+	$("textarea[name='content']").val(updateContent);
 	$("select[name='isChance']").val(isChance);
 	$("input[name='subscribeTime']").val(subscribeTime);
 	editorText=layedit.build('content',{
@@ -236,10 +240,11 @@ function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
 $('#contactSubmitBtn').click(
 		function() {
 			layedit.sync(editorText);//同步编辑器的内容到textarea
+			var content = $("textarea[name='content']").val().replace(/\"/g, "\\\"");//将"转义为\"
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
-					+ $("textarea[name='content']").val() + '","isChance":"'
+					+ content + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'
 					+ $("input[name='subscribeTime']").val()
