@@ -156,7 +156,8 @@ $("#payBtn").click(function() {
         	debugger;
 			var productId = parseInt($(this).parents('.productCartInfo').find('.productId').html().substring(0));
 			var productCartName = $(this).parents('.productCartInfo').find('.productCartName').html().substring(0);
-			var productCartTip = $(this).parents('.productCartInfo').find('.productCartTip').html().substring(0);
+			
+			var productCartTip = $(this).parents('.productCartInfo').find('.productCartTip').html().substring(0).replace(/\"/g, "\\\"");
 			var productPrice = $(this).parents('.productCartInfo').find('.productPrice').html().substring(0);
 			var productCount = $(this).parents('.productCartInfo').find('.tdCount').find('.productCount').val();
 			var productImgRef = $(this).parents('.productCartInfo').find('.img').find('.productImgRef')[0].src;
