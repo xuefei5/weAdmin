@@ -41,7 +41,7 @@ function deleteProdCart(id) {
 				// 1秒关闭（如果不配置，默认是3秒）
 				}, function() {
 					// 刷新页面
-					location.reload();
+					$.getScript('../js/product/productCart.js')
 				});
 			} else {
 				layuiAlert(message.msg);
