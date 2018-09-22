@@ -258,7 +258,6 @@ $('#contactSubmitBtn').click(
 		function() {
 			layedit.sync(editorText);//同步编辑器的内容到textarea
 			var content = $("textarea[name='content']").val().replace(/\"/g, "\\\"");//将"转义为\"
-			alert(content);
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
