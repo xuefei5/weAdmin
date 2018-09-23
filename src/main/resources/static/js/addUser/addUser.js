@@ -16,7 +16,7 @@ var editorText,layedit ;
 layui.use('layedit', function(){
 	  layedit = layui.layedit;
 	  editorText=layedit.build('reamrks',{
-		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','unlink' ,'face' ]
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
 	  }); //建立编辑器	
 });
 

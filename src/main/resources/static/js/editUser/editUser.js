@@ -6,7 +6,9 @@ layui.use('upload', function() {});
 var editorText,layedit ;
 layui.use('layedit', function(){
 	  layedit = layui.layedit;
-	  editorText=layedit.build('reamrks'); //建立编辑器
+	  editorText=layedit.build('reamrks',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
 });
 var id = getUrlParam("id");
 getDefaultData(id);
@@ -45,7 +47,11 @@ function getDefaultData(id){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "系统环境异常"
+    		});
             return false;
         }
 	});
@@ -95,7 +101,11 @@ function editUser(){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "保存失败"
+    		});
             return false;
         }
 	});
