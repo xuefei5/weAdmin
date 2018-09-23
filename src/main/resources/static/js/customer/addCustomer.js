@@ -12,7 +12,7 @@ var editorText,layedit ;
 layui.use('layedit', function(){
 	  layedit = layui.layedit;
 	  editorText=layedit.build('reamrks',{
-		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
 	  }); //建立编辑器
 	});
 //日期选择器

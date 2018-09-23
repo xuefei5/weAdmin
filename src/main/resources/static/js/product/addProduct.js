@@ -11,8 +11,11 @@ layui.use('upload', function() {});
 var editorText,layedit ;
 layui.use('layedit', function(){
 	  layedit = layui.layedit;
-	  editorText=layedit.build('reamrks'); //建立编辑器
+	  editorText=layedit.build('reamrks',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
 });
+
 
 //获取参数方法
 function getUrlParam(name) {
