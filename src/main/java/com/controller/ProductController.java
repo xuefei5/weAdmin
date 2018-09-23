@@ -109,7 +109,7 @@ public class ProductController extends BaseController {
 		        
 		        product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + fileNameToUpload);
 			}else {
-				product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + "product.png");
+				product.setImgRef(LocalConstants.CONST_SET.SERV_IP + "/" + "products.png");
 			}
 			
 			if (productSV.addProduct(product)) {
