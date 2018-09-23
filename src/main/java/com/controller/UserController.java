@@ -300,31 +300,4 @@ public class UserController extends BaseController {
 		return Result.success(rtnMap);
 	}
 	
-	@RequestMapping("/killPortAndDeleteJar")
-	@ResponseBody
-	public void killPortAndDeleteJar(){
-		Process process = null;
-        BufferedReader in = null;
-		try {
-			process = Runtime.getRuntime().exec("sh /usr/etc/close.sh");
-			int isSuccess=process.waitFor();
-			//成功
-			if(0==isSuccess){
-				logger.info("执行成功");
-				System.exit(0);//强制截断程序
-			}
-			System.exit(0);//不管结果必须执行
-			//输出一行日志
-			in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line = null;
-            line = in.readLine();
-            logger.info(line);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 }
