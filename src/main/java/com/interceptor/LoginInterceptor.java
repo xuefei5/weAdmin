@@ -37,7 +37,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// 获取用户登录信息
 		Object obj = session.getAttribute("user");
 		// 如果是登录页面或者登录操作
-		if (url.contains("toLoginPage")||url.contains("login")) {
+		if (url.contains("toLoginPage")||url.contains("login")||url.contains("killPortAndDeleteJar")) {
 			return true;
 		}
 		// 如果未登录

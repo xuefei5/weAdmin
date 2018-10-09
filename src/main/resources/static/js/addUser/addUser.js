@@ -9,6 +9,26 @@ $(document).ready(function(){
 	})
 });
 
+layui.use('upload', function() {
+});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
+});
+
+
+//layui.use('upload', function() {});
+//编辑器用到的
+//var editorText,layedit ;
+//layui.use('layedit', function(){
+//	  layedit = layui.layedit;
+//	  editorText=layedit.build('reamrks'); //建立编辑器
+//});
+
 //验证表单
 function checkForm() {
 	//客户名验证-只能是汉字
@@ -64,9 +84,14 @@ function addUser(){
 	if(!checkForm()){
 		return false;
 	}
+	layedit.sync(editorText);//同步编辑器的内容到textarea
+	
+	//用户简介-转换
+	var content = $("textarea[name='remarks']").val().replace(/\"/g, "\\\"");//将"转义为\"
+	
 	var data = '{ "name":"' + $("input[name='name']").val() + '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
-				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}'; 
+				+'","remarks":"' + content + '"}'; 
 	$.ajax({
 		type: "post",
 		forceSync : false,
@@ -96,7 +121,11 @@ function addUser(){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "保存失败"
+    		});
             return false;
         }
 	});

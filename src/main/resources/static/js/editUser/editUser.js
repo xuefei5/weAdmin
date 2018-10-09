@@ -1,7 +1,15 @@
 /**
  * 用户页面
  */
-
+layui.use('upload', function() {});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
+});
 var id = getUrlParam("id");
 getDefaultData(id);
 
@@ -39,7 +47,11 @@ function getDefaultData(id){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "系统环境异常"
+    		});
             return false;
         }
 	});
@@ -52,10 +64,14 @@ $("#editUserBtn").click(function(){
 });
 
 function editUser(){
-	debugger;
-	var data = '{ "name":"' + $("input[name='name']").val() + '",id:"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
+	//debugger;
+	layedit.sync(editorText);//同步编辑器的内容到textarea
+	
+	var content = $("textarea[name='remarks']").val().replace(/\"/g, "\\\"");//将"转义为\"
+	
+	var data = '{ "name":"' + $("input[name='name']").val() + '","id":"' + $("input[name='id']").val()+ '","nickName":"' + $("input[name='nickName']").val()
 				+ '","telephone":"' + $("input[name='telephone']").val() + '","password":"' + $("input[name='password']").val()
-				+'","remarks":"' + $("textarea[name='remarks']").val() + '"}';
+				+'","remarks":"' + content + '"}';
 	$.ajax({
 		type: "post",
 		forceSync : false,
@@ -85,7 +101,11 @@ function editUser(){
         	return true;
         },
         error: function (message) {
-            alert("系统环境异常");
+            //alert("系统环境异常");
+        	layer.open({
+    			title : '提示',
+    			content : "保存失败"
+    		});
             return false;
         }
 	});

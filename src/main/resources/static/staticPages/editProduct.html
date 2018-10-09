@@ -60,13 +60,13 @@
 							</div>
 						</div>
 						
-						<div class="control-group">
+						<!-- <div class="control-group">
 							<label class="control-label" for="typeahead">商品备注 </label>
 							<div class="controls">
 								<input type="text" class="span6 typeahead" name="tip" onchange="checkForm()"/>
-								<!-- <p class="help-block" id="tip_p">不可为空且必须是中文</p> --> 
+								<p class="help-block" id="tip_p">不可为空且必须是中文</p> 
 							</div>
-						</div>
+						</div> -->
 
 						<div class="control-group">
 							<label class="control-label" for="typeahead">商品单价 </label>
@@ -84,9 +84,18 @@
 							</div>
 						</div>
 	
+						<div class="control-group">
+							<label class="control-label" for="typeahead">商品备注 </label>
+							<div class="controls">
+								<!-- <input type="text" class="span6 typeahead" name="tip" onchange="checkForm()"/> -->
+								<textarea class="layui-textarea" name="tip" id="reamrks" rows="3"></textarea>
+								<!-- <p class="help-block" id="tip_p">不可为空</p> --> 
+							</div>
+						</div>
+	
 						<div class="form-actions">
 							<button id="editProductBtn" type="button" class="btn btn-primary">保存</button>
-							<button id="closePage" type="reset" class="btn">取消</button>
+							<button id="closePage" type="button" class="btn">取消</button>
 						</div>
 					</fieldset>
 				</form>

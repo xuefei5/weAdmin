@@ -16,6 +16,9 @@ public interface IContactSV {
 	//根据客户ID查询联系对象
 	public List<Contact> qryByCustId(int id);
 	
+	//根据联系记录Id查询联系对象
+	public Contact qryContentInfoById(int id);
+	
 	//查询提醒条数
 	public int qryAllTipsCount();
 	

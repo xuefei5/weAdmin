@@ -8,6 +8,14 @@ var FILE_MAX_SIZE = 4 * 1024 * 1024;
 
 layui.use('upload', function() {
 });
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('content',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
+	  });
 //日期选择器
 layui.use('laydate', function(){
 	  var laydate = layui.laydate;
@@ -120,7 +128,7 @@ function disPlayContactInfo(contactList) {
 						var contactTime = null==item.contactTime?"":item.contactTime;
 						var tdContactTime = '<td class="sorting_1">'
 								+ contactTime + '</td>';
-						var tdContent = '<td class="center" title="'+item.content+'" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">' + item.content
+						var tdContent = '<td class="center" title="具体显示请点击修改按钮" style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;max-width:100px;">' + item.content
 								+ '</td>';
 						// 是否有机会
 						var tdIsCancel = "";
@@ -134,8 +142,8 @@ function disPlayContactInfo(contactList) {
 						var tdSubTime = '<td class="center">'
 								+ subscribeTime + '</td>';
 						var btn = '<td class="center "><a class="btn btn-info" href="#" onClick="updateContactInfoClick('
-							+ item.id+',\''+contactTime+'\',\''+item.content+'\','+item.isChance+',\''+subscribeTime
-							+ '\')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
+							+ item.id
+							+ ')"><i class="halflings-icon white edit"></i><a class="btn btn-danger" href="#" onClick="deleteContactInfoConfirm('
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
@@ -168,13 +176,15 @@ function disPlayOrderInfo(orderList) {
 								+ '</td>';
 						var tdTotal = '<td class="center">' + item.total
 								+ '</td>';
+						
 						// 是否取消
-						var tdIsCancel = "";
-						if (item.isCancel == 0) {
-							tdIsCancel = '<td class="center">' + '是' + '</td>';
-						} else {
-							tdIsCancel = '<td class="center">' + '否' + '</td>';
-						}
+						//var tdIsCancel = "";
+						//if (item.isCancel == 0) {
+						//	tdIsCancel = '<td class="center">' + '是' + '</td>';
+						//} else {
+						//	tdIsCancel = '<td class="center">' + '否' + '</td>';
+						//}
+						
 						var tdProductName = '<td class="center">'
 								+ item.productName + '</td>';
 						var btn = '<td class="center "><a class="btn btn-success" href="#" onClick="seeOrderInfo('
@@ -183,8 +193,10 @@ function disPlayOrderInfo(orderList) {
 								+ item.id
 								+ ')"><i class="halflings-icon white trash"></i></a></td>';
 						var trTail = '</tr>';
+						
+						//delete tdIsCancel 
 						html += trHead + tdid + tdOderTime + tdTotal
-								+ tdIsCancel + tdProductName + btn + trTail;
+								+ tdProductName + btn + trTail;
 
 					});
 
@@ -209,21 +221,47 @@ function seeOrderInfo(id) {
 	});
 }
 //自动填写联系信息
-function updateContactInfoClick(id,contactTime,content,isChance,subscribeTime){
-	$("input[name='contactId']").val(id);
-	$("input[name='contactTime']").val(contactTime);
-	$("textarea[name='content']").val(content);
-	$("select[name='isChance']").val(isChance);
-	$("input[name='subscribeTime']").val(subscribeTime);
+function updateContactInfoClick(id){
+	var data = '{ "id":"' + id + '"}';
+	$.ajax({
+		type : "post",
+		async : false,
+		url : "/contact/qryContactInfoById",
+		contentType : "application/json; charset=utf-8",
+		data : data,
+		dataType : "json",
+		success : function(message) {
+			if (message.code == 0) {
+				var data = message.data;
+				$("input[name='contactId']").val(data.id);
+				$("input[name='contactTime']").val(data.contactTime);
+				$("textarea[name='content']").val(data.content);
+				$("select[name='isChance']").val(data.isChance);
+				$("input[name='subscribeTime']").val(data.subscribeTime);
+				editorText=layedit.build('content',{
+					  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+				  }); //建立编辑器
+			} else {
+				layuiAlert(message.msg);
+			}
+			return true;
+		},
+		error : function() {
+			layuiAlert("系统环境异常");
+			return false;
+		}
+	});
 }
 
 //预约按钮点击事件
 $('#contactSubmitBtn').click(
 		function() {
+			layedit.sync(editorText);//同步编辑器的内容到textarea
+			var content = $("textarea[name='content']").val().replace(/\"/g, "\\\"");//将"转义为\"
 			var data = '{ "contactTime":"'
 					+ $("input[name='contactTime']").val() + '","id":"'
 					+ $("input[name='contactId']").val() + '","content":"'
-					+ $("textarea[name='content']").val() + '","isChance":"'
+					+ content + '","isChance":"'
 					+ $("select[name='isChance']").val()
 					+ '","subscribeTime":"'
 					+ $("input[name='subscribeTime']").val()
@@ -341,6 +379,13 @@ function deleteOrderInfo(id) {
 	});
 }
 
+//清空form
+$("#resetBtn").click(function() {
+	$("textarea[name='content']").val("")
+	editorText=layedit.build('content',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ,'help' ]
+	  }); //建立编辑器
+});
 //关闭页面
 $("#closePage").click(function() {
 	var index = parent.layer.getFrameIndex(window.name);

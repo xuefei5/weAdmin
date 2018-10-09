@@ -7,6 +7,16 @@
 var FILE_MAX_SIZE = 4*1024*1024;
 
 layui.use('upload', function() {});
+//编辑器用到的
+var editorText,layedit ;
+layui.use('layedit', function(){
+	  layedit = layui.layedit;
+	  editorText=layedit.build('reamrks',{
+		  tool: [  'strong' ,'italic' ,'underline' ,'del','|','left', 'center', 'right', '|','link' ,'unlink' ,'face' ]
+	  }); //建立编辑器	
+});
+
+
 //获取参数方法
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -105,6 +115,7 @@ $("#prodSubmitBtn").click(function() {
 	if(!checkForm()){
 		return false;
 	}
+	layedit.sync(editorText);//同步编辑器的内容到textarea
 	var data = '{ "name":"' + $("input[name='name']").val() + '","tip":"' + $("input[name='tip']").val()
 				+ '","price":"' + $("input[name='price']").val()  + '"}'; 
 	
